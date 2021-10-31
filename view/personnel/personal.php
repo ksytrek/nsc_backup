@@ -15,6 +15,11 @@ include_once("./sidebar.php")
 
 
 </head>
+<script>
+    window.onload = function() {
+        information();
+    }
+</script>
 
 <body>
     <div class="content-wrap">
@@ -52,18 +57,24 @@ include_once("./sidebar.php")
                                     <div class="user-profile">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="user-profile-name">สมพล วิลา</div>
+                                                <div id="full_name" class="user-profile-name"></div>
 
                                                 <div class="user-job-title">นักศึกษาฝึกงาน</div>
 
                                                 <div class="row">
-                                                    <div class="user-send-message">
+                                                    <?php //if(false):
+                                                    ?>
+                                                    <div id="status_btn_search_image" style="display: none" class="user-send-message">
                                                         <button onclick="window.location.assign('./image_search.php') ;" class="btn btn-sm  btn-success btn-rounded" type="button">
                                                             <i class="ti-zoom-in"></i>&nbsp;&nbsp;ตรวจสอบภาพ</button>
                                                     </div>
-                                                    <div class="user-send-message">
-                                                        <button class="btn btn-danger btn-rounded" type="button">
+                                                    <?php //else:
+                                                    ?>
+                                                    <div id="status_btn_save_image" style="display: none" class="user-send-message">
+                                                        <button class="btn btn-danger btn-rounded" type="button" onclick="if(confirm('คุณสามารถบันทึกได้เพียงครั้งเดี่ยว')){ window.location.assign('./on_save_face.php') ;}">
                                                             <i class="ti-cloud-up"></i>&nbsp;&nbsp;สถานะไม่สมบูรณ์</button>
+                                                        <?php //endif; 
+                                                        ?>
                                                     </div>
                                                 </div>
                                                 <div class="custom-tab user-profile-tab">
@@ -78,30 +89,76 @@ include_once("./sidebar.php")
                                                                 <h4>information</h4>
                                                                 <div class="phone-content">
                                                                     <span class="contact-title">รหัสประจำตัว:</span>
-                                                                    <span class="contact-skype">1339900662229</span>
+                                                                    <span id="id_code" class="contact-skype"></span>
                                                                 </div>
                                                                 <div class="address-content">
                                                                     <span class="contact-title">ชื่อ:</span>
-                                                                    <span class="contact-skype">สมพล</span>
+                                                                    <span id="name" class="contact-skype"></span>
                                                                 </div>
                                                                 <div class="email-content">
                                                                     <span class="contact-title">นามสกุล:</span>
-                                                                    <span class="contact-email">วิลา</span>
+                                                                    <span id="last_name" class="contact-email"></span>
                                                                 </div>
                                                                 <div class="email-content">
                                                                     <span class="contact-title">Email:</span>
-                                                                    <span class="contact-email">std.62122710108@ubru.ac.th</span>
+                                                                    <span id="e_mail" class="contact-email"></span>
                                                                 </div>
                                                                 <div class="phone-content">
                                                                     <span class="contact-title">Phone:</span>
-                                                                    <span class="phone-number">0971271931</span>
+                                                                    <span id="phone" class="phone-number"></span>
                                                                 </div>
                                                                 <div class="phone-content">
                                                                     <span class="contact-title">Position:</span>
-                                                                    <span class="contact-skype">นักศึกษาฝึกงาน</span>
+                                                                    <span id="position" class="contact-skype"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <script>
+                                                            function information() {
+                                                                var btn_search_image = document.getElementById("status_btn_search_image");
+                                                                var btn_save_image = document.getElementById("status_btn_save_image");
+                                                                var id_code = document.getElementById("id_code");
+                                                                var name = document.getElementById("name");
+                                                                var last_name = document.getElementById("last_name");
+                                                                var e_mail = document.getElementById("e_mail");
+                                                                var phone = document.getElementById("phone");
+                                                                var position = document.getElementById("position");
+                                                                var full_name = document.getElementById("full_name");
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "./controller/con_per.php",
+                                                                    data: {
+                                                                        key: "information",
+                                                                        id_mem: '<?php echo $id_mem; ?>'
+
+                                                                    },
+                                                                    success: function(result, textStatus, jqXHR) {
+                                                                        // id_code.innerHTML = result;
+                                                                        var json = JSON.parse(result);
+                                                                        if (json != false) {
+                                                                            full_name.innerHTML = json[0].name + ' ' + json[0].last_name;
+                                                                            id_code.innerHTML = json[0].id_code;
+                                                                            name.innerHTML = json[0].name;
+                                                                            last_name.innerHTML = json[0].last_name;
+                                                                            e_mail.innerHTML = json[0].e_mail;
+                                                                            phone.innerHTML = json[0].phone;
+                                                                            position.innerHTML = json[0].position;
+                                                                            if (json[0].stu_face == "0") {
+                                                                                btn_save_image.style = "display:block";
+                                                                            } else {
+                                                                                btn_search_image.style = "display:block";
+                                                                            }
+                                                                        } else {
+                                                                            alert("แจ้งเตือนข้อผิดพลาดไม่สามารถแสดงข้อมูลได้")
+                                                                        }
+
+                                                                    },
+                                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                                        location.assign("../error/error-404.html");
+                                                                    }
+                                                                });
+                                                            }
+                                                        </script>
                                                     </div>
                                                 </div>
 
@@ -114,7 +171,7 @@ include_once("./sidebar.php")
                                                         <button class="btn btn-sm btn-warning btn-rounded" type="button" data-toggle="modal" data-target="#edit">
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
                                                     </div>
-                    
+
 
                                                     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
@@ -171,17 +228,10 @@ include_once("./sidebar.php")
                                                         <script>
                                                             var exampleModal = document.getElementById('edit')
                                                             exampleModal.addEventListener('show.bs.modal', function(event) {
-                                                                // Button that triggered the modal
                                                                 var button = event.relatedTarget
-                                                                // Extract info from data-bs-* attributes
                                                                 var recipient = button.getAttribute('data-bs-whatever')
-                                                                // If necessary, you could initiate an AJAX request here
-                                                                // and then do the updating in a callback.
-                                                                //
-                                                                // Update the modal's content.
                                                                 var modalTitle = exampleModal.querySelector('.modal-title')
                                                                 var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
                                                                 modalTitle.textContent = 'New message to ' + recipient
                                                                 modalBodyInput.value = recipient
                                                             })
@@ -206,45 +256,34 @@ include_once("./sidebar.php")
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table  id="bootstrap-data-table-export" class="table table-striped table-bordered table table-hover " >
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered table table-hover ">
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>ลำดับ</th>
                                                     <th>ห้อง</th>
-                                                    <th>เวลา &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                    <th>เวลาเข้า &nbsp;&nbsp;</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>วิทยาการ 304</td>
-                                                    <td>09:25 น. 18/10/64 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td>คณิต 654</td>
-                                                    <td>09:25 น. 18/10/64 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">3</td>
-                                                    <td>วิทยาการ 304</td>
-                                                    <td>09:25 น. 18/10/64 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">4</td>
-                                                    <td>คณิต 654</td>
-                                                    <td>09:25 น. 18/10/64 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">5</td>
-                                                    <td>วิทยาการ 304</td>
-                                                    <td>09:25 น. 18/10/64 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">6</td>
-                                                    <td>คณิต 654</td>
-                                                    <td>09:25 น. 18/10/64 </td>
-                                                </tr>
+                                                <?php
+                                                $tb_schedule_result = "";
+                                                if ($show_tebelig = Database::query("SELECT rm.room_num ,sc.time_stamp FROM `schedule` as sc inner join `rooms` as rm on sc.id_room = rm.id_room  where sc.id_mem = '{$id_mem}' ORDER BY sc.time_stamp  ASC;", PDO::FETCH_ASSOC)) {
+                                                    $i = 0;
+                                                    foreach ($show_tebelig as $row) {
+                                                        $i = $i + 1;
+                                                        $date = date("H:i d/m/Y", strtotime($row['time_stamp']));
+                                                        $tb_schedule_result = $tb_schedule_result .
+                                                            "<tr>
+                                                                <td>$i</td>
+                                                                <td>{$row['room_num']}</td>
+                                                                <td>{$date}</td>
+                                                            </tr>";
+                                                    }
+                                                }
+
+                                                echo $tb_schedule_result;
+                                                ?>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -376,7 +415,11 @@ include_once("./sidebar.php")
     </script>
 
 
-    <script>$(document).ready(function() {$('#dataTable').DataTable();});</script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 

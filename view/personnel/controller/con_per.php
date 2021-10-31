@@ -93,6 +93,8 @@ if (isset($_POST['tb_rqroom'])&&$_POST['tb_rqroom'] == "tb_rqroom" && isset($_PO
         echo json_encode($resultArray);
     }
 }
+
+
 if (isset($_POST['tb_schedule']) && isset($_POST['id_mem'])) {
     
     echo "
@@ -125,4 +127,27 @@ if (isset($_POST['tb_schedule']) && isset($_POST['id_mem'])) {
 
 
 
+
+}
+
+
+if (isset($_POST['key']) && $_POST['key'] == "information"){
+    // echo "Information";
+
+    $id_mem = $_POST['id_mem'];
+    $resultArray_info = array();
+
+    
+    if($information = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};")){
+        foreach($information as $row) {
+            array_push($resultArray_info, $row);
+        }
+        echo json_encode($resultArray_info);
+    }else{
+        echo json_encode($resultArray_info);
+        // echo "Error";
+    }
+
+
+   
 }

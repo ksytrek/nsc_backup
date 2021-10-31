@@ -5,10 +5,9 @@
 		$uri = 'http://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/NSC/view/login.php');
+	header('Location: '.$uri.'/nsc_bata/view/login.php');
 	exit;
-// New File OK .............
-// vscode.dev
+
 ?>
 
 
