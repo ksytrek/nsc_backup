@@ -7,9 +7,11 @@
 
 		//$foldeName = {$_SESSION["student_name"]} ;
 		$foldeName= strtolower(str_replace(' ',"_","{$_SESSION['id_code']}"));
+
 		$Msgerror;
 		$success;
 		$sucdel;
+		
 		// mkdir("../Script/PCA/datasets/faces/{$foldeName}", 0700,true);
 		mkdir("../Script/python/PCA/datasets/faces/{$foldeName}", 0777,true);
 

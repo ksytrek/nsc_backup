@@ -170,27 +170,22 @@ include_once("./sidebar.php")
 										var xhr = new window.XMLHttpRequest();
 										xhr.upload.addEventListener("progress", function(evt) {
 											if (evt.lengthComputable) {
-
 												var percentComplete = Math.round((evt.loaded / evt.total)) * 100;
-												document.getElementById('progressBar').style.width = percentComplete+"%";
-												document.getElementById('status').innerHTML = percentComplete+"%   "+count+"/"+MAX_COUNT;
-
-
+												document.getElementById('progressBar').style.width = percentComplete+" %";
+												document.getElementById('status').innerHTML = percentComplete+" %   "+count+" / "+MAX_COUNT;
 											}
 										}, false)
 										return xhr;
 									},
 										type: "POST",
-										
-										// http://localhost/facedetect/Controller/uploadface.php
 										url: "./controller/uploadface.php",
 										data: { 
 											imgBase64: dataURL,
 											count: count
 										},
 										beforeSend: function(){
-											document.getElementById('progressBar').style.width = 0+"%";
-											document.getElementById('status').innerHTML = 0+"%   "+count+"/"+MAX_COUNT;
+											document.getElementById('progressBar').style.width = 0+" % ";
+											document.getElementById('status').innerHTML = 0+" %   "+count+"/"+MAX_COUNT;
 										}
 								}).done(function(response) {
 									console.log('saved: ' + response); 
