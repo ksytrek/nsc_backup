@@ -16,6 +16,15 @@ include_once("./sidebar.php")
 
 </head>
 <script>
+    var accuracy_name = "";
+    var accuracy_lastname = "";
+    var accuracy_mail = "";
+    var accuracy_phone = "";
+    var accuracy_pass = "";
+    var accuracy_position = "";
+
+    var password = "";
+
     window.onload = function() {
         information();
     }
@@ -159,10 +168,12 @@ include_once("./sidebar.php")
                                                                             input_last_name.value = json[0].last_name;
                                                                             input_email.value = json[0].e_mail;
                                                                             input_phone.value = json[0].phone;
-                                                                            input_pass.value = json[0].pass;
+                                                                            // input_pass.value = json[0].pass;
                                                                             input_position.value = json[0].position;
 
 
+                                                                            password = json[0].pass;
+                                                                            // alert(password);
                                                                             if (json[0].stu_face == "0") {
                                                                                 btn_save_image.style = "display:block";
                                                                             } else {
@@ -202,15 +213,6 @@ include_once("./sidebar.php")
                                                                 $("#btn-dialog-edit").attr("data-toggle", "");
                                                             }
                                                         });
-
-                                                        // function edit_() {
-                                                        //     var btn_dialog = document.getElementById('btn-dialog-edit');
-                                                        //     if(confirm("Are you sure you")){
-                                                        //         $("#btn-dialog-edit").attr("data-toggle", "modal");
-                                                        //     }else{
-                                                        //         $("#btn-dialog-edit").attr("data-toggle", "");
-                                                        //     }
-                                                        // }
                                                     </script>
                                                     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
@@ -251,49 +253,148 @@ include_once("./sidebar.php")
                                                                                 });
                                                                             </script>
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div id="div-lastname" class="form-group">
                                                                             <label>Last Name</label>
-                                                                            <input id="input-lastn_name" type="email" class="form-control" placeholder="Last Name">
+                                                                            <input id="input-lastn_name" type="text" class="form-control" placeholder="Last Name">
+                                                                            <p id="txt-lastname">กรุณากรอกนามสกุลตามความจริง</p>
                                                                             <script>
                                                                                 $("#input-lastn_name").on("keyup", function() {
-                                                                                    alert("Last Name");
+                                                                                    var str = $(this).val();
+                                                                                    if (/^[ก-๏\s]+$/.test(str) != true && /^[a-zA-Z\s]+$/.test(str) != true && str.length != 0) {
+                                                                                        document.getElementById("txt-lastname").innerHTML = "กรุณากรอกนามสกุลตามความจริง";
+                                                                                        document.getElementById('div-lastname').className = 'form-group has-error';
+                                                                                        accuracy_lastname = "";
+                                                                                        return;
+                                                                                    }
+                                                                                    if (str.length == 0) {
+                                                                                        document.getElementById("txt-lastname").innerHTML = "กรุณากรอกนามสกุลตามความจริง";
+                                                                                        document.getElementById('div-lastname').className = 'form-group ';
+                                                                                        accuracy_lastname = "";
+                                                                                        return;
+                                                                                    } else {
+                                                                                        document.getElementById("txt-lastname").innerHTML = "กรุณากรอกนามสกุลตามความจริง";
+                                                                                        document.getElementById('div-lastname').className = 'form-group has-success';
+                                                                                        accuracy_lastname = "success";
+                                                                                        return;
+                                                                                    }
                                                                                 });
                                                                             </script>
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div id="div-mail" class="form-group">
                                                                             <label>Email address</label>
                                                                             <input id="input-email" type="email" class="form-control" placeholder="Email">
+                                                                            <p id="txt-mail">กรุณาระบุ E-Mail Address</p>
                                                                             <script>
                                                                                 $("#input-email").on("keyup", function() {
-                                                                                    alert("Email");
+                                                                                    var str = $(this).val();
+                                                                                    // alert("Email");
+                                                                                    // alert(str);
+                                                                                    if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/.test(str) != true && str.length != 0) {
+                                                                                        document.getElementById('div-mail').className = 'form-group has-error';
+                                                                                        document.getElementById("txt-mail").innerHTML = "ไม่สามารถใช้ E-Mail Address นี้ได้";
+                                                                                        accuracy_mail = "";
+                                                                                        return;
+                                                                                    }
+                                                                                    if (str.length == 0) {
+                                                                                        document.getElementById('div-mail').className = 'form-group';
+                                                                                        document.getElementById("txt-mail").innerHTML = "ไม่สามารถใช้ E-Mail Address นี้ได้";
+                                                                                        accuracy_mail = "";
+                                                                                        return;
+                                                                                    } else {
+                                                                                        document.getElementById('div-mail').className = 'form-group has-success';
+                                                                                        document.getElementById("txt-mail").innerHTML = "";
+                                                                                        accuracy_mail = "success";
+                                                                                        return;
+                                                                                    }
                                                                                 });
                                                                             </script>
                                                                         </div>
-                                                                        <div class="form-group">
+                                                                        <div id="div-phone" class="form-group">
                                                                             <label>Phone Number</label>
-                                                                            <input id="input-phone" type="email" class="form-control" placeholder="Email">
+                                                                            <input id="input-phone" type="text" class="form-control" placeholder="Phone Number">
+                                                                            <p id="txt-phone">กรุณากรอกมือถือที่ติดต่อได้</p>
                                                                             <script>
                                                                                 $("#input-phone").on("keyup", function() {
-
+                                                                                    var str = $(this).val();
+                                                                                    if (/[0-9]{3}[0-9]{3}[0-9]{4}/.test(str) != true && str.length != 0) {
+                                                                                        document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
+                                                                                        document.getElementById('div-phone').className = 'form-group has-error';
+                                                                                        accuracy_phone = "";
+                                                                                        return;
+                                                                                    } else if (str.length == 0) {
+                                                                                        document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
+                                                                                        document.getElementById('div-phone').className = 'form-group ';
+                                                                                        accuracy_phone = "";
+                                                                                        return;
+                                                                                    } else if (str.length > 10) {
+                                                                                        document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
+                                                                                        document.getElementById('div-phone').className = 'form-group has-error';
+                                                                                        accuracy_phone = "";
+                                                                                    } else {
+                                                                                        document.getElementById("txt-phone").innerHTML = "สามารถใช้เบอร์มือถือนี้ได้";
+                                                                                        document.getElementById('div-phone').className = 'form-group has-success';
+                                                                                        str_pho1 = str.substring(0, 3);
+                                                                                        str_pho2 = str.substring(3, 6);
+                                                                                        str_pho3 = str.substring(6, );
+                                                                                        document.getElementById("input-phone").value = str_pho1 + str_pho2 + str_pho3
+                                                                                        // $("#input-phone").attr("value", str_pho1 + "-" + str_pho2 + "-" + str_pho3);
+                                                                                        // // value = str_pho1 + "-" + str_pho2 + "-" + str_pho3;
+                                                                                        accuracy_phone = "success";
+                                                                                        return;
+                                                                                    }
                                                                                 });
                                                                             </script>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label>Password</label>
-                                                                            <input id="input-pass" type="password" class="form-control" placeholder="Password">
-                                                                            <script>
-                                                                                $("#input_pass").on("keyup", function() {
 
-                                                                                });
-                                                                            </script>
-                                                                        </div>
-                                                                        <div class="form-group">
+                                                                        <div id="div-position" class="form-group">
                                                                             <label>position</label>
                                                                             <input id="input-position" type="text" class="form-control" placeholder="position">
                                                                             <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
                                                                             <script>
                                                                                 $("#input-position").on("keyup", function() {
+                                                                                    var str = $(this).val();
+                                                                                    if (str.length <= 4) {
+                                                                                        document.getElementById("txt-position").innerHTML = "ตำแหน่งงานปัจจุบัน";
+                                                                                        document.getElementById('div-position').className = 'form-group has-error';
+                                                                                        accuracy_position = "";
+                                                                                        return;
+                                                                                    } else {
+                                                                                        document.getElementById("txt-position").innerHTML = "";
+                                                                                        document.getElementById('div-position').className = 'form-group has-success';
+                                                                                        accuracy_position = "success";
+                                                                                        return;
+                                                                                    }
+                                                                                });
+                                                                            </script>
+                                                                        </div>
+                                                                        <div id="div-pass" style="display: none" class="form-group">
+                                                                            <label>รหัสผ่านเดิมเพื่อยืนยัน</label>
+                                                                            <input id="input-pass" type="password" class="form-control" placeholder="Password">
+                                                                            <p id="txt-pass">กรุณาระบุรหัสผ่านเดิม</p>
+                                                                            <script>
+                                                                                $("#input-pass").on("keyup", function() {
+                                                                                    var btn_edit = document.getElementById('btn_edit_save');
+                                                                                    var str = $(this).val();
+                                                                                    if (str.length == 0) {
+                                                                                        // document.getElementById("txt-pass").innerHTML = "ระบุรหัสผ่านเดิม";
+                                                                                        document.getElementById('div-pass').className = 'form-group';
+                                                                                        accuracy_pass = "";
+                                                                                        btn_edit.style.display = "none";
+                                                                                        return;
+                                                                                    } else if (password == str) {
+                                                                                        // document.getElementById("txt-pass").innerHTML = "สามารถใช้รหัสผ่านนี้ได้";
+                                                                                        document.getElementById('div-pass').className = 'form-group';
+                                                                                        accuracy_pass = "success";
+                                                                                        btn_edit.style.display = "block";
 
+                                                                                        return;
+                                                                                    } else {
+                                                                                        // document.getElementById("txt-pass").innerHTML = "ใส่รหัสผ่านไม่ถุกต้อง";
+                                                                                        document.getElementById('div-pass').className = 'form-group';
+                                                                                        accuracy_pass = "";
+                                                                                        btn_edit.style.display = "none";
+                                                                                        return;
+                                                                                    }
                                                                                 });
                                                                             </script>
                                                                         </div>
@@ -302,12 +403,13 @@ include_once("./sidebar.php")
                                                                                 <input id="check-box" type="checkbox" onclick="check_box()"> Agree the terms and policy
                                                                                 <script>
                                                                                     function check_box() {
-                                                                                        var btn_edit = document.getElementById('btn_edit_save');
+                                                                                        var password = document.getElementById("div-pass");
                                                                                         var checkBox = document.getElementById("check-box");
                                                                                         if (checkBox.checked == true) {
-                                                                                            btn_edit.style.display = "block";
+                                                                                            password.style.display = "block";
                                                                                         } else {
-                                                                                            btn_edit.style.display = "none";
+                                                                                            // btn_edit.style.display = "none";
+                                                                                            password.style.display = "none";
                                                                                         }
 
                                                                                     }
@@ -317,10 +419,11 @@ include_once("./sidebar.php")
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button id="dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                     <button style="display:none;" id="btn_edit_save" type="button" class="btn btn-primary">SAVE</button>
                                                                     <script>
                                                                         $("#btn_edit_save").click(function() {
+                                                                            // $("#btn_edit_save").attr("data-dismiss", "modal");
                                                                             var input_name = document.getElementById('input-name');
                                                                             var input_last_name = document.getElementById('input-lastn_name');
                                                                             var input_email = document.getElementById('input-email');
@@ -328,43 +431,64 @@ include_once("./sidebar.php")
                                                                             var input_pass = document.getElementById('input-pass');
                                                                             var input_position = document.getElementById('input-position');
 
-
-                                                                            $.ajax({
-                                                                                type: "POST",
-                                                                                url: "./controller/con_per.php",
-                                                                                data: {
-                                                                                    key: "btn_edit_save",
-                                                                                    id_mem: "<?php echo $id_mem ?>"
-                                                                                },
-                                                                                success: function(result, textStatus, jqXHR) {
-                                                                                    alert(result);
-                                                                                    window.onload = function() {
-                                                                                        information();
+                                                                            if (true
+                                                                                // accuracy_name == "success" &&
+                                                                                // accuracy_lastname == "success" &&
+                                                                                // accuracy_mail == "success" &&
+                                                                                // accuracy_pass == "success" &&
+                                                                                // accuracy_phone == "success" &&
+                                                                                // accuracy_position == "success"
+                                                                            ) {
+                                                                                // if (confirm("Are you sure you want")) {
+                                                                                $.ajax({
+                                                                                    type: "POST",
+                                                                                    url: "./controller/con_per.php",
+                                                                                    data: {
+                                                                                        key: "btn_edit_save",
+                                                                                        id_mem: "<?php echo $id_mem ?>",
+                                                                                        name: input_name.value,
+                                                                                        last_name: input_last_name.value,
+                                                                                        email: input_email.value,
+                                                                                        phone: input_phone.value,
+                                                                                        // pass: input_pass.value,
+                                                                                        position: input_position.value
+                                                                                    },
+                                                                                    success: function(result, textStatus, jqXHR) {
+                                                                                        if (result == "success") {
+                                                                                            swal("SUCCESS", "อัพเดตข้อมูลสำร็จ!", "success");
+                                                                                            information();
+                                                                                            $('#edit').modal('hide');
+                                                                                        }else{
+                                                                                            swal("Error", "ไม่สามารถอัพเดตข้อมูลได้!", "error");
+                                                                                            $('#edit').modal('hide');
+                                                                                        }
+                                                                                    },
+                                                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                                                        // alert(jqXHR.status);
+                                                                                        swal("Error", "เกิดข้อผลิดพลาดไม่สามารถเชื่อมต่อเซิฟเวอร์ได้", "error");
+                                                                                        $('#edit').modal('hide');
                                                                                     }
-                                                                                },
-                                                                                error: function(jqXHR, textStatus, errorThrown) {
-                                                                                    alert(jqXHR.status);
-                                                                                }
-                                                                            });
+                                                                                });
+                                                                                // }
 
+                                                                            } else {
+
+                                                                                swal("", "ตรวจสอบข้อมูลอีกครั้ง!", "info");
+
+                                                                                // swal("", "ตรวจสอบข้อมูลอีกครั้ง!", "info");
+                                                                            }
                                                                         });
+
+                                                                        function refresh() {
+                                                                            // alert("Refresh");
+                                                                            $("#btn_edit_save").attr("data-dismiss", "modal");
+
+                                                                        }
                                                                     </script>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <script>
-                                                            var exampleModal = document.getElementById('edit')
-                                                            exampleModal.addEventListener('show.bs.modal', function(event) {
-                                                                var button = event.relatedTarget
-                                                                var recipient = button.getAttribute('data-bs-whatever')
-                                                                var modalTitle = exampleModal.querySelector('.modal-title')
-                                                                var modalBodyInput = exampleModal.querySelector('.modal-body input')
-                                                                modalTitle.textContent = 'New message to ' + recipient
-                                                                modalBodyInput.value = recipient
-                                                            })
-                                                        </script>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>

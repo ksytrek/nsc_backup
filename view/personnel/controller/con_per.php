@@ -152,5 +152,35 @@ if (isset($_POST['key']) && $_POST['key'] == "information"){
 
 
 if(isset($_POST["key"]) && $_POST["key"] == "btn_edit_save"){
-    echo "Save";
+    $id_mem = $_POST["id_mem"];
+    $name = $_POST["name"];
+    $last_name = $_POST["last_name"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    // $pass = $_POST["pass"];
+    $position = $_POST["position"];
+
+    $update = Database::prepare("UPDATE `members` SET 
+                                        `name` = '{$name}', 
+                                        `last_name` = '{$last_name}', 
+                                        `e_mail` = '{$email}', 
+                                        
+                                        `phone` = '{$phone}', 
+                                        `position` = '{$position}' 
+                                        WHERE `members`.`id_mem` = {$id_mem}");
+    if($update->execute()){
+        echo "success";
+    } else{
+        echo "error";
+    }
+    // echo $id_mem,$name,$last_name,$email,$phone,$pass,$position;
+
+
+
+
+
+
+    // Database::query("")
+    // UPDATE `members` SET `id_code` = '1339900662225', `name` = 'SOMPHO', `last_name` = 'WIL', `e_mail` = 'std.62122710107@ubru.ac.th', `pass` = '!Somphol2543', `phone` = '0971271932', `position` = 'นักศึก' WHERE `members`.`id_mem` = 37;
+
 }

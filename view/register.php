@@ -123,7 +123,6 @@ include('../config/connectdb.php');
                                     <p id="txt-lastname">กรุณากรอกนามสกุลตามความจริง</p>
                                     <script>
                                         function check_lastname(str) {
-
                                             if (/^[ก-๏\s]+$/.test(str) != true && /^[a-zA-Z\s]+$/.test(str) != true && str.length != 0) {
                                                 document.getElementById("txt-lastname").innerHTML = "กรุณากรอกนามสกุลตามความจริง";
                                                 document.getElementById('div-lastname').className = 'form-group has-error';
