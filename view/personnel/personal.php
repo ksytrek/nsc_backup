@@ -189,16 +189,16 @@ include_once("./sidebar.php")
                                                     </div>
                                                     <div class="user-send-message">
                                                         <!-- confirm('คุณต้องการแก้ไขข้อมูลส่วนตัวหรือไม่!') -->
-                                                        <button id="btn-dialog-edit" class="btn btn-sm btn-warning btn-rounded" type="button" data-target="#edit" >
+                                                        <button id="btn-dialog-edit" class="btn btn-sm btn-warning btn-rounded" type="button" data-target="#edit">
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
                                                     </div>
                                                     <script>
                                                         //  onclick="edit_();"  
                                                         $("#btn-dialog-edit").on("click", function() {
                                                             var btn_dialog = document.getElementById('btn-dialog-edit');
-                                                            if(confirm("Are you sure you")){
+                                                            if (confirm("Are you sure you")) {
                                                                 $("#btn-dialog-edit").attr("data-toggle", "modal");
-                                                            }else{
+                                                            } else {
                                                                 $("#btn-dialog-edit").attr("data-toggle", "");
                                                             }
                                                         });
@@ -223,31 +223,79 @@ include_once("./sidebar.php")
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form>
-                                                                        <div class="form-group">
+                                                                        <div id="div-name" class="form-group">
                                                                             <label>User Name</label>
                                                                             <input id="input-name" type="text" class="form-control" placeholder="User Name">
+                                                                            <p id="txt-name">กรุณากรอกชื่อตามความจริง</p>
+
+                                                                            <script>
+                                                                                $("#input-name").on("keyup", function() {
+                                                                                    var str = $(this).val();
+                                                                                    if (/^[ก-๏\s]+$/.test(str) != true && /^[a-zA-Z\s]+$/.test(str) != true && str.length != 0) {
+                                                                                        document.getElementById("txt-name").innerHTML = "กรุณากรอกชื่อตามความจริง";
+                                                                                        document.getElementById('div-name').className = 'form-group has-error';
+                                                                                        accuracy_name = "";
+                                                                                        return;
+                                                                                    }
+                                                                                    if (str.length == 0) {
+                                                                                        document.getElementById("txt-name").innerHTML = "กรุณากรอกชื่อตามความจริง";
+                                                                                        document.getElementById('div-name').className = 'form-group ';
+                                                                                        accuracy_name = "";
+                                                                                        return;
+                                                                                    } else {
+                                                                                        document.getElementById("txt-name").innerHTML = "สามารถใช้ชื่อนี้ได้";
+                                                                                        document.getElementById('div-name').className = 'form-group has-success';
+                                                                                        accuracy_name = "success";
+                                                                                        return;
+                                                                                    }
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Last Name</label>
                                                                             <input id="input-lastn_name" type="email" class="form-control" placeholder="Last Name">
+                                                                            <script>
+                                                                                $("#input-lastn_name").on("keyup", function() {
+                                                                                    alert("Last Name");
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Email address</label>
                                                                             <input id="input-email" type="email" class="form-control" placeholder="Email">
+                                                                            <script>
+                                                                                $("#input-email").on("keyup", function() {
+                                                                                    alert("Email");
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Phone Number</label>
                                                                             <input id="input-phone" type="email" class="form-control" placeholder="Email">
+                                                                            <script>
+                                                                                $("#input-phone").on("keyup", function() {
+
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Password</label>
                                                                             <input id="input-pass" type="password" class="form-control" placeholder="Password">
+                                                                            <script>
+                                                                                $("#input_pass").on("keyup", function() {
+
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>position</label>
                                                                             <input id="input-position" type="text" class="form-control" placeholder="position">
                                                                             <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
+                                                                            <script>
+                                                                                $("#input-position").on("keyup", function() {
 
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                         <div class="checkbox">
                                                                             <label>
@@ -270,9 +318,8 @@ include_once("./sidebar.php")
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button style="display:none;" id="btn_edit_save"  type="button" class="btn btn-primary">SAVE</button>
+                                                                    <button style="display:none;" id="btn_edit_save" type="button" class="btn btn-primary">SAVE</button>
                                                                     <script>
-
                                                                         $("#btn_edit_save").click(function() {
                                                                             var input_name = document.getElementById('input-name');
                                                                             var input_last_name = document.getElementById('input-lastn_name');
@@ -284,25 +331,23 @@ include_once("./sidebar.php")
 
                                                                             $.ajax({
                                                                                 type: "POST",
-                                                                                url: "",
+                                                                                url: "./controller/con_per.php",
                                                                                 data: {
-
+                                                                                    key: "btn_edit_save",
+                                                                                    id_mem: "<?php echo $id_mem ?>"
                                                                                 },
                                                                                 success: function(result, textStatus, jqXHR) {
-                                                                                    
-                                                                                    
-                                                                                    
-                                                                                    
+                                                                                    alert(result);
                                                                                     window.onload = function() {
-
+                                                                                        information();
                                                                                     }
-                                                                                },error: function(result, textStatus, jqXHR){
-
+                                                                                },
+                                                                                error: function(jqXHR, textStatus, errorThrown) {
+                                                                                    alert(jqXHR.status);
                                                                                 }
                                                                             });
-                                                                            
-                                                                        });
 
+                                                                        });
                                                                     </script>
                                                                 </div>
                                                             </div>

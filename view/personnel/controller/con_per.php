@@ -147,7 +147,10 @@ if (isset($_POST['key']) && $_POST['key'] == "information"){
         echo json_encode($resultArray_info);
         // echo "Error";
     }
+}
 
 
-   
+
+if(isset($_POST["key"]) && $_POST["key"] == "btn_edit_save"){
+    echo "Save";
 }
