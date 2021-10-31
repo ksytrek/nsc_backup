@@ -50,87 +50,98 @@ include_once("./sidebar.php")
 
                         </div>
                         <div class="col-lg-6 ">
-                            <?php if(true): ?>
-                            <div class="card-title float-right">
-                                <button type="button" class="btn  btn-warning btn-rounded " onclick="save_face()">ยังไม่ได้บันทึกภาพใบหน้า</button>
+                            <div class="user-send-message">
+
+
+                                <?php if (true) : ?>
+                                    <div class="card-title float-right">
+                                        <button type="button" class="btn  btn-warning btn-rounded btn-sm" onclick="save_face()">ยังไม่ได้บันทึกภาพใบหน้า</button>
+                                    </div>
+                                    <script>
+                                        function save_face() {
+                                            if (confirm("คุณสามารถบันทึกได้เพียงครั้งเดี่ยว")) {
+                                                location.assign("./on_save_face.php");
+                                            } else {
+                                                // alert("cancel");
+                                            }
+                                        }
+                                    </script>
+                                <?php endif; ?>
+                                <?php if (true) : ?>
+                                    <div class="card-title float-right">
+                                        <button type="button" class="btn  btn-danger btn-rounded btn-sm" onclick="window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')">ลบข้อมูลรูปภาพ</button>
+                                    </div>
+                                    <div class="card-title float-right">
+                                        <form method="post" action="./controller/backup.php">
+                                            <input type="hidden" name="id_mem" value="<?php echo $id_mem; ?>">
+                                            <button id="backup" name="backup" class="btn btn-info btn-rounded btn-sm" type="submit">
+                                                <i class="ti-cloud-down"></i>&nbsp;&nbsp;สำรองข้อมูล</button>
+                                        </form>
+                                    </div>
+                                <?php endif; ?>
+
                             </div>
-                            <script>
-                                function save_face(){
-                                    if(confirm("คุณสามารถบันทึกได้เพียงครั้งเดี่ยว")){
-                                        location.assign("./on_save_face.php");
-                                    }else{
-                                        // alert("cancel");
-                                    }
-                                }
-                            </script>
-                            <?php endif;?>
-                            <?php if(false):?>
-                                <div class="card-title float-right">
-                                    <button type="button" class="btn  btn-danger btn-rounded " onclick="window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')">ลบข้อมูลรูปภาพ</button>
+                        </div>
+                        <div class="row ">
+                            <?php if (true) : ?>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
                                 </div>
                             <?php endif; ?>
                         </div>
+
                     </div>
-                    <div class="row ">
-                        <?php if(false):?>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                        </div>
-                        <?php endif;?>
-                    </div>
+                    <!-- /# row -->
+
+
 
             </div>
-            <!-- /# row -->
-
-
-
         </div>
-    </div>
     </div>
 
 

@@ -194,9 +194,27 @@ include_once("./sidebar.php")
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="user-send-message">
-                                                        <button class="btn btn-info btn-rounded btn-sm" type="button">
-                                                            <i class="ti-cloud-down"></i>&nbsp;&nbsp;สำรองข้อมูล</button>
+                                                    
+                                                        
+                                                            <script>
+                                                                // $("#backup").on('click', function() {
+                                                                //     // alert("Back");
+                                                                //     $.ajax({
+                                                                //         type: "POST",
+                                                                //         url: "./controller/backup.php",
+                                                                //         data: {
+                                                                //             key: "backup",
+                                                                //             id_mem: "<?php echo $id_mem ?>"
+                                                                //         },
+                                                                //         success: function(result, textStatus, jqXHR) {
+                                                                //             alert(result);
+                                                                //         },
+                                                                //         error: function(jqXHR, textStatus, errorThrown){
+
+                                                                //         }
+                                                                //     });
+                                                                // });
+                                                            </script>
                                                     </div>
                                                     <div class="user-send-message">
                                                         <!-- confirm('คุณต้องการแก้ไขข้อมูลส่วนตัวหรือไม่!') -->
@@ -411,7 +429,6 @@ include_once("./sidebar.php")
                                                                                             // btn_edit.style.display = "none";
                                                                                             password.style.display = "none";
                                                                                         }
-
                                                                                     }
                                                                                 </script>
                                                                             </label>
@@ -431,13 +448,13 @@ include_once("./sidebar.php")
                                                                             var input_pass = document.getElementById('input-pass');
                                                                             var input_position = document.getElementById('input-position');
 
-                                                                            if (true
-                                                                                // accuracy_name == "success" &&
-                                                                                // accuracy_lastname == "success" &&
-                                                                                // accuracy_mail == "success" &&
-                                                                                // accuracy_pass == "success" &&
-                                                                                // accuracy_phone == "success" &&
-                                                                                // accuracy_position == "success"
+                                                                            if (
+                                                                                accuracy_name == "success" &&
+                                                                                accuracy_lastname == "success" &&
+                                                                                accuracy_mail == "success" &&
+                                                                                accuracy_pass == "success" &&
+                                                                                accuracy_phone == "success" &&
+                                                                                accuracy_position == "success"
                                                                             ) {
                                                                                 // if (confirm("Are you sure you want")) {
                                                                                 $.ajax({
@@ -673,7 +690,6 @@ include_once("./sidebar.php")
     </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
-
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
