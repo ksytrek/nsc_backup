@@ -124,6 +124,16 @@ include_once("./sidebar.php")
                                                                 var phone = document.getElementById("phone");
                                                                 var position = document.getElementById("position");
                                                                 var full_name = document.getElementById("full_name");
+
+
+                                                                //  Input - Edit 
+                                                                var input_name = document.getElementById('input-name');
+                                                                var input_last_name = document.getElementById('input-lastn_name');
+                                                                var input_email = document.getElementById('input-email');
+                                                                var input_phone = document.getElementById('input-phone');
+                                                                var input_pass = document.getElementById('input-pass');
+                                                                var input_position = document.getElementById('input-position');
+
                                                                 $.ajax({
                                                                     type: "POST",
                                                                     url: "./controller/con_per.php",
@@ -143,6 +153,16 @@ include_once("./sidebar.php")
                                                                             e_mail.innerHTML = json[0].e_mail;
                                                                             phone.innerHTML = json[0].phone;
                                                                             position.innerHTML = json[0].position;
+
+                                                                            // set input Edit field
+                                                                            input_name.value = json[0].name;
+                                                                            input_last_name.value = json[0].last_name;
+                                                                            input_email.value = json[0].e_mail;
+                                                                            input_phone.value = json[0].phone;
+                                                                            input_pass.value = json[0].pass;
+                                                                            input_position.value = json[0].position;
+
+
                                                                             if (json[0].stu_face == "0") {
                                                                                 btn_save_image.style = "display:block";
                                                                             } else {
@@ -168,11 +188,30 @@ include_once("./sidebar.php")
                                                             <i class="ti-cloud-down"></i>&nbsp;&nbsp;สำรองข้อมูล</button>
                                                     </div>
                                                     <div class="user-send-message">
-                                                        <button class="btn btn-sm btn-warning btn-rounded" type="button" data-toggle="modal" data-target="#edit">
+                                                        <!-- confirm('คุณต้องการแก้ไขข้อมูลส่วนตัวหรือไม่!') -->
+                                                        <button id="btn-dialog-edit" class="btn btn-sm btn-warning btn-rounded" type="button" data-target="#edit" >
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
                                                     </div>
+                                                    <script>
+                                                        //  onclick="edit_();"  
+                                                        $("#btn-dialog-edit").on("click", function() {
+                                                            var btn_dialog = document.getElementById('btn-dialog-edit');
+                                                            if(confirm("Are you sure you")){
+                                                                $("#btn-dialog-edit").attr("data-toggle", "modal");
+                                                            }else{
+                                                                $("#btn-dialog-edit").attr("data-toggle", "");
+                                                            }
+                                                        });
 
-
+                                                        // function edit_() {
+                                                        //     var btn_dialog = document.getElementById('btn-dialog-edit');
+                                                        //     if(confirm("Are you sure you")){
+                                                        //         $("#btn-dialog-edit").attr("data-toggle", "modal");
+                                                        //     }else{
+                                                        //         $("#btn-dialog-edit").attr("data-toggle", "");
+                                                        //     }
+                                                        // }
+                                                    </script>
                                                     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -186,42 +225,85 @@ include_once("./sidebar.php")
                                                                     <form>
                                                                         <div class="form-group">
                                                                             <label>User Name</label>
-                                                                            <input type="text" class="form-control" placeholder="User Name">
+                                                                            <input id="input-name" type="text" class="form-control" placeholder="User Name">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Last Name</label>
-                                                                            <input type="email" class="form-control" placeholder="Last Name">
+                                                                            <input id="input-lastn_name" type="email" class="form-control" placeholder="Last Name">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Email address</label>
-                                                                            <input type="email" class="form-control" placeholder="Email">
+                                                                            <input id="input-email" type="email" class="form-control" placeholder="Email">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>Phone Number</label>
+                                                                            <input id="input-phone" type="email" class="form-control" placeholder="Email">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Password</label>
-                                                                            <input type="password" class="form-control" placeholder="Password">
+                                                                            <input id="input-pass" type="password" class="form-control" placeholder="Password">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>position</label>
-
-                                                                            <select class="form-control">
-                                                                                <option>1</option>
-                                                                                <option>2</option>
-                                                                                <option>3</option>
-                                                                                <option>4</option>
-                                                                                <option>5</option>
-                                                                            </select>
+                                                                            <input id="input-position" type="text" class="form-control" placeholder="position">
+                                                                            <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
 
                                                                         </div>
                                                                         <div class="checkbox">
                                                                             <label>
-                                                                                <input type="checkbox"> Agree the terms and policy
+                                                                                <input id="check-box" type="checkbox" onclick="check_box()"> Agree the terms and policy
+                                                                                <script>
+                                                                                    function check_box() {
+                                                                                        var btn_edit = document.getElementById('btn_edit_save');
+                                                                                        var checkBox = document.getElementById("check-box");
+                                                                                        if (checkBox.checked == true) {
+                                                                                            btn_edit.style.display = "block";
+                                                                                        } else {
+                                                                                            btn_edit.style.display = "none";
+                                                                                        }
+
+                                                                                    }
+                                                                                </script>
                                                                             </label>
                                                                         </div>
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn btn-primary">SAVE</button>
+                                                                    <button style="display:none;" id="btn_edit_save"  type="button" class="btn btn-primary">SAVE</button>
+                                                                    <script>
+
+                                                                        $("#btn_edit_save").click(function() {
+                                                                            var input_name = document.getElementById('input-name');
+                                                                            var input_last_name = document.getElementById('input-lastn_name');
+                                                                            var input_email = document.getElementById('input-email');
+                                                                            var input_phone = document.getElementById('input-phone');
+                                                                            var input_pass = document.getElementById('input-pass');
+                                                                            var input_position = document.getElementById('input-position');
+
+
+                                                                            $.ajax({
+                                                                                type: "POST",
+                                                                                url: "",
+                                                                                data: {
+
+                                                                                },
+                                                                                success: function(result, textStatus, jqXHR) {
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    window.onload = function() {
+
+                                                                                    }
+                                                                                },error: function(result, textStatus, jqXHR){
+
+                                                                                }
+                                                                            });
+                                                                            
+                                                                        });
+
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                         </div>
