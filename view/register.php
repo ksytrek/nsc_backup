@@ -70,16 +70,18 @@ include('../config/connectdb.php');
                                                     if (this.readyState == 4 && this.status == 200) {
                                                         //โค้ดการทำงาน
                                                         // alert(this.responseText);
-
+                                                        alert(this.responseText);
                                                         if (this.responseText == 'success') {
                                                             console.log(this.responseText);
                                                             document.getElementById('div-id').className = 'form-group has-success ';
                                                             document.getElementById("txt-id").innerHTML = "สามารถใช้ ID 13 หลักนี้ได้";
                                                             accuracy_id = "success";
+                                                            return;
                                                         } else if (this.responseText == 'error') {
                                                             document.getElementById('div-id').className = 'form-group has-error';
                                                             document.getElementById("txt-id").innerHTML = "มีผู้ใช้นี้ในระบบ";
                                                             accuracy_id = "";
+                                                            return;
                                                         }
                                                     }
                                                 }

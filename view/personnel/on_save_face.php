@@ -180,6 +180,8 @@ include_once("./sidebar.php")
 										type: "POST",
 										url: "./controller/uploadface.php",
 										data: { 
+											key: "uploadface",
+											id_mem: "<?php echo $id_mem ?>",
 											imgBase64: dataURL,
 											count: count
 										},

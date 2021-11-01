@@ -1,7 +1,56 @@
 <?php   
-	require_once("../../config/connectdb.php");
+	include_once("../../../config/connectdb.php");
 
-	session_start();
+	if(isset($_POST['key']) && $_POST['key'] == "uploadface"){
+
+		$imgBase64 = "";
+		$count = "";
+		if(isset($_POST['imgBase64']) && isset($_POST['count'])){
+
+			//import Value
+			$id_mem = $_POST['id_mem'];
+			$imgBase64 = $_POST['imgBase64'];
+			$count = $_POST['count'];
+
+
+			//set value
+			$folder = $id_mem;
+			// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
+			mkdir("{$folder}", 0777,true);
+
+
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// if ($_SESSION['success_Login'] == 'Member_Login') { //Uploaded For Admin
 
@@ -173,9 +222,3 @@
 	if(isset($Msgerror)){
 		print "Error ....".$Msgerror;
 	}
-
-
-
-
-
-?>   
