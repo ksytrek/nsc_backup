@@ -1,5 +1,12 @@
 <?php
-include('../../../config/connectdb.php');
+
+
+// include('../../../config/connectdb.php');
+include(dirname(__FILE__)."index.php");
+//   \tfygh\yfugiuhojpo.php
+//  /fgkhl/iuoi/hkjhj.php
+$_SERVER['hosy'].dirname(dirname(__FILE__))."kuhli.[hp";
+
 
 if (isset($_POST['key']) && $_POST['key'] == "add_rq_room") {
     // echo $_POST['room_id'];
