@@ -65,7 +65,7 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id_mem`, `id_code`, `name`, `last_name`, `e_mail`, `pass`, `phone`, `position`, `stu_face`) VALUES
-(37, '1339900662224', 'SOMPHOL', 'WILA', 'std.62122710108@ubrru.ac.th', '1234', '0971271931', 'นักศึกษา', 0);
+(37, '1339900662224', 'SOMPHOL', 'WILA', 'std.62122710108@ubru.ac.th', '1234', '0971271931', 'นักศึกษา', 0);
 
 -- --------------------------------------------------------
 
