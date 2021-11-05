@@ -5,7 +5,7 @@
 		$uri = 'http://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/nsc_bata/view/login.php');
+	header('Location: '.$uri.'/nsc_backuup/view/login.php');
 	exit;
 
 ?>
