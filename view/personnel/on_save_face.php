@@ -96,20 +96,20 @@ include_once("./sidebar.php")
 			const constraints = {
 				video: true,
 			};
-			// const video = document.querySelector("video");
-			// navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-			// 	video.srcObject = stream;
-			// });dsdfesdf sfsdfsdf
-
-			const video = document.getElementById("cam_input"); // video is the id of video tag
-			navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-			.then(function(stream) {
+			const video = document.querySelector("video");
+			navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 				video.srcObject = stream;
-				// video.play();
-			})
-			.catch(function(err) {
-				console.log("An error occurred! " + err);
 			});
+
+			// const video = document.getElementById("cam_input"); // video is the id of video tag
+			// navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+			// .then(function(stream) {
+			// 	video.srcObject = stream;
+			// 	// video.play();
+			// })
+			// .catch(function(err) {
+			// 	console.log("An error occurred! " + err);
+			// });
 
 			let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
 			let dst = new cv.Mat(video.height,  video.width, cv.CV_8UC4);

@@ -36,9 +36,8 @@
                                 id_mem: "<?php echo $id_mem ?>"
                             },
                             success: function(result, textStatus, jqXHR) {
-                                // alert(result);
                                 var json = jQuery.parseJSON(result);
-                                console(result);
+                                // alert(result);
                                 var i = 0;
                                 if (json != false) {
                                     $("#tbb-eligibility").empty();
@@ -49,7 +48,10 @@
                                         var _tr = "</tr>";
                                         var td = "<td>";
                                         var _td = "</td>";
-
+                                        var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
+                                            timeZone: 'Asia/Bangkok'
+                                        });
+                                        // console.log(date);
                                         row += tr;
                                         row += td + i + _td;
                                         row += td + val["room_num"] + _td;
@@ -72,6 +74,7 @@
 
                                     $('#tb-eligibility > tbody:last').append(row);
                                 }
+                                
                             }
                         }).error(function(xhr, status, error) {
                             alert(xhr.statusText + status + error + ': ' + xhr.responseText);
@@ -141,7 +144,7 @@
                                     row += td + "ยังไม่มีข้อมูลสิทธิ์" + _td;
                                     row += _tr;
 
-                                    $('#tb-eligibility > tbody:last').append(row);
+                                    $('#tb_rqroom  > tbody:last').append(row);
                                 }
                             }
                         }).error(function(xhr, status, error) {
@@ -275,18 +278,6 @@
     </div>
     </div>
 
-    <script>
-        // $(document).ready(function() {
-        //     $('#dataTable').DataTable();
-        // });
-        // $('#bootstrap-data-table').DataTable({
-        // dom: 'lBfrtip',
-        // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        // buttons: [
-        //     'copy', 'csv', 'excel', 'print'
-        // ]
-        // });
-    </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
