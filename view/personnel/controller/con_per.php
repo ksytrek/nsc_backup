@@ -1,11 +1,11 @@
 <?php
 
 
-// include('../../../config/connectdb.php');
-include(dirname(__FILE__)."index.php");
+include('../../../config/connectdb.php');
+// include(dirname(__FILE__)."index.php");
 //   \tfygh\yfugiuhojpo.php
 //  /fgkhl/iuoi/hkjhj.php
-$_SERVER['hosy'].dirname(dirname(__FILE__))."kuhli.[hp";
+// $_SERVER['hosy'].dirname(dirname(__FILE__))."kuhli.[hp";
 
 
 if (isset($_POST['key']) && $_POST['key'] == "add_rq_room") {
@@ -64,9 +64,6 @@ if (isset($_POST['tb_elig']) && $_POST["tb_elig"] == "tb_elig" && isset($_POST['
             }
             echo json_encode($resultArray);
         }else{
-            // $resultArray = [
-            //     "error" => $e->getMessage()
-            // ];
             echo json_encode($resultArray);
         }
     } catch (Exception $e) {

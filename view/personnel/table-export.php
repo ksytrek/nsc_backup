@@ -19,8 +19,9 @@
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
-                <!-- /# row -->
+                <!-- /# row sdfadf  -->
                 <script>
+                   
                     window.onload = function() {
                         tb_eligibility();
                         tb_rqroom();
@@ -35,8 +36,9 @@
                                 id_mem: "<?php echo $id_mem ?>"
                             },
                             success: function(result, textStatus, jqXHR) {
-                                var json = jQuery.parseJSON(result);
                                 // alert(result);
+                                var json = jQuery.parseJSON(result);
+                                console(result);
                                 var i = 0;
                                 if (json != false) {
                                     $("#tbb-eligibility").empty();
@@ -72,7 +74,7 @@
                                 }
                             }
                         }).error(function(xhr, status, error) {
-                            // alert(xhr.statusText + status + error + ': ' + xhr.responseText);
+                            alert(xhr.statusText + status + error + ': ' + xhr.responseText);
                         });
 
                     }
@@ -287,7 +289,6 @@
     </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
-
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>

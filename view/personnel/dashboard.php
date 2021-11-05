@@ -41,7 +41,7 @@ include_once("./sidebar.php")
                 <section id="main-content">
 
                     <?php 
-                        include_once("./table-export.php")
+                        include("./table-export.php")
                     ?>
                     
                 </section>

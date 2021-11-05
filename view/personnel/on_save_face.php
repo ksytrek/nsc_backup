@@ -99,7 +99,7 @@ include_once("./sidebar.php")
 			// const video = document.querySelector("video");
 			// navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 			// 	video.srcObject = stream;
-			// });
+			// });dsdfesdf sfsdfsdf
 
 			const video = document.getElementById("cam_input"); // video is the id of video tag
 			navigator.mediaDevices.getUserMedia({ video: true, audio: false })
