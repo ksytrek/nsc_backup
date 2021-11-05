@@ -5,15 +5,7 @@
 		$uri = 'http://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/nsc_backup/view/login.php');
+	header('Location: '.$uri.'/nsc_backuup/view/login.php');
 	exit;
 
 ?>
-
-
-
-
-
-
-
-
