@@ -8,5 +8,5 @@
 	header('Location: '.$uri.'/nsc_backup/view/login.php');
 	exit;
 	// yuiuoipp
-
+// uoipo
 ?>
