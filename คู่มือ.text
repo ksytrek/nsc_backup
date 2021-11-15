@@ -1,0 +1,6 @@
+ssh nsc@skbright.totddns.com -p 28002
+Password : !nsc2022
+
+cd ./public_html/nsc_backup/
+
+git pull
