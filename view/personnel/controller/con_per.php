@@ -41,15 +41,7 @@ if (isset($_POST['key']) && $_POST['key'] == "add_rq_room") {
     
         
     
-    
-    // foreach ($query_el  as $row){
-    //     $el_id_mem =  $row['id_mem'];
-    //     $el_id_room =  $row['id_room'];
-    //  }
 
-    // if(Database::insert_data('rq_rooom', $valu)){
-
-    // }
 }
 
 

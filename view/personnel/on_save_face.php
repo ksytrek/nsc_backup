@@ -180,7 +180,7 @@ include_once("./sidebar.php")
 										return xhr;
 									},
 										type: "POST",
-										url: "./controller/uploadface.php",
+										url: "controller/uploadface.php",
 										data: { 
 											key: "uploadface",
 											id_mem: "<?php echo $id_mem ?>",

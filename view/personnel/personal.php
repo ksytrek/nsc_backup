@@ -12,10 +12,21 @@ include_once("./sidebar.php")
     <!-- Styles -->
     <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <?php 
+        
+        $query_stu_face = Database::query("SELECT stu_face FROM  members WHERE `id_mem`= {$id_mem}",PDO::FETCH_ASSOC);
+        $row = $query_stu_face->fetch();
+        // echo $row['stu_face'];
+        $stu_face = $row['stu_face'];
+    ?>
+
 
 
 </head>
 <script>
+    window.onload = function() {
+        information();
+    }
     var accuracy_name = "";
     var accuracy_lastname = "";
     var accuracy_mail = "";
@@ -24,9 +35,75 @@ include_once("./sidebar.php")
     var accuracy_position = "";
 
     var password = "";
+    function information() {
+        var btn_search_image = document.getElementById("status_btn_search_image");
+        var btn_save_image = document.getElementById("status_btn_save_image");
 
-    window.onload = function() {
-        information();
+        var id_code = document.getElementById("id_code");
+        var name = document.getElementById("name");
+        var last_name = document.getElementById("last_name");
+        var e_mail = document.getElementById("e_mail");
+        var phone = document.getElementById("phone");
+        var position = document.getElementById("position");
+        var full_name = document.getElementById("full_name");
+
+
+        //  Input - Edit 
+        var input_name = document.getElementById('input-name');
+        var input_last_name = document.getElementById('input-lastn_name');
+        var input_email = document.getElementById('input-email');
+        var input_phone = document.getElementById('input-phone');
+        var input_pass = document.getElementById('input-pass');
+        var input_position = document.getElementById('input-position');
+
+        $.ajax({
+            type: "POST",
+            url: "./controller/con_per.php",
+            data: {
+                key: "information",
+                id_mem: '<?php echo $id_mem; ?>'
+
+            },
+            success: function(result, textStatus, jqXHR) {
+                // id_code.innerHTML = result;
+                var json = JSON.parse(result);
+                if (json != false) {
+                    full_name.innerHTML = json[0].name + ' ' + json[0].last_name;
+                    id_code.innerHTML = json[0].id_code;
+                    name.innerHTML = json[0].name;
+                    last_name.innerHTML = json[0].last_name;
+                    e_mail.innerHTML = json[0].e_mail;
+                    phone.innerHTML = json[0].phone;
+                    position.innerHTML = json[0].position;
+
+                    // set input Edit field
+                    input_name.value = json[0].name;
+                    input_last_name.value = json[0].last_name;
+                    input_email.value = json[0].e_mail;
+                    input_phone.value = json[0].phone;
+                    // input_pass.value = json[0].pass;
+                    input_position.value = json[0].position;
+
+
+                    password = json[0].pass;
+                    // alert(password);
+
+
+                    // แสดงปุ๋มสถานะการอัพโหลดภาพใบหน้า ?
+                    if (json[0].stu_face == "0") {
+                        btn_save_image.style = "display:block";
+                    } else {
+                        btn_search_image.style = "display:block";
+                    }
+                } else {
+                    alert("แจ้งเตือนข้อผิดพลาดไม่สามารถแสดงข้อมูลได้")
+                }
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                location.assign("../error/error-404.html");
+            }
+        });
     }
 </script>
 
@@ -48,7 +125,7 @@ include_once("./sidebar.php")
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Personal Information</a></li>
-                                    <li class="breadcrumb-item active">ข้อมูลส่วนตัว</li>
+                                    <li class="breadcrumb-item active">ข้อมูลส่วนตัว </li>
 
                                 </ol>
                             </div>
@@ -71,19 +148,16 @@ include_once("./sidebar.php")
                                                 <div class="user-job-title">นักศึกษาฝึกงาน</div>
 
                                                 <div class="row">
-                                                    <?php //if(false):
-                                                    ?>
+                                                
                                                     <div id="status_btn_search_image" style="display: none" class="user-send-message">
                                                         <button onclick="window.location.assign('./image_search.php') ;" class="btn btn-sm  btn-success btn-rounded" type="button">
                                                             <i class="ti-zoom-in"></i>&nbsp;&nbsp;ตรวจสอบภาพ</button>
                                                     </div>
-                                                    <?php //else:
-                                                    ?>
+                                                    
                                                     <div id="status_btn_save_image" style="display: none" class="user-send-message">
                                                         <button class="btn btn-danger btn-rounded" type="button" onclick="if(confirm('คุณสามารถบันทึกได้เพียงครั้งเดี่ยว')){ window.location.assign('./on_save_face.php') ;}">
                                                             <i class="ti-cloud-up"></i>&nbsp;&nbsp;สถานะไม่สมบูรณ์</button>
-                                                        <?php //endif; 
-                                                        ?>
+                                                    
                                                     </div>
                                                 </div>
                                                 <div class="custom-tab user-profile-tab">
@@ -122,74 +196,6 @@ include_once("./sidebar.php")
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <script>
-                                                            function information() {
-                                                                var btn_search_image = document.getElementById("status_btn_search_image");
-                                                                var btn_save_image = document.getElementById("status_btn_save_image");
-                                                                var id_code = document.getElementById("id_code");
-                                                                var name = document.getElementById("name");
-                                                                var last_name = document.getElementById("last_name");
-                                                                var e_mail = document.getElementById("e_mail");
-                                                                var phone = document.getElementById("phone");
-                                                                var position = document.getElementById("position");
-                                                                var full_name = document.getElementById("full_name");
-
-
-                                                                //  Input - Edit 
-                                                                var input_name = document.getElementById('input-name');
-                                                                var input_last_name = document.getElementById('input-lastn_name');
-                                                                var input_email = document.getElementById('input-email');
-                                                                var input_phone = document.getElementById('input-phone');
-                                                                var input_pass = document.getElementById('input-pass');
-                                                                var input_position = document.getElementById('input-position');
-
-                                                                $.ajax({
-                                                                    type: "POST",
-                                                                    url: "./controller/con_per.php",
-                                                                    data: {
-                                                                        key: "information",
-                                                                        id_mem: '<?php echo $id_mem; ?>'
-
-                                                                    },
-                                                                    success: function(result, textStatus, jqXHR) {
-                                                                        // id_code.innerHTML = result;
-                                                                        var json = JSON.parse(result);
-                                                                        if (json != false) {
-                                                                            full_name.innerHTML = json[0].name + ' ' + json[0].last_name;
-                                                                            id_code.innerHTML = json[0].id_code;
-                                                                            name.innerHTML = json[0].name;
-                                                                            last_name.innerHTML = json[0].last_name;
-                                                                            e_mail.innerHTML = json[0].e_mail;
-                                                                            phone.innerHTML = json[0].phone;
-                                                                            position.innerHTML = json[0].position;
-
-                                                                            // set input Edit field
-                                                                            input_name.value = json[0].name;
-                                                                            input_last_name.value = json[0].last_name;
-                                                                            input_email.value = json[0].e_mail;
-                                                                            input_phone.value = json[0].phone;
-                                                                            // input_pass.value = json[0].pass;
-                                                                            input_position.value = json[0].position;
-
-
-                                                                            password = json[0].pass;
-                                                                            // alert(password);
-                                                                            if (json[0].stu_face == "0") {
-                                                                                btn_save_image.style = "display:block";
-                                                                            } else {
-                                                                                btn_search_image.style = "display:block";
-                                                                            }
-                                                                        } else {
-                                                                            alert("แจ้งเตือนข้อผิดพลาดไม่สามารถแสดงข้อมูลได้")
-                                                                        }
-
-                                                                    },
-                                                                    error: function(jqXHR, textStatus, errorThrown) {
-                                                                        location.assign("../error/error-404.html");
-                                                                    }
-                                                                });
-                                                            }
-                                                        </script>
                                                     </div>
                                                 </div>
                                                 <div class="row">

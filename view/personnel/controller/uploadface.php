@@ -1,6 +1,5 @@
 <?php   
-	include_once("../../../config/connectdb.php");
-
+	include("../../../config/connectdb.php");
 	if(isset($_POST['key']) && $_POST['key'] == "uploadface"){
 
 		$imgBase64 = "";
@@ -13,10 +12,16 @@
 			$count = $_POST['count'];
 
 
+			// echo $id_mem.$count;    
+			// $output = shell_exec('mkdir newdir');
+
+			mkdir("./aklje", 0755,true);
+
 			//set value
-			$folder = $id_mem;
+			// $folder = $id_mem;
 			// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
-			mkdir("{$folder}", 0777,true);
+			// mkdir("../../../file_image/{$folder}", 0777,true);
+			// mkdir("./{$folder}", 0755,true);
 
 
 		}
