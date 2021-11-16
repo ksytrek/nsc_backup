@@ -10,7 +10,8 @@
 	shell_exec('git pull');
 
 
-	// header('Location: '.$uri.'/nsc_backup/view/login.php');
+	header('Location: '.$uri.'/nsc_backup/view/login.php');
+	
 	exit;
 
 ?>
