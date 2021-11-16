@@ -11,6 +11,8 @@
 	$output = shell_exec('pwd');
 	echo "<pre>$output</pre>";
 
+	$output1 = shell_exec('git pull');
+	echo "<pre>$output1</pre>";
 
 
 	// header('Location: '.$uri.'/nsc_backup/view/login.php');
