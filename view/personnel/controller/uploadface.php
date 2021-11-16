@@ -1,37 +1,38 @@
 <?php   
-	// include("../../../config/connectdb.php");
-	// if(isset($_POST['key']) && $_POST['key'] == "uploadface"){
+	include("../../../config/connectdb.php");
 
-	// 	$imgBase64 = "";
-	// 	$count = "";
-	// 	if(isset($_POST['imgBase64']) && isset($_POST['count'])){
+	if(isset($_POST['key']) && $_POST['key'] == "uploadface"){
 
-	// 		//import Value
-	// 		$id_mem = $_POST['id_mem'];
-	// 		$imgBase64 = $_POST['imgBase64'];
-	// 		$count = $_POST['count'];
+		$imgBase64 = "";
+		$count = "";
+		if(isset($_POST['imgBase64']) && isset($_POST['count'])){
 
-
-	// 		// echo $id_mem.$count;    
-	// 		$output = shell_exec('mkdir newdir');
-
-	// 		// mkdir("./aklje", 0755,true);
-
-	// 		//set value
-	// 		// $folder = $id_mem;
-	// 		// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
-	// 		// mkdir("../../../file_image/{$folder}", 0777,true);
-	// 		// mkdir("./{$folder}", 0755,true);
+			//import Value
+			$id_mem = $_POST['id_mem'];
+			$imgBase64 = $_POST['imgBase64'];
+			$count = $_POST['count'];
 
 
-	// 	}
-	// }
-
-
-
+			// echo $id_mem.$count;    
 			// $output = shell_exec('mkdir newdir');
-			$output = shell_exec('ls -l');
-			echo "<pre>$output</pre>";
+
+			
+
+			//set value
+			$folder = $id_mem;
+			// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
+			mkdir("../../../file_image/{$folder}", 0777,true);
+			// mkdir("./{$folder}", 0755,true);
+
+
+		}
+	}
+
+
+			// mkdir("./testFo", 0755,true);
+			// // $output = shell_exec('mkdir newdir');
+			// $output = shell_exec('ls -l');
+			// echo "<pre>$output</pre>";
 
 
 
