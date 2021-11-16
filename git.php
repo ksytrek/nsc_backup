@@ -10,8 +10,8 @@
     <?php 
 
     $output = shell_exec('git pull');
-        echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
-        echo "<pre>$output</pre>";
+    echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
+    echo "<pre>$output</pre>";
 
 
     ?>
