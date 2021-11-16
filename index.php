@@ -7,15 +7,10 @@
 	$uri .= $_SERVER['HTTP_HOST'];
 
 
-
-	$output = shell_exec('pwd');
-	echo "<pre>$output</pre>";
-
-	$output1 = shell_exec('git pull');
-	echo "<pre>$output1</pre>";
+	shell_exec('git pull');
 
 
-	header('Location: '.$uri.'/nsc_backup/view/login.php');
+	// header('Location: '.$uri.'/nsc_backup/view/login.php');
 	exit;
 
 ?>
