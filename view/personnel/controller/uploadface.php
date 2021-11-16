@@ -11,13 +11,10 @@
 			$id_mem = $_POST['id_mem'];
 			$imgBase64 = $_POST['imgBase64'];
 			$count = $_POST['count'];
-
-
-			// echo $id_mem.$count;    
-			// $output = shell_exec('mkdir newdir');
-
 			
 
+			// qurey 
+			
 			//set value
 			$folder = $id_mem;
 			// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
