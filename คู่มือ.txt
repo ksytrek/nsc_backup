@@ -2,3 +2,7 @@ ssh nsc@skbright.totddns.com -p 28002
 Password : !nsc2022
 
 cd ./public_html/nsc_backup ; git pull
+
+
+หรือ  เข้าผ่าน  URL ตามลิงค์นี้
+https://skbright.totddns.com:28000/nsc_backup/git.php
