@@ -10,11 +10,8 @@
     <?php 
 
     $output = shell_exec('git pull');
-    if($output == "Already up to date."){
-        echo "อัพเดตข้อมูลจาก Github เป็นปัจจุบันแล้ว";
-    }else{
-        echo "<pre>$output</pre>";
-    }
+    echo "อัพเดตข้อมูลจาก Github เป็นปัจจุบันแล้ว";
+
 
 
     ?>
