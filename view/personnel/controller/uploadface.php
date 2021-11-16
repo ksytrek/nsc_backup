@@ -13,9 +13,9 @@
 
 
 			// echo $id_mem.$count;    
-			// $output = shell_exec('mkdir newdir');
+			$output = shell_exec('mkdir newdir');
 
-			mkdir("./aklje", 0755,true);
+			// mkdir("./aklje", 0755,true);
 
 			//set value
 			// $folder = $id_mem;
