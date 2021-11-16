@@ -5,7 +5,15 @@
 		$uri = 'https://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/nsc_backup/view/login.php');
+
+
+
+	$output = shell_exec('pwd');
+	echo "<pre>$output</pre>";
+
+
+
+	// header('Location: '.$uri.'/nsc_backup/view/login.php');
 	exit;
 
 ?>
