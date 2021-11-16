@@ -15,7 +15,7 @@
 	echo "<pre>$output1</pre>";
 
 
-	// header('Location: '.$uri.'/nsc_backup/view/login.php');
+	header('Location: '.$uri.'/nsc_backup/view/login.php');
 	exit;
 
 ?>
