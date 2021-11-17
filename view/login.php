@@ -55,7 +55,7 @@
                                                         <input type="checkbox" id="rememberMe_per" onclick="lsRememberMe()"> Remember Me
                                                     </label>
                                                     <label class="pull-right">
-                                                        <a href="#">Forgotten Password?</a>
+                                                        <!-- <a href="#">Forgotten Password?</a> -->
                                                     </label>
                                                     <script>
                                                         const rmCheck = document.getElementById("rememberMe_per"),
@@ -86,73 +86,7 @@
                                                     </script>
                                                 </div>
                                                 <button id="submit_per" onclick="send_submit_per('submit_per')" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
-                                                <script>
-                                                    var input = document.getElementById("password_per");
-                                                    input.addEventListener("keyup", function(event) {
-                                                        if (event.keyCode === 13) {
-                                                            // event.preventDefault();
-                                                            // send_submit_per('submit_per');
-                                                        }
-                                                    });
 
-                                                    function send_submit_per(key) {
-                                                        // alert(key);
-                                                        var email_per = document.getElementById("email_per").value;
-                                                        var password_per = document.getElementById("password_per").value;
-                                                        // textstatus
-                                                        // "timeout"
-                                                        // "error"
-                                                        // "notmodified"
-                                                        // "success"
-                                                        // "parsererror"
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: "./controller/chack_login.php",
-                                                            data: {
-                                                                key: key,
-                                                                email: email_per,
-                                                                password: password_per
-                                                            },
-                                                            success: function(result, textstatus, jqXHR) {
-                                                                // alert('Success');
-                                                                // alert(jqXHR.status);
-                                                                var json = JSON.parse(result);
-                                                                if(json != false) {
-                                                                    if(email_per == json['e_mail'] && password_per == json['pass']) {
-                                                                        location.assign("./personnel/dashboard.php");
-                                                                    }
-                                                                
-                                                                }else{
-                                                                    alert('E-mail หรือ Password ไม่ถูกต้อง');
-                                                                }
-                                                                // alert(textstatus + jqXHR.status)
-                                                                // alert(jqXHR.status + ' ' + jqX.readyState);
-                                                                // if(textstatus=="success" && jqXHR.status=="200"){
-
-                                                                // }
-                                                            },
-                                                            error: function(jqXHR, textstatus, error) {
-                                                                alert(jqXHR.status);
-                                                                if (jqXHR.status == 404) {
-                                                                    location.assign('./error/error-404.html')
-                                                                } else if (jqXHR.status == 400) {
-                                                                    location.assign('./error/error-404.html')
-                                                                } else if (jqXHR.status == 403) {
-                                                                    location.assign('./error/error-404.html')
-                                                                } else if (jqXHR.status == 500) {
-                                                                    location.assign('./error/error-404.html')
-                                                                } else if (jqXHR.status == 503) {
-                                                                    location.assign('./error/error-404.html')
-                                                                }
-                                                                // location.assign('./error/error-404.html')
-                                                            }
-                                                        });
-
-                                                        // alert(email_per+ ' ' + password_per)
-
-
-                                                    }
-                                                </script>
                                                 <div class="register-link m-t-15 text-center">
                                                     <p>Don't have account ? <a href="./register.php"> Sign Up Here</a></p>
                                                 </div>
@@ -177,7 +111,7 @@
                                                         <input id="rememberMe_ad" type="checkbox" onclick="lsRememberMe_ad()"> Remember Me
                                                     </label>
                                                     <label class="pull-right">
-                                                        <a href="#">Forgotten Password?</a>
+                                                        <!-- <a href="#">Forgotten Password?</a> -->
                                                     </label>
                                                     <script>
                                                         const rmCheck_ad = document.getElementById("rememberMe_ad"),
@@ -207,7 +141,7 @@
                                                         }
                                                     </script>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                                <button id="submit_ad" onclick="send_submit_ad('submit_ad')" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
 
                                                 <div class="register-link m-t-15 text-center">
                                                     <p>Don't have account ? <a href="./register.php"> Sign Up Here</a></p>
@@ -224,7 +158,117 @@
             </div>
         </div>
     </div>
+    <script>
+        var input = document.getElementById("password_per");
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                // event.preventDefault();
+                // send_submit_per('submit_per');
+            }
+        });
 
+        function send_submit_per(key) {
+            // alert(key);
+            var email_per = document.getElementById("email_per").value;
+            var password_per = document.getElementById("password_per").value;
+
+            $.ajax({
+                type: "POST",
+                url: "./controller/chack_login.php",
+                data: {
+                    key: key,
+                    email: email_per,
+                    password: password_per
+                },
+                success: function(result, textstatus, jqXHR) {
+                    // alert('Success');
+                    // alert(jqXHR.status);
+                    var json = JSON.parse(result);
+                    if (json != false) {
+                        if (email_per == json['e_mail'] && password_per == json['pass']) {
+                            location.assign("./personnel/dashboard.php");
+                        }
+
+                    } else {
+                        alert('E-mail หรือ Password ไม่ถูกต้อง');
+                    }
+                    // alert(textstatus + jqXHR.status)
+                    // alert(jqXHR.status + ' ' + jqX.readyState);
+                    // if(textstatus=="success" && jqXHR.status=="200"){
+
+                    // }
+                },
+                error: function(jqXHR, textstatus, error) {
+                    alert(jqXHR.status);
+                    if (jqXHR.status == 404) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 400) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 403) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 500) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 503) {
+                        location.assign('./error/error-404.html')
+                    }
+                    // location.assign('./error/error-404.html')
+                }
+            });
+
+            // alert(email_per+ ' ' + password_per)
+
+
+        }
+
+        function send_submit_ad(key) {
+            // alert(key);
+            var email_ad = document.getElementById("email_ad").value;
+            var password_ad = document.getElementById("password_ad").value;
+
+            $.ajax({
+                type: "POST",
+                url: "./controller/chack_login.php",
+                data: {
+                    key: key,
+                    e_emil_ad: email_ad,
+                    pass_ad: password_ad
+                },
+                success: function(result, textstatus, jqXHR) {
+                    // alert(result);
+                    // alert(jqXHR.status);
+                    var json = JSON.parse(result);
+                    if (json != false) {
+                        if (email_ad == json['e_emil_ad'] && password_ad == json['pass_ad']) {
+                            location.assign("./admin/dashboard_ad.php");
+                        }
+
+                    } else {
+                        alert('E-mail หรือ Password ไม่ถูกต้อง');
+                    }
+
+                },
+                error: function(jqXHR, textstatus, error) {
+                    // alert(jqXHR.status);
+                    if (jqXHR.status == 404) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 400) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 403) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 500) {
+                        location.assign('./error/error-404.html')
+                    } else if (jqXHR.status == 503) {
+                        location.assign('./error/error-404.html')
+                    }
+                    // location.assign('./error/error-404.html')
+                }
+            });
+
+            // alert(email_per+ ' ' + password_per)
+
+
+        }
+    </script>
     <script>
         function show_form(id) {
             if (id == "show_admin") {

@@ -26,3 +26,28 @@ if (isset($_POST['key']) && $_POST['key'] == 'submit_per') {
         echo "Error: " . $e->getMessage();
     }
 }
+
+
+
+if (isset($_POST['key']) && $_POST['key'] == 'submit_ad') {
+    try {
+        if (isset($_POST['e_emil_ad']) && $_POST['pass_ad']) {
+            $email = $_POST['e_emil_ad'];
+            $pass = $_POST['pass_ad'];
+            $row = array();
+            $search_per =  Database::query("SELECT * FROM `tbadmin` WHERE `e_emil_ad` = '{$email}' AND `pass_ad`='{$pass}';",PDO::FETCH_ASSOC);
+            if($row = $search_per->fetch()){
+                // echo $row['e_mail'] . " " . $row['pass'];
+                $_SESSION['id_admin'] = $row['id_admin'];
+                $_SESSION["key_login"] = "admin";
+                echo json_encode($row);
+            }else{
+                echo json_encode($row);
+            }
+            
+
+        }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
