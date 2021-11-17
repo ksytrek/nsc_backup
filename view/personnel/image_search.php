@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar.php")
+include_once("./sidebar.php");
+
+$row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};", PDO::FETCH_ASSOC)->fetch();
 ?>
 
 <head>
@@ -53,7 +55,7 @@ include_once("./sidebar.php")
                             <div class="user-send-message">
 
 
-                                <?php if (true) : ?>
+                                <?php if ($row_members['stu_face'] == '0') : ?>
                                     <div class="card-title float-right">
                                         <button type="button" class="btn  btn-warning btn-rounded btn-sm" onclick="save_face()">ยังไม่ได้บันทึกภาพใบหน้า</button>
                                     </div>
@@ -67,10 +69,10 @@ include_once("./sidebar.php")
                                         }
                                     </script>
                                 <?php endif; ?>
-                                <?php if (true) : ?>
-                                    <div class="card-title float-right">
+                                <?php if ($row_members['stu_face'] == '1') : ?>
+                                    <!-- <div class="card-title float-right">
                                         <button type="button" class="btn  btn-danger btn-rounded btn-sm" onclick="window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')">ลบข้อมูลรูปภาพ</button>
-                                    </div>
+                                    </div> -->
                                     <div class="card-title float-right">
                                         <form method="post" action="./controller/backup.php">
                                             <input type="hidden" name="id_mem" value="<?php echo $id_mem; ?>">
@@ -83,63 +85,19 @@ include_once("./sidebar.php")
                             </div>
                         </div>
                         <div class="row ">
-                            <?php if (true) : ?>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                                </div>
-                            <?php endif; ?>
+                            <?php
+                            if ($row_members['stu_face'] == '1') :
+                                foreach (Database::query("SELECT * FROM `tbimage` INNER JOIN `members` ON tbimage.id_mem = members.id_mem WHERE tbimage.id_mem = {$id_mem};", PDO::FETCH_ASSOC) as $row) :                            ?>
+                                    <div class="col-lg-3">
+                                        <img src="../../<?php echo $row['path_image'] . $row['name_image'] ?>" width="100%" alt="">
+                                    </div>
+                            <?php
+                                endforeach;
+                            endif;
+                            ?>
                         </div>
 
                     </div>
-                    <!-- /# row -->
-
-
-
             </div>
         </div>
     </div>

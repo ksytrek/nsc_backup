@@ -1,7 +1,6 @@
 <?php 
 include_once("../../../config/connectdb.php");
 
-
 function createZip($zip,$dir){
     if (is_dir($dir)){
 
@@ -57,7 +56,7 @@ if(isset($_POST['backup'])){
         exit("cannot open <$filename>\n");
     }
 
-    $dir = '../../../model/face_imgae/'.$name."/";
+    $dir = '../../..//file_image/'.$name."/";
     // Create zip
     createZip($zip,$dir);
 

@@ -4,7 +4,7 @@
 include_once('../../config/connectdb.php');
 session_start();
 
-if (isset($_POST['key'])) {
+if (isset($_POST['key']) && $_POST['key'] == 'submit_per') {
     try {
         if (isset($_POST['email']) && $_POST['password']) {
             $email = $_POST['email'];
@@ -14,6 +14,7 @@ if (isset($_POST['key'])) {
             if($row = $search_per->fetch()){
                 // echo $row['e_mail'] . " " . $row['pass'];
                 $_SESSION['id_mem'] = $row['id_mem'];
+                $_SESSION["key_login"] = "personal";
                 echo json_encode($row);
             }else{
                 echo json_encode($row);
@@ -25,15 +26,3 @@ if (isset($_POST['key'])) {
         echo "Error: " . $e->getMessage();
     }
 }
-
-
-
-            // echo realpath($_SERVER["DOCUMENT_ROOT"])."/config/connectdb.php";
-            // echo $_SERVER['SERVER_NAME'].dirname(dirname(dirname($_SERVER ['PHP_SELF']))).'/connection.php';
-            // echo dirname(dirname(dirname(__FILE__)))."\n";
-            // echo dirname(dirname(dirname(__FILE__))).'/config/connectdb.php';
-            // echo dirname(dirname(__FILE__)).'/config/connectdb.php';
-            // echo dirname(__FILE__)."\n";
-            // echo $_SERVER['DOCUMENT_ROOT']."\n";
-            // echo $_SERVER['HTTP_HOST'].dirname($_SERVER ['PHP_SELF'])."\n";
-            // echo $_SERVER['SERVER_NAME'].dirname(dirname(dirname($_SERVER ['PHP_SELF'])));

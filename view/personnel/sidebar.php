@@ -3,7 +3,12 @@
 <?php 
 session_start();
 include('../../config/connectdb.php');
-$id_mem =  $_SESSION["id_mem"];
+$id_mem;
+if(isset($_SESSION["key_login"]) && $_SESSION["key_login"] == "personal"){
+    $id_mem =  $_SESSION["id_mem"];
+}else{
+    header("Location:"."../controller/check_logout.php");
+}
 
 ?>
 <head>
@@ -49,7 +54,7 @@ $id_mem =  $_SESSION["id_mem"];
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                 </svg></i> Save the face</a></li> -->
 
-                    <li><a href="../login.php"><i class="ti-close"></i> Logout</a></li>
+                    <li><a href="../controller/check_logout.php"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -81,10 +86,10 @@ $id_mem =  $_SESSION["id_mem"];
                                             </li>
 
 
-                                            <li>
+                                            <!-- <li>
                                                 <a href="#"><i class="ti-lock"></i> <span> Lock Screen</span></a>
-                                            </li>
-                                            <li><a href="../login.php"><i class="ti-close"></i> <span> Logout</span></a></li>
+                                            </li> -->
+                                            <li><a href="../controller/check_logout.php"><i class="ti-close"></i> <span> Logout</span></a></li>
                                         </ul>
                                     </div>
                                 </div>

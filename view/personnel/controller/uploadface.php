@@ -1,206 +1,70 @@
-<?php   
-	include("../../../config/connectdb.php");
-
-	if(isset($_POST['key']) && $_POST['key'] == "uploadface"){
-
-		$imgBase64 = "";
-		$count = "";
-		if(isset($_POST['imgBase64']) && isset($_POST['count'])){
-
-			//import Value
-			$id_mem = $_POST['id_mem'];
-			$imgBase64 = $_POST['imgBase64'];
-			$count = $_POST['count'];
-			
-
-			// qurey 
-			$qurey_id_code = Database::query("SELECT `id_code` FROM members WHERE `id_mem`= {$id_mem};",PDO::FETCH_ASSOC);
-			$row = $qurey_id_code->fetch();
-			//set value
-			$folder = $row['id_code'];
-			// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
-			mkdir("../../../file_image/{$folder}", 0755,true);
-			// mkdir("./{$folder}", 0755,true);
-
-			define('PATH_UPLOAD', "../../../file_image/{$folder}/");
+<?php
+include("../../../config/connectdb.php");
+require("./up_image.php");
 
 
-			echo $id_mem.$count;
+if (isset($_POST['key']) && $_POST['key'] == "uploadface") {
 
-			// รอเปิดใช้งาน
-			if($count == true){
-				// Database::query("UPDATE `members` SET `stu_face` = '1' WHERE `id_mem`= {$id_mem};");
-			}
+	$imgBase64 = "";
+	$count = "";
+
+	if (isset($_POST['imgBase64']) && isset($_POST['count'])) {
+
+		//import Value
+		$id_mem = $_POST['id_mem'];
+		$imgBase64 = $_POST['imgBase64'];
+		$count = $_POST['count'] + 1;
 
 
-			// เตรียมอัพโหลดลงฐานข้อมูล
-			$file_base = $folder."_".$count.'.png';
+		// qurey 
+		$qurey_id_code = Database::query("SELECT `id_code` FROM members WHERE `id_mem`= {$id_mem};", PDO::FETCH_ASSOC);
+		$row = $qurey_id_code->fetch();
+		//set value
+		$folder = $row['id_code'];
+		define('PATH_UPLOAD', "../../../file_image/{$folder}/");
 
-			if(Database::query("SELECT `name_image` FROM `tbimage` WHERE `name_image`='$file_base'")){
+		// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
+		mkdir("../../../file_image/{$folder}", 0755, true);
+		// mkdir("./{$folder}", 0755,true);
+
+
+		if ($count == 20) {
+			Database::query("UPDATE `members` SET `stu_face` = '1' WHERE `id_mem`= {$id_mem};");
+		}
+
+		// เตรียมอัพโหลดลงฐานข้อมูล
+		$file_base = $folder . "_" . $count . '.png';
+
+
+		try {
+			if (Database::query("DELETE FROM `tbimage` WHERE `tbimage`.`name_image` = '$file_base'")) {
+				// data:image/png;base64,
+				$img = str_replace('data:image/png;base64,', '', $imgBase64);
+				$img = str_replace('', '+', $img);
+
+				$data = base64_decode($img);
+
+				$file = PATH_UPLOAD . $file_base;
+
+				// อัพโหลดไฟล์ภาพลงฐานข้อมูลสำเร็จ
 				try {
-					if(Database::query("DELETE FROM `tbimage` WHERE `tbimage`.`name_image` = '$file_base'")){
-						$img = str_replace('data:image/png;base64,', '', $img);   
-						$img = str_replace('', '+', $img);   
+					file_put_contents($file, $data);
 
-						$data = base64_decode($img); 
+					$insert_data_image = [
+						'id_mem'		=> $id_mem,
+						'path_image'	=> "file_image/{$folder}/",
+						'name_image' 	=> $file_base
+					];
 
-						$file = PATH_UPLOAD.$file_base;
-						$success = file_put_contents($file, $data);
-						
-						$newPATH = str_replace('../','',PATH_UPLOAD);
-						$newNAME = $foldeName."_".$count.'.png';
-						// $refer  = $_SESSION['id_code'];
+					if (Database::insert_data("tbimage", $insert_data_image)) {
+						echo "success";
 					}
-				} catch (PDOException $e) {
-					# code...
+				} catch (Exception $e) {
+					echo "error";
 				}
 			}
-			// // ลบฐานข้อมูล ซ้ำ path_image
-			// if($sear->execute()){
-			// 	try{
-			// 		$dele = Database::query("DELETE FROM `tbimage` WHERE `tbimage`.`name_image` = '$file_base'");
-			// 		if($dele->execute()){
-			// 			$img = str_replace('data:image/png;base64,', '', $img);   
-			// 			$img = str_replace('', '+', $img);   
-
-			// 			$data = base64_decode($img); 
-
-			// 			$file = PATH_UPLOAD.$file_base;
-			// 			$success = file_put_contents($file, $data);
-						
-			// 			$newPATH = str_replace('../','',PATH_UPLOAD);
-			// 			$newNAME = $foldeName."_".$count.'.png';
-			// 			$refer  = $_SESSION['id_code'];
-			// 		}
-			// 	}catch (PDOException $e) {
-			// 		$Msgerror = $e->getMessage();
-			// 	}
-			// }
-
-			
-
-
+		} catch (Exception $e) {
+			echo "error";
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// if ($_SESSION['success_Login'] == 'Member_Login') { //Uploaded For Admin
-
-	// 	$foldeName = {$_SESSION["student_name"]} ;
-	// 	$foldeName= strtolower(str_replace(' ',"_","{$_SESSION['id_code']}"));
-
-	// 	$Msgerror;
-	// 	$success;
-	// 	$sucdel;
-		
-	// 	// mkdir("../Script/PCA/datasets/faces/{$foldeName}", 0700,true);
-	// 	mkdir("../Script/python/PCA/datasets/faces/{$foldeName}", 0777,true);
-
-
-	// 	// Requires php5   
-	// 	define('PATH_UPLOAD', "../Script/python/PCA/datasets/faces/{$foldeName}/");
-	// 	if(isset($_POST['imgBase64']))   {
-
-	// 		$img = $_POST['imgBase64'];
-	// 		$count = $_POST['count']+1;
-
-	// 		if($count == "20"){
-	// 			$i = $_SESSION["id_code"];
-	// 			$up = $connectDB->prepare("UPDATE members SET `stu_face`='1' WHERE id_code='$i'");
-	// 			$up->execute();
-	// 		}
-
-	// 		$file_base = $foldeName."_".$count.'.png';
-
-			// $sear = $connectDB->prepare("SELECT `name_image` FROM `tbimage` WHERE `name_image`='$file_base'");
-			// // ลบฐานข้อมูล ซ้ำ path_image
-			// if($sear->execute()){
-			// 	try{
-			// 		$dele = $connectDB->prepare("DELETE FROM `tbimage` WHERE `tbimage`.`name_image` = '$file_base'");
-			// 		if($dele->execute()){
-			// 			$img = str_replace('data:image/png;base64,', '', $img);   
-			// 			$img = str_replace('', '+', $img);   
-
-			// 			$data = base64_decode($img); 
-
-			// 			$file = PATH_UPLOAD.$file_base;
-			// 			$success = file_put_contents($file, $data);
-						
-			// 			$newPATH = str_replace('../','',PATH_UPLOAD);
-			// 			$newNAME = $foldeName."_".$count.'.png';
-			// 			$refer  = $_SESSION['id_code'];
-			// 		}
-			// 	}catch (PDOException $e) {
-			// 		$Msgerror = $e->getMessage();
-			// 	}
-			// }
-	// 		// $file = ../Script/python/PCA/datasets/faces/62122710108/62122710108_2.png
-	// 		if($success){
-	// 			$pachImg = [
-	// 				'id_code'	=> $refer,
-	// 				'path'		=> $newPATH,
-	// 				'name' 		=> $newNAME
-	// 			];
-	// 			//print $file;
-	// 			if(!isset($Msgerror)){
-	// 				// Add Database Path_image
-	// 				try{
-	// 					$insert_img = $connectDB->prepare("INSERT INTO `tbimage` (`std_code`, `path_image`, `name_image`) VALUES (:id_code, :path, :name)");
-	// 					if($insert_img->execute($pachImg)){
-	// 						$insertMsg = "File Uploaded successfully..........";
-							
-	// 					}else{
-	// 						$Msgerror = "Seve IMG TO not Database";
-	// 					}
-	// 				}catch(PDOException $e){
-	// 					$Msgerror = $e->getMessage();
-	// 				}
-	// 			}else{
-	// 				$Msgerror = "มีข้อผิลพลาด จากข้อความ ERROR";
-	// 			}
-	// 		}
-	// 	}
-	// 	else{
-	// 		$Msgerror = "Error ไม่ได้ส่งข้อมูลมา..";
-	// 	}
-	// }
-	
-	// }else{
-	// 	header("location: ./check_login.php");
-	// }
-	
-
-
-	
-	// if(isset($insertMsg)){
-	// 	print 'DONE .... '.$insertMsg;
-	// }
-	// if(isset($Msgerror)){
-	// 	print "Error ....".$Msgerror;
-	// }
+}
