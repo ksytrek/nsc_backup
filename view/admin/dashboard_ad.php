@@ -41,8 +41,20 @@ include_once("./sidebar_ad.php")
 
                 <section id="main-content">
 
+                    
                     <?php
-                    include_once("./report_dasboard_ad.php")
+                    // include_once("./report_dasboard_ad.php");
+
+                    try {
+                        $row = Database::query("SELECT COUNT(*) as total FROM `rooms`;",PDO::FETCH_ASSOC)->fetch();
+
+                        echo"success ".$row['total'];
+    
+                    } catch (Exception $e) {
+                       $error = $e->getMessage();
+                        echo "<script>alert( '{$error}')</script>";
+                    }
+                 
                     ?>
 
                 </section>
