@@ -52,7 +52,7 @@ include('../config/connectdb.php');
                                     <script>
                                         function check_id(str) {
 
-                                            if (str.length != 13 && str.length != 0) {
+                                            if (str.length > 13 && str.length != 0) {
                                                 document.getElementById("txt-id").innerHTML = "กรุณากรอกรหัสประจำตัวให้ครบ 13 หลัก";
                                                 document.getElementById('div-id').className = 'form-group has-error';
                                                 accuracy_id = "";
@@ -70,7 +70,6 @@ include('../config/connectdb.php');
                                                     if (this.readyState == 4 && this.status == 200) {
                                                         //โค้ดการทำงาน
                                                         // alert(this.responseText);
-                                                        alert(this.responseText);
                                                         if (this.responseText == 'success') {
                                                             console.log(this.responseText);
                                                             document.getElementById('div-id').className = 'form-group has-success ';
@@ -154,7 +153,7 @@ include('../config/connectdb.php');
                                             if (str.length == 0) {
                                                 document.getElementById("txt-mail").innerHTML = "กรุณาระบุ E-Mail Address ";
                                                 document.getElementById('div-mail').className = 'form-group';
-                                                accuracy_id = "";
+                                                accuracy_mail = "";
                                                 return;
                                             } else {
                                                 var xmlhttp = new XMLHttpRequest();
@@ -168,14 +167,18 @@ include('../config/connectdb.php');
                                                             accuracy_mail = "";
                                                             return;
                                                         }
+                                                        
+                                                        // alert(this.responseText);
                                                         if (this.responseText == 'success') {
                                                             document.getElementById('div-mail').className = 'form-group has-success';
                                                             document.getElementById("txt-mail").innerHTML = "";
                                                             accuracy_mail = "success";
+                                                            return;
                                                         } else if (this.responseText == 'error') {
                                                             document.getElementById('div-mail').className = 'form-group has-error';
                                                             document.getElementById("txt-mail").innerHTML = "ไม่สามารถใช้ E-Mail Address นี้ได้";
                                                             accuracy_mail = "";
+                                                            return;
                                                         }
 
                                                     }
@@ -202,9 +205,14 @@ include('../config/connectdb.php');
                                                 document.getElementById('div-phone').className = 'form-group has-error';
                                                 accuracy_phone = "";
                                                 return;
-                                            }else if (str.length == 0) {
+                                            }else if (str.length == 0 ) {
                                                 document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
                                                 document.getElementById('div-phone').className = 'form-group ';
+                                                accuracy_phone = "";
+                                                return;
+                                            }else if(str.length >= 11){
+                                                document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
+                                                document.getElementById('div-phone').className = 'form-group has-error';
                                                 accuracy_phone = "";
                                                 return;
                                             } else {
@@ -213,7 +221,7 @@ include('../config/connectdb.php');
                                                 str_pho1= str.substring(0, 3);
                                                 str_pho2= str.substring(3, 6);
                                                 str_pho3= str.substring(6, );
-                                                phone.value = str_pho1+"-"+str_pho2+"-"+str_pho3;
+                                                phone.value = str_pho1+str_pho2+str_pho3;
                                                 accuracy_phone = "success";
                                                 return;
                                             }
@@ -300,14 +308,16 @@ include('../config/connectdb.php');
                                         var position = document.getElementById("position").value;
 
                                         // alert(cid+uname+lastname+pass+email+position)
-                                        if (accuracy_id == "success" 
-                                        && accuracy_name == "success"
-                                         && accuracy_lastname == "success" 
-                                         && accuracy_mail == "success"
-                                         && accuracy_pass == "success"
-                                         &&accuracy_phone == "success"
-                                         && accuracy_position == "success"
-                                         ) {
+                                        // alert(accuracy_id+" "+accuracy_name+" "+accuracy_lastname+" "+accuracy_pass+" "+accuracy_mail+" "+accuracy_phone+" "+accuracy_position);
+                                        // alert(accuracy_id == "success" && accuracy_name == "success"
+                                        //     && accuracy_lastname == "success" && accuracy_mail == "success"
+                                        //     && accuracy_pass == "success" && accuracy_phone == "success"
+                                        //     && accuracy_position == "success");
+                                        if (accuracy_id == "success" && accuracy_name == "success"
+                                            && accuracy_lastname == "success" && accuracy_mail == "success"
+                                            && accuracy_pass == "success" && accuracy_phone == "success"
+                                            && accuracy_position == "success") {
+                                        // if (true) {
                                             swal({
                                                     title: "Are you sure?",
                                                     text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -321,7 +331,7 @@ include('../config/connectdb.php');
                                                         $.ajax({
                                                             type: "POST",
                                                             data: {
-                                                                data: key,
+                                                                key: key,
                                                                 cid: cid,
                                                                 uname: uname,
                                                                 lastname: lastname,
@@ -330,8 +340,9 @@ include('../config/connectdb.php');
                                                                 pass: pass,
                                                                 position: position
                                                             },
-                                                            url: "./controller/check_register.php",
-                                                            success: function(data) {
+                                                            url: "./controller/inser_register.php",
+                                                            success: function(result, textStatus, jqXHR) {
+                                                                // alert(result);
                                                                 swal("Hey, i will close in 2 seconds !!", {
                                                                     icon: "success",
                                                                     buttons: false,
@@ -339,7 +350,9 @@ include('../config/connectdb.php');
                                                                 });
 
                                                             },
-                                                            error: function() {
+                                                            error: function(jqXHR, textStatus, errorTh) {
+                                                                // alert(errorTh + ": " + textStatus + " " + jqXHR.text)
+                                                                swal("", "เกินข้อผิดพลาด!", "error");
 
                                                             }
                                                         });

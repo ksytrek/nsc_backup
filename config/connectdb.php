@@ -34,8 +34,8 @@ class Database {
         }
         if($table == "members"){
             // INSERT INTO `members` (`id_mem`, `id_code`, `name`, `last_name`, `e_main`, `pass`, `phone`, `position`, `stu_face`) VALUES (NULL, '1222222', 'SOMPHOL', '333333', 'sdf', '62122710108', '0971271931', 'นักศึกษา', '0');
-            $insert = self::getLink()->prepare("INSERT INTO `members` (`id_mem`, `id_code`, `name`, `last_name`, `e_main`, `pass`, `phone`, `position`, `stu_face`) 
-            VALUES (NULL, :id_code, :name, :last_name, :e_main, :pass, :phone, :position, '0');");
+            $insert = self::getLink()->prepare("INSERT INTO `members` (`id_mem`, `id_code`, `name`, `last_name`, `e_mail`, `pass`, `phone`, `position`, `stu_face`) 
+            VALUES (NULL, :id_code, :name, :last_name, :e_mail, :pass, :phone, :position, '0');");
             return $insert->execute($value_array);
         }
         if($table == "eligibility"){
