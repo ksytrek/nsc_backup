@@ -7,6 +7,18 @@
 
 </head>
 
+<?php
+// include_once('../../config/connectdb.php');
+try {
+    $row_rom = Database::query("SELECT COUNT(*) as total FROM `rooms`;", PDO::FETCH_ASSOC)->fetch();
+    $row_persona = Database::query("SELECT COUNT(*) as total FROM members;", PDO::FETCH_ASSOC)->fetch();
+    $row_rqroom = Database::query("SELECT COUNT(*) as total FROM rqroom;", PDO::FETCH_ASSOC)->fetch();
+    $row_schedule = Database::query("SELECT COUNT(*) as total FROM schedule;", PDO::FETCH_ASSOC)->fetch();
+} catch (Exception $e) {
+    echo $e->getMessage();
+    // echo "<script>alert( '{$error}')</script>";
+}
+?>
 
 <body>
     <div class="content-wrap">
@@ -23,7 +35,7 @@
                                 <div class="stat-content">
                                     <div class="text-left dib">
                                         <div class="stat-heading">จำนวนบุคลากร</div>
-                                        <div class="stat-text">Total: 765</div>
+                                        <div class="stat-text">Total: <?php echo $row_persona['total'] ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +50,7 @@
                                 <div class="stat-content">
                                     <div class="text-left dib">
                                         <div class="stat-heading">จำนวนห้อง</div>
-                                        <div class="stat-text">Total: 30</div>
+                                        <div class="stat-text">Total: <?php echo $row_rom['total'] ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +65,7 @@
                                 <div class="stat-content">
                                     <div class="text-left dib">
                                         <div class="stat-heading">จำนวนที่ร้องขอ</div>
-                                        <div class="stat-text">Total: 20</div>
+                                        <div class="stat-text">Total: <?php echo $row_rqroom['total'] ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -67,8 +79,8 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-heading">เครื่องที่ออนไลน์</div>
-                                        <div class="stat-text">Total : 30 </div>
+                                        <div class="stat-heading">จำนวนประวัติใช้ห้อง</div>
+                                        <div class="stat-text">Total : <?php echo $row_schedule['total'] ?> </div>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +97,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover ">
+                                    <table class="table table-hover " id="tb_showroom">
                                         <thead>
                                             <tr>
                                                 <th>ชื่อห้อง</th>
@@ -93,8 +105,8 @@
                                                 <th class="text-center">จำนวนที่มีสิทธิ์เข้า</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody id="tbb_showroom">
+                                            <!-- <tr>
                                                 <td>Kolor Tea Shirt For Man</td>
                                                 <td>
                                                     <button class="btn badge badge-danger">Off</button>
@@ -117,15 +129,82 @@
                                                 </td>
                                                 <td class="text-center"> 25</td>
 
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
+
+                                        <script>
+                                            window.onload = function() {
+                                                tb_showroom();
+                                            };
+
+                                            setInterval(function() {
+                                                tb_showroom();
+                                            }, 1000); // 1000 = 1 second
+
+
+                                            function tb_showroom() {
+                                                $.ajax({
+                                                    url: "./controller/con_admin.php",
+                                                    type: "POST",
+                                                    data: {
+                                                        key: "tb_showroom"
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
+                                                        // alert(result);
+
+                                                        var json = jQuery.parseJSON(result);
+                                                        var i = 0;
+                                                        if (json != false) {
+                                                            $("#tbb_showroom").empty();
+                                                            $.each(json, function(key, val) {
+                                                                // i += 1;
+                                                                var row = "";
+                                                                var tr = "<tr>";
+                                                                var _tr = "</tr>";
+                                                                var td = "<td>";
+                                                                var _td = "</td>";
+                                                                var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
+                                                                    timeZone: 'Asia/Bangkok'
+                                                                });
+                                                                // console.log(date);
+
+                                                                row += tr; 
+                                                                row += td + val["room_num"] + _td;
+                                                                row += td + val["room_fstatus"] +"<button class='btn badge badge-danger'>Off</button>"+ _td;
+                                                                row += td + val["room_fstatus"] == "0" ? alert("please give me a lemonade 1") : alert("then give me a beer 2 ")+ "จำนวนสิทธิ์" + _td;
+                                                                row += _tr;
+
+                                                                $('#tb_showroom > tbody:last').append(row);
+                                                            });
+                                                        } else {
+                                                            $("#tbb_showroom").empty();
+                                                            var row = "";
+                                                            var tr = "<tr>";
+                                                            var _tr = "</tr>";
+                                                            var td = "<td>";
+                                                            var _td = "</td>";
+
+                                                            row += tr;
+                                                            row += td + "" + _td;
+                                                            row += td + "ยังไม่มีข้อมูลสิทธิ์" + _td;
+                                                            row += _tr;
+
+                                                            $('#tb_showroom  > tbody:last').append(row);
+                                                        }
+                                                    }
+                                                }).error(function(xhr, status, error) {
+                                                    alert(xhr.statusText + status + error + ': ' + xhr.responseText);
+                                                });
+
+                                            }
+                                        </script>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- /# column -->
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -153,7 +232,7 @@
                                                 <td>SOMPHOL WILA</td>
                                                 <td>วิทยาการ 3012</td>
                                                 <td class="text-center">
-                                                    <a  href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-check color-success" ></i></a>
+                                                    <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-check color-success"></i></a>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                                     <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-close color-danger"></i></a>
                                                 </td>
@@ -164,7 +243,7 @@
                                                 <td>สมผล เจริฐพร</td>
                                                 <td>วิทยาการ 30182</td>
                                                 <td class="text-center">
-                                                    <a  href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-check color-success" ></i></a>
+                                                    <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-check color-success"></i></a>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                                     <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-close color-danger"></i></a>
                                                 </td>
@@ -200,7 +279,7 @@
                                                 <th scope="row">1</th>
                                                 <td>1339900662224</td>
                                                 <td>SOMPHOL WILA</td>
-                                                <td>January</td> 
+                                                <td>January</td>
                                                 <td class="color-primary text-center">14:00 10/12/2564</td>
                                             </tr>
                                             <tr>
@@ -235,7 +314,11 @@
             </div>
         </div>
     </div>
-    <script>$(document).ready(function() {$('#dataTable').DataTable();});</script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
