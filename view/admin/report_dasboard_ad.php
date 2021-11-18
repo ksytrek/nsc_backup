@@ -131,7 +131,17 @@ try {
 
                                             </tr> -->
                                         </tbody>
-
+                                        <?php
+                                                function shom_id_room($id_room){
+                                                    // echo $id_room; 
+                                                    $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
+                                                    if ($row = $show_tebelig -> fetch()) {
+                                                        return $row['total'];
+                                                    } else {
+                                                        return "ยังไม่มีสิทธิ์เข้าห้อง";
+                                                    }     
+                                                }
+                                        ?>
                                         <script>
                                             window.onload = function() {
                                                 tb_showroom();
@@ -139,10 +149,30 @@ try {
 
                                             setInterval(function() {
                                                 tb_showroom();
-                                            }, 1000); // 1000 = 1 second
+                                            }, 5000); // 1000 = 1 second
 
+                                            var sta = "";
+
+                                            function el_sum(id_room) {
+                                                // var id_room = val["id_room"];
+                                                $.ajax({
+                                                    url: "./controller/con_admin.php",
+                                                    type: "POST",
+                                                    data: {
+                                                        key: "el_id_room",
+                                                        id_room: id_room
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
+                                                        sta = result;
+                                                    },
+                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                        // return errorThrown;
+                                                    }
+                                                });
+                                            }
 
                                             function tb_showroom() {
+                                                var totalel = "";
                                                 $.ajax({
                                                     url: "./controller/con_admin.php",
                                                     type: "POST",
@@ -155,7 +185,9 @@ try {
                                                         var json = jQuery.parseJSON(result);
                                                         var i = 0;
                                                         if (json != false) {
+
                                                             $("#tbb_showroom").empty();
+
                                                             $.each(json, function(key, val) {
                                                                 // i += 1;
                                                                 var row = "";
@@ -163,17 +195,25 @@ try {
                                                                 var _tr = "</tr>";
                                                                 var td = "<td>";
                                                                 var _td = "</td>";
-                                                                var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
-                                                                    timeZone: 'Asia/Bangkok'
-                                                                });
+                                                                // var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
+                                                                //     timeZone: 'Asia/Bangkok'
+                                                                // });
                                                                 // console.log(date);
-                                                                var status = val["room_fstatus"];
-                                                                var btn_status = status == '0' ? "<button class='btn badge badge-danger'>Off</button>" : "<button class='btn badge badge-success'>On</button>" ;
 
-                                                                row += tr; 
+                                                                // el_sum(val['id_room']) ;
+
+                                                                var status = val["room_fstatus"];
+                                                                var btn_status = status == '0' ? "<button class='btn badge badge-danger'>Off</button>" : "<button class='btn badge badge-success'>On</button>";
+
+                                                                // el_sum(val['id_room']);
+
+                                                                // alert("ข้อความ " + sta);
+
+                                                                // alert("ข้อความ ");
+                                                                row += tr;
                                                                 row += td + val["room_num"] + _td;
                                                                 row += td + btn_status + _td;
-                                                                row += td + "จำนวนสิทธิ์" + _td;
+                                                                row += td + '<'+'?'+'php'+'echo'+ 'shom_id_room('+ val['room_num'] +');'+ '?>' + _td; 
                                                                 row += _tr;
 
                                                                 $('#tb_showroom > tbody:last').append(row);
@@ -188,7 +228,7 @@ try {
 
                                                             row += tr;
                                                             row += td + "" + _td;
-                                                            row += td + "ยังไม่มีข้อมูลสิทธิ์" + _td;
+                                                            row += td + "ยังไม่มีข้อมูลสิทธิ์" + el_sum(val["id_room"]) + _td;
                                                             row += _tr;
 
                                                             $('#tb_showroom  > tbody:last').append(row);
@@ -200,6 +240,8 @@ try {
 
                                             }
                                         </script>
+
+                                        
                                     </table>
                                 </div>
                             </div>

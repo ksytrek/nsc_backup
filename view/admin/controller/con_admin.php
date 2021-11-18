@@ -11,9 +11,6 @@ if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
             }
             echo json_encode($resultArray);
         }else{
-            // $resultArray = [
-            //     "error" => $e->getMessage()
-            // ];
             echo json_encode($resultArray);
         }
     } catch (Exception $e) {
@@ -22,14 +19,23 @@ if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
         ];
         echo json_encode($resultArray);
     }
-
-
-
-
 }
 
 
+if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
+    $id_room = $_POST["id_room"];
+    // echo $id_room; 
 
-
+    try {
+        $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
+        if($row = $show_tebelig->fetch()){
+            echo $row['total'];
+        }else{
+            echo "ยังไม่มีสิทธิ์เข้าห้อง";
+        }
+    } catch (Exception $e) {
+            echo "error".$e->getMessage();
+    }
+}
 
 ?>
