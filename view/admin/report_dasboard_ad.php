@@ -167,11 +167,13 @@ try {
                                                                     timeZone: 'Asia/Bangkok'
                                                                 });
                                                                 // console.log(date);
+                                                                var status = val["room_fstatus"];
+                                                                var btn_status = status == '0' ? "<button class='btn badge badge-danger'>Off</button>" : "<button class='btn badge badge-success'>On</button>" ;
 
                                                                 row += tr; 
                                                                 row += td + val["room_num"] + _td;
-                                                                row += td + val["room_fstatus"] +"<button class='btn badge badge-danger'>Off</button>"+ _td;
-                                                                row += td + val["room_fstatus"] == "0" ? alert("please give me a lemonade 1") : alert("then give me a beer 2 ")+ "จำนวนสิทธิ์" + _td;
+                                                                row += td + btn_status + _td;
+                                                                row += td + "จำนวนสิทธิ์" + _td;
                                                                 row += _tr;
 
                                                                 $('#tb_showroom > tbody:last').append(row);
