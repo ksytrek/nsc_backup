@@ -181,7 +181,7 @@ try {
                                                     },
                                                     success: function(result, textStatus, jqXHR) {
                                                         // alert(result);
-
+                                                        console.log(result);
                                                         var json = jQuery.parseJSON(result);
                                                         var i = 0;
                                                         if (json != false) {
