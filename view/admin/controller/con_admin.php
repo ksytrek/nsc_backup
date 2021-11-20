@@ -38,4 +38,20 @@ if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
     }
 }
 
+
+
+// save sql grou by 
+$sql = "#SELECT eligibility.id_room , COUNT(*) FROM `eligibility` LEFT JOIN  GROUP BY eligibility.id_room;\n"
+
+    . "#SELECT rooms.room_num , COUNT(*) FROM rooms LEFT JOIN eligibility ON rooms.id_room = eligibility.id_room ;#\n"
+
+    . "SELECT  rooms.room_num , COUNT(*) as count\n"
+
+    . "    FROM rooms LEFT JOIN eligibility\n"
+
+    . "    ON rooms.id_room = eligibility.id_room\n"
+
+    . "    GROUP by rooms.id_room , eligibility.id_room;";
+
+
 ?>
