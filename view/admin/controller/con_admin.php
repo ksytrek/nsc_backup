@@ -44,7 +44,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'show_rqroom'){
     // echo "rqroom";
     $resultArray = array();
     try {
-        $sql_rqroom_search = "SELECT mm.id_code, mm.name ,mm.last_name , rm.room_num , mm.id_mem , rm.id_room FROM rqroom as rq INNER JOIN members as mm ON rq.id_mem = mm.id_mem INNER JOIN rooms as rm ON rq.id_room = rm.id_room;";
+        $sql_rqroom_search = "SELECT mm.id_code, mm.name ,mm.last_name , rm.room_num , mm.id_mem , rm.id_room , rq.rq_id FROM rqroom as rq INNER JOIN members as mm ON rq.id_mem = mm.id_mem INNER JOIN rooms as rm ON rq.id_room = rm.id_room;";
         if ($show_tebelig = Database::query($sql_rqroom_search, PDO::FETCH_ASSOC)) {
             foreach ($show_tebelig  as $row) {
                 array_push($resultArray, $row);
@@ -65,14 +65,33 @@ if(isset($_POST['key']) && $_POST['key'] == 'show_rqroom'){
 if (isset($_POST['key']) && $_POST['key'] == 'click_examine'){
     // echo "OK". $_POST["keyclick"]." ". $_POST["id_room"];
     $keyclick = $_POST["keyclick"];
-    $id_room = $_POST["id_room"];
-    $id_mem = $_POST["id_mem"];
-    if($keyclick == 0){
-        // 0 = fornbi ยกเลิก
-        echo "cancel";
+    $rq_id = $_POST["rq_id"];
+    if($keyclick == "0"){
+        // 0 = fornbi ยกเลิ
+        try{
+            if(Database::query("DELETE FROM `rqroom` WHERE `rqroom`.`rq_id` = '{$rq_id}';")){
+                echo "cancel";
+            }
+        }catch (Exception $e) {
+            echo "An error occurred".$e->getMessage();
+        }
+        
     }else{
         // 1 ยืนยัน หรือ allow
-        echo "Allow";
+        try{
+            $search_rq_id = Database::query("SELECT * FROM `rqroom` WHERE rq_id = $rq_id",PDO::FETCH_ASSOC)->fetch();
+            $id_room = $search_rq_id['id_room'];
+            $id_mem = $search_rq_id['id_mem'];
+            if(Database::query("INSERT INTO `eligibility` (`id_eligibilty`, `id_mem`, `id_room`) VALUES (NULL, '$id_mem', '$id_room');")){
+                Database::query("DELETE FROM `rqroom` WHERE `rqroom`.`rq_id` = '{$rq_id}';");
+                echo "OK";
+            }else{
+                echo "Error";
+            }
+        }catch (Exception $e) {
+            echo "Error: ".$e->getMessage();
+        }
+        
     }
 }
 

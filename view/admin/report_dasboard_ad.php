@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="utf-8">
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 </head>
 
 <?php
@@ -107,30 +102,7 @@ try {
                                             </tr>
                                         </thead>
                                         <tbody id="tbb_showroom">
-                                            <!-- <tr>
-                                                <td>Kolor Tea Shirt For Man</td>
-                                                <td>
-                                                    <button class="btn badge badge-danger">Off</button>
-                                                </td>
-                                                <td class="text-center">22</td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>Kolor Tea Shirt For Women</td>
-                                                <td>
-                                                    <button class="btn badge badge-success">On</button>
-                                                </td>
-                                                <td class="text-center">30</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Blue Backpack For Baby</td>
-                                                <td>
-                                                    <button class="btn badge badge-danger">Off</button>
-                                                </td>
-                                                <td class="text-center"> 25</td>
-
-                                            </tr> -->
                                         </tbody>
                                         <?php
                                         function shom_id_room($id_room)
@@ -266,7 +238,7 @@ try {
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card">
+                        <div id='row_check_rqroom' style="display: none;" class="card">
                             <div class="card-title">
                                 <h4>ตรวจสอบการร้องขอของบุคลากร</h4>
                             </div>
@@ -279,7 +251,7 @@ try {
                                                 <th>รหัสประจำตัว</th>
                                                 <th>ชื่อ - สกุล</th>
                                                 <th>ขอใช้ห้อง</th>
-                                                <th class="text-center">ตรวจสอบ</th>
+                                                <th>ตรวจสอบ</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbb_showrqroom">
@@ -288,7 +260,6 @@ try {
                                     </table>
 
                                     <script>
-                                        
                                         function show_rqroom() {
                                             var totalel = "";
                                             $.ajax({
@@ -304,9 +275,10 @@ try {
                                                     var json = jQuery.parseJSON(result);
                                                     var i = 0;
                                                     if (json != false) {
-
+                                                        // $('#row_check_rqroom').style
+                                                        $("#row_check_rqroom").css("display", "block");
                                                         $("#tbb_showrqroom").empty();
-
+                                                        var name_room = "";
                                                         $.each(json, function(key, val) {
                                                             // i += 1;
                                                             var row = "";
@@ -316,9 +288,10 @@ try {
                                                             var _td = "</td>";
 
                                                             row += tr;
+                                                            name_room = " " + val["id_code"] + " เข้าห้อง " + val["room_num"] + " ได้ ";
 
-                                                            var click_allow = "<button  type='button'  onclick='click_examine("+ 1 + ',' + val['id_room'] + ',' + val['id_mem'] + ")' class='btn btn-success btn-flat btn-addon btn-sm m-b-10 m-l-5'><i class='ti-check'></i>Allow</button>" + "&nbsp;&nbsp;&nbsp;&nbsp;" +
-                                                                                "<button onclick='click_examine("+ 0 + ',' + val['id_room'] + ',' + val['id_mem'] + ")' type='button' class='btn btn-danger  btn-flat btn-addon btn-sm m-b-10 m-l-5'><i class='ti-close'></i>Forbid</button>";
+                                                            var click_allow = "<button  type='button'  onclick='click_examine(" + 1 + ',' + val['rq_id'] + ',' + '"' + name_room + '"' + ")' class='btn btn-success btn-flat btn-addon btn-sm m-b-10 m-l-5'><i class='ti-check'></i>Allow</button>" + "&nbsp;&nbsp;&nbsp;&nbsp;" +
+                                                                "<button onclick='click_examine(" + 0 + ',' + val['rq_id'] + ',' + '"' + 'ไม่อนุญาติให้ ' + val["id_code"] + 'เข้าห้อง ' + val["room_num"] + '"' + ")' type='button' class='btn btn-danger  btn-flat btn-addon btn-sm m-b-10 m-l-5'><i class='ti-close'></i>Forbid</button>";
                                                             row += td + count + _td;
                                                             row += td + val["id_code"] + _td;
                                                             row += td + val["name"] + "  " + val["last_name"] + _td;
@@ -351,32 +324,86 @@ try {
                                                 alert(xhr.statusText + status + error + ': ' + xhr.responseText);
                                             });
                                         }
-                                        // $('#click').click(function() {
-                                        //     alert('Cancel action occurs!');
-                                        // });
-                                        // $("#click_allow").on("click", function() {
-                                        //     alert("Allow");
-                                        // });
-                                        // $("#click_cancel").on("click", function() {
-                                        //     alert("Cancel");
-                                        // });
-                                        function click_examine(keyclick,id_mem, id_room){
-                                            $.ajax({
-                                                url: "./controller/con_admin.php",
-                                                type: "POST",
-                                                data: {
-                                                    key : "click_examine",
-                                                    keyclick : keyclick,
-                                                    id_mem : id_mem,
-                                                    id_room : id_room
-                                                },
-                                                success: function(result, textStatus, jqXHR) {
-                                                    alert(result);
-                                                },
-                                                error: function(jqXHR, textStatus, errorThrown){
-                                                    alert("Error: " + errorThrown);
-                                                }
-                                            });
+
+                                        function click_examine(keyclick, rq_id, name) {
+                                            if (keyclick == 1) {
+                                                swal({
+                                                    title: "Are you sure?",
+                                                    text: "ต้องการอนุญาติให้" + name + " ",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true,
+                                                }).then((willDelete) => {
+                                                    if (willDelete) {
+                                                        $.ajax({
+                                                            url: "./controller/con_admin.php",
+                                                            type: "POST",
+                                                            data: {
+                                                                key: "click_examine",
+                                                                keyclick: keyclick,
+                                                                rq_id: rq_id
+                                                            },
+                                                            success: function(result, textStatus, jqXHR) {
+                                                                // alert(result);
+                                                                if(result == "OK"){
+                                                                    swal("อนุญาติเข้าห้องสำเร็จ", {
+                                                                    icon: "success",
+                                                                    buttons: false,
+                                                                    timer: 1000,
+                                                                });
+                                                                
+                                                                }else{
+                                                                    alert("error")
+                                                                }
+                                                            },
+                                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                                alert("Error: " + errorThrown);
+                                                            }
+                                                        });
+                                                    } else {
+                                                        // swal("Your imaginary file is safe!");
+                                                    }
+                                                });
+                                            } else {
+                                                swal({
+                                                    title: "Are you sure?",
+                                                    text:  name + " ",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true,
+                                                }).then((willDelete) => {
+                                                    if (willDelete) {
+                                                        $.ajax({
+                                                            url: "./controller/con_admin.php",
+                                                            type: "POST",
+                                                            data: {
+                                                                key: "click_examine",
+                                                                keyclick: keyclick,
+                                                                rq_id: rq_id
+                                                            },
+                                                            success: function(result, textStatus, jqXHR) {
+                                                                // alert(result);
+                                                                if(result == "cancel"){
+                                                                    swal("ปฏิเสธเข้าห้องสำเร็จ", {
+                                                                    icon: "success",
+                                                                    buttons: false,
+                                                                    timer: 1000,
+                                                                });
+                                                                }else{
+                                                                    alert("error")
+                                                                }
+                                                            },
+                                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                                alert("Error: " + errorThrown);
+                                                            }
+                                                        });
+                                                    } else {
+                                                        // swal("Your imaginary file is safe!");
+                                                    }
+                                                });
+                                            }
+
+
                                         }
                                         // function click_examine_forbid(){
                                         //     alert("forbid");
@@ -404,31 +431,26 @@ try {
                                                 <th>รหัสประจำตัว</th>
                                                 <th>ชื่อ - สกุล</th>
                                                 <th>ชื่อห้อง</th>
-                                                <th class="text-center">เวลา</th>
+                                                <th>เวลา</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>1339900662224</td>
-                                                <td>SOMPHOL WILA</td>
-                                                <td>January</td>
-                                                <td class="color-primary text-center">14:00 10/12/2564</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>1339900662224</td>
-                                                <td>SOMPHOL WILA</td>
-                                                <td> 30</td>
-                                                <td class="color-primary text-center">14:00 10/12/2564</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>1339900662224</td>
-                                                <td>SOMPHOL WILA</td>
-                                                <td>Jan5</td>
-                                                <td class="color-primary text-center">14:00 10/12/2564</td>
-                                            </tr>
+                                            <?php
+                                            $num = 0;
+                                            $sql = Database::query("SELECT mm.id_code, mm.name,mm.last_name,rm.room_num , sc.time_stamp FROM `schedule` as sc INNER JOIN members as mm ON sc.id_mem = mm.id_mem INNER JOIN rooms as rm ON sc.id_room = rm.id_room;", PDO::FETCH_ASSOC);
+                                            foreach ($sql as $row) :
+                                                $num += 1;
+                                            ?>
+                                                <tr>
+                                                    <th scope="row"><?php echo $num; ?></th>
+                                                    <td><?php echo $row['id_code'] ?></td>
+                                                    <td><?php echo $row['name'] . " " . $row['last_name'] ?></td>
+                                                    <td><?php echo $row['room_num'] ?></td>
+                                                    <td class="color-primary text-center"><?php echo date("H:i d/m/Y", strtotime($row['time_stamp'])); ?></td>
+                                                </tr>
+                                            <?php
+                                            endforeach;
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -456,7 +478,7 @@ try {
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- scripit init-->
-    <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
@@ -464,7 +486,7 @@ try {
     <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
+    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
 
 
 

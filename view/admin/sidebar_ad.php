@@ -8,18 +8,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- ================= Favicon ================== -->
-    <!-- Standard -->
-    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
-    <!-- Retina iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
-    <!-- Retina iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
-    <!-- Standard iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
-    <!-- Standard iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
-
     <!-- Styles -->
     <!-- <link href="../../script/assets/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet"> -->
     <!-- <link href="../../script/assets/css/lib/chartist/chartist.min.css" rel="stylesheet"> -->
@@ -32,6 +20,8 @@
     <link href="../../script/assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="../../script/assets/css/lib/helper.css" rel="stylesheet">
     <link href="../../script/assets/css/style.css" rel="stylesheet">
+
+    <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
 
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
@@ -109,8 +99,6 @@
                                                     <a href="./personal_search_ad.php"><i class="ti-user"></i> <span>
                                                             Profile</span></a>
                                                 </li>
-
-
                                                 <li>
                                                     <a href="#"><i class="ti-lock"></i> <span> Lock Screen</span></a>
                                                 </li>
@@ -129,8 +117,6 @@
                                 </span>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -148,6 +134,8 @@
     <script src="../../script/assets/js/lib/preloader/pace.min.js"></script>
     <script src="../../script/assets/js/lib/bootstrap.min.js"></script>
     <script src="../../script/assets/js/scripts.js"></script>
+
+    <script src="../../script/assets/js/sweetalert.min.js"></script>
 
 
     <script src="../../script/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>

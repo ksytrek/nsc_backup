@@ -325,8 +325,7 @@ include('../config/connectdb.php');
                                                     buttons: true,
                                                     dangerMode: true,
 
-                                                })
-                                                .then((willDelete) => {
+                                                }).then((willDelete) => {
                                                     if (willDelete) {
                                                         $.ajax({
                                                             type: "POST",
