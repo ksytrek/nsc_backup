@@ -95,7 +95,52 @@ if (isset($_POST['key']) && $_POST['key'] == 'click_examine'){
     }
 }
 
+if(isset($_POST['key']) && $_POST['key'] == 'search_id_code'){
+    // echo "Search";
+    $id_code = $_POST['id_code'];
+    // echo $id_code;
+    $resultArray = array();
+    try {
+        $sql = "SELECT * FROM `members` WHERE id_code LIKE '%{$id_code}%';";
+        if ($show_tebelig = Database::query($sql, PDO::FETCH_ASSOC)) {
+            foreach ($show_tebelig  as $row) {
+                array_push($resultArray, $row);
+            }
+            echo json_encode($resultArray);
+        }else{
+            echo json_encode($resultArray);
+        }
+    } catch (Exception $e) {
+        $resultArray = [
+            "error" => $e->getMessage()
+        ];
+        echo json_encode($resultArray);
+    }
+}
 
+
+
+// if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
+
+//     $resultArray = array();
+//     try {
+//         $sql_rqroom_search = "SELECT mm.id_code, mm.name ,mm.last_name , rm.room_num , mm.id_mem , rm.id_room , rq.rq_id FROM rqroom as rq INNER JOIN members as mm ON rq.id_mem = mm.id_mem INNER JOIN rooms as rm ON rq.id_room = rm.id_room;";
+//         if ($show_tebelig = Database::query($sql_rqroom_search, PDO::FETCH_ASSOC)) {
+//             foreach ($show_tebelig  as $row) {
+//                 array_push($resultArray, $row);
+//             }
+//             echo json_encode($resultArray);
+//         }else{
+//             echo json_encode($resultArray);
+//         }
+//     } catch (Exception $e) {
+//         $resultArray = [
+//             "error" => $e->getMessage()
+//         ];
+//         echo json_encode($resultArray);
+//     }
+
+// }
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
 //     $id_room = $_POST["id_room"];
