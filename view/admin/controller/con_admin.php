@@ -5,7 +5,8 @@ if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
     // $id_mem = $_POST['id_mem'];
     $resultArray = array();
     try {
-        if ($show_tebelig = Database::query("SELECT * FROM `rooms` ", PDO::FETCH_ASSOC)) {
+        $sql_room_search = "SELECT rm.id_room , rm.room_num,rm.room_fstatus ,COUNT(el.id_room) as 'count' FROM rooms as rm LEFT JOIN eligibility as el ON rm.id_room = el.id_room GROUP BY rm.id_room;";
+        if ($show_tebelig = Database::query($sql_room_search, PDO::FETCH_ASSOC)) {
             foreach ($show_tebelig  as $row) {
                 array_push($resultArray, $row);
             }
@@ -21,37 +22,41 @@ if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
     }
 }
 
-
-if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
-    $id_room = $_POST["id_room"];
-    // echo $id_room; 
-
-    try {
-        $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
-        if($row = $show_tebelig->fetch()){
-            echo $row['total'];
-        }else{
-            echo "ยังไม่มีสิทธิ์เข้าห้อง";
+if(isset($_POST['key']) && $_POST['key'] == 'ckick_btn_room_fstatus'){
+    // echo "ckick_btn_room_fstatus";
+    $id_room = $_POST['id_room'];
+    $status = $_POST['status'];
+    // echo $id_room . " " . $satus;
+    if($status == 0){
+        // echo "ได้เปิดห้องเรียบร้อย";
+        if(Database::query("UPDATE `rooms` SET `room_fstatus` = '1' WHERE `rooms`.`id_room` = {$id_room};")){
+            echo "ได้เปิดไฟห้องเรียบร้อย";
         }
-    } catch (Exception $e) {
-            echo "error".$e->getMessage();
+    }else{
+        // echo "ได้ปิดห้องเรียบร้อย";
+        if(Database::query("UPDATE `rooms` SET `room_fstatus` = '0' WHERE `rooms`.`id_room` = {$id_room};")){
+            echo "ได้ปิดไฟห้องเรียบร้อย";
+        }
     }
 }
 
 
 
-// save sql grou by 
-$sql = "#SELECT eligibility.id_room , COUNT(*) FROM `eligibility` LEFT JOIN  GROUP BY eligibility.id_room;\n"
+// if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
+//     $id_room = $_POST["id_room"];
+//     // echo $id_room; 
 
-    . "#SELECT rooms.room_num , COUNT(*) FROM rooms LEFT JOIN eligibility ON rooms.id_room = eligibility.id_room ;#\n"
-
-    . "SELECT  rooms.room_num , COUNT(*) as count\n"
-
-    . "    FROM rooms LEFT JOIN eligibility\n"
-
-    . "    ON rooms.id_room = eligibility.id_room\n"
-
-    . "    GROUP by rooms.id_room , eligibility.id_room;";
+//     try {
+//         $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
+//         if($row = $show_tebelig->fetch()){
+//             echo $row['total'];
+//         }else{
+//             echo "ยังไม่มีสิทธิ์เข้าห้อง";
+//         }
+//     } catch (Exception $e) {
+//             echo "error".$e->getMessage();
+//     }
+// }
 
 
 ?>

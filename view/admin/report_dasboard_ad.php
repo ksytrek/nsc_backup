@@ -181,7 +181,7 @@ try {
                                                     },
                                                     success: function(result, textStatus, jqXHR) {
                                                         // alert(result);
-                                                        console.log(result);
+                                                        // console.log(result);
                                                         var json = jQuery.parseJSON(result);
                                                         var i = 0;
                                                         if (json != false) {
@@ -203,17 +203,23 @@ try {
                                                                 // el_sum(val['id_room']) ;
 
                                                                 var status = val["room_fstatus"];
-                                                                var btn_status = status == '0' ? "<button class='btn badge badge-danger'>Off</button>" : "<button class='btn badge badge-success'>On</button>";
-
+                                                                var btn_status ;
+                                                                if(status == '0' ){
+                                                                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus("+val['id_room']+','+ status +")' class='btn badge badge-danger'>Off</button>";
+                                                                }else{
+                                                                    btn_status =  "<button type='button' onclick='ckick_btn_room_fstatus("+val['id_room']+','+ status +")'  class='btn badge badge-success'>On</button>";
+                                                                }
                                                                 // el_sum(val['id_room']);
 
                                                                 // alert("ข้อความ " + sta);
 
                                                                 // alert("ข้อความ ");
+                                                                var count = val['count'];
+                                                                var check_count = count == "0" ? 'ว่าง' : count
                                                                 row += tr;
                                                                 row += td + val["room_num"] + _td;
                                                                 row += td + btn_status + _td;
-                                                                row += td + '<'+'?'+'php'+'echo'+ 'shom_id_room('+ val['room_num'] +');'+ '?>' + _td; 
+                                                                row += td + check_count + _td; 
                                                                 row += _tr;
 
                                                                 $('#tb_showroom > tbody:last').append(row);
@@ -236,6 +242,31 @@ try {
                                                     }
                                                 }).error(function(xhr, status, error) {
                                                     alert(xhr.statusText + status + error + ': ' + xhr.responseText);
+                                                });
+
+                                            }
+
+                                            function ckick_btn_room_fstatus(id_room,status) {
+                                                if(status == "0"){
+                                                    // alert("off");
+                                                }else if(status == "1"){
+                                                    // alert("on");
+                                                }
+
+                                                $.ajax({
+                                                    url: "./controller/con_admin.php",
+                                                    type: "POST",
+                                                    data: {
+                                                        key: "ckick_btn_room_fstatus",
+                                                        id_room: id_room, 
+                                                        status: status
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
+                                                        alert(result);
+                                                    },
+                                                    error: function(jqXHR, textStatus, errorThrown){
+
+                                                    }
                                                 });
 
                                             }
