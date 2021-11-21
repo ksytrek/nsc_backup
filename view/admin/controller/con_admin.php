@@ -40,6 +40,27 @@ if(isset($_POST['key']) && $_POST['key'] == 'ckick_btn_room_fstatus'){
     }
 }
 
+if(isset($_POST['key']) && $_POST['key'] == 'show_rqroom'){
+    // echo "rqroom";
+    $resultArray = array();
+    try {
+        $sql_rqroom_search = "SELECT mm.id_code, mm.name ,mm.last_name , rm.room_num , mm.id_mem , rm.id_room FROM rqroom as rq INNER JOIN members as mm ON rq.id_mem = mm.id_mem INNER JOIN rooms as rm ON rq.id_room = rm.id_room;";
+        if ($show_tebelig = Database::query($sql_rqroom_search, PDO::FETCH_ASSOC)) {
+            foreach ($show_tebelig  as $row) {
+                array_push($resultArray, $row);
+            }
+            echo json_encode($resultArray);
+        }else{
+            echo json_encode($resultArray);
+        }
+    } catch (Exception $e) {
+        $resultArray = [
+            "error" => $e->getMessage()
+        ];
+        echo json_encode($resultArray);
+    }
+}
+
 
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){

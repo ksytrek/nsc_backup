@@ -102,7 +102,7 @@ try {
                                             <tr>
                                                 <th>ชื่อห้อง</th>
                                                 <th>สถานะไฟ</th>
-                                                <th class="text-center">จำนวนที่มีสิทธิ์เข้า</th>
+                                                <th>จำนวนที่มีสิทธิ์เข้า</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbb_showroom">
@@ -145,32 +145,15 @@ try {
                                         <script>
                                             window.onload = function() {
                                                 tb_showroom();
+                                                show_rqroom() ;
                                             };
 
                                             setInterval(function() {
                                                 tb_showroom();
+                                                show_rqroom() ;
                                             }, 5000); // 1000 = 1 second
 
-                                            var sta = "";
-
-                                            function el_sum(id_room) {
-                                                // var id_room = val["id_room"];
-                                                $.ajax({
-                                                    url: "./controller/con_admin.php",
-                                                    type: "POST",
-                                                    data: {
-                                                        key: "el_id_room",
-                                                        id_room: id_room
-                                                    },
-                                                    success: function(result, textStatus, jqXHR) {
-                                                        sta = result;
-                                                    },
-                                                    error: function(jqXHR, textStatus, errorThrown) {
-                                                        // return errorThrown;
-                                                    }
-                                                });
-                                            }
-
+                                        
                                             function tb_showroom() {
                                                 var totalel = "";
                                                 $.ajax({
@@ -234,7 +217,7 @@ try {
 
                                                             row += tr;
                                                             row += td + "" + _td;
-                                                            row += td + "ยังไม่มีข้อมูลสิทธิ์" + el_sum(val["id_room"]) + _td;
+                                                            row += td + "ยังไม่มีข้อมูลห้อง" + _td;
                                                             row += _tr;
 
                                                             $('#tb_showroom  > tbody:last').append(row);
@@ -265,14 +248,12 @@ try {
                                                         alert(result);
                                                     },
                                                     error: function(jqXHR, textStatus, errorThrown){
-
+                                                        alert(errorThrown);
                                                     }
                                                 });
 
                                             }
                                         </script>
-
-                                        
                                     </table>
                                 </div>
                             </div>
@@ -286,11 +267,10 @@ try {
                         <div class="card">
                             <div class="card-title">
                                 <h4>ตรวจสอบการร้องขอของบุคลากร</h4>
-
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover ">
+                                    <table class="table table-hover " id = "tb_showrqroom">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ลำดับ</th>
@@ -300,7 +280,7 @@ try {
                                                 <th class="text-center">ตรวจสอบ</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id ="tbb_showrqroom">
                                             <tr>
                                                 <td class="text-center">1</td>
                                                 <td>1339900662225</td>
@@ -324,8 +304,75 @@ try {
                                                 </td>
                                             </tr>
                                         </tbody>
+                                        
                                     </table>
+
+                                    <script>
+                                        function show_rqroom() {
+                                            var totalel = "";
+                                                $.ajax({
+                                                    url: "./controller/con_admin.php",
+                                                    type: "POST",
+                                                    data: {
+                                                        key: "show_rqroom"
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
+                                                        // alert(result);
+                                                        console.log(result);
+                                                        var count = 1;
+                                                        var json = jQuery.parseJSON(result);
+                                                        var i = 0;
+                                                        if (json != false) {
+
+                                                            $("#tbb_showrqroom").empty();
+
+                                                            $.each(json, function(key, val) {
+                                                                // i += 1;
+                                                                var row = "";
+                                                                var tr = "<tr>";
+                                                                var _tr = "</tr>";
+                                                                var td = "<td>";
+                                                                var _td = "</td>";
+                                                               
+                                                                row += tr;
+
+                                                                var click_allow = " <a href='' onclick='window.confirm('Press OK to close this option')'><i class='ti-check color-success'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;" + 
+                                                                                    "<a href='javascript:'window.confirm('Press OK to close this option')'><i class='ti-close color-danger'></i></a>";
+                                                                row += td + count + _td; 
+                                                                row += td + val["id_code"] + _td;
+                                                                row += td + val["name"]+ "  " + val["last_name"] + _td;
+                                                                row += td + val["room_num"] + _td; 
+                                                                row += td + click_allow + _td; 
+
+                                                                row += _tr;
+                                                                count++;
+
+                                                                $('#tb_showrqroom > tbody:last').append(row);
+                                                            });
+                                                        } else {
+                                                            $("#tbb_showrqroom").empty();
+                                                            var row = "";
+                                                            var tr = "<tr>";
+                                                            var _tr = "</tr>";
+                                                            var td = "<td>";
+                                                            var _td = "</td>";
+
+                                                            row += td + "" + _td;
+                                                            row += td + "" + _td;
+                                                            row += td + "" + _td; 
+                                                            row += td + "" + _td; 
+                                                            row += td + "ไม่มีข้อมูล" + _td; 
+
+                                                            $('#tb_showrqroom  > tbody:last').append(row);
+                                                        }
+                                                    }
+                                                }).error(function(xhr, status, error) {
+                                                    alert(xhr.statusText + status + error + ': ' + xhr.responseText);
+                                                });
+                                        }
+                                    </script>
                                 </div>
+
                             </div>
                         </div>
                     </div>
