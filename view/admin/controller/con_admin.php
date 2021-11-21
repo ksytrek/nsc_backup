@@ -62,6 +62,21 @@ if(isset($_POST['key']) && $_POST['key'] == 'show_rqroom'){
 }
 
 
+if (isset($_POST['key']) && $_POST['key'] == 'click_examine'){
+    // echo "OK". $_POST["keyclick"]." ". $_POST["id_room"];
+    $keyclick = $_POST["keyclick"];
+    $id_room = $_POST["id_room"];
+    $id_mem = $_POST["id_mem"];
+    if($keyclick == 0){
+        // 0 = fornbi ยกเลิก
+        echo "cancel";
+    }else{
+        // 1 ยืนยัน หรือ allow
+        echo "Allow";
+    }
+}
+
+
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
 //     $id_room = $_POST["id_room"];

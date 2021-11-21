@@ -83,6 +83,7 @@ try {
                                         <div class="stat-text">Total : <?php echo $row_schedule['total'] ?> </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -132,28 +133,29 @@ try {
                                             </tr> -->
                                         </tbody>
                                         <?php
-                                                function shom_id_room($id_room){
-                                                    // echo $id_room; 
-                                                    $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
-                                                    if ($row = $show_tebelig -> fetch()) {
-                                                        return $row['total'];
-                                                    } else {
-                                                        return "ยังไม่มีสิทธิ์เข้าห้อง";
-                                                    }     
-                                                }
+                                        function shom_id_room($id_room)
+                                        {
+                                            // echo $id_room; 
+                                            $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
+                                            if ($row = $show_tebelig->fetch()) {
+                                                return $row['total'];
+                                            } else {
+                                                return "ยังไม่มีสิทธิ์เข้าห้อง";
+                                            }
+                                        }
                                         ?>
                                         <script>
                                             window.onload = function() {
                                                 tb_showroom();
-                                                show_rqroom() ;
+                                                show_rqroom();
                                             };
 
                                             setInterval(function() {
                                                 tb_showroom();
-                                                show_rqroom() ;
+                                                // show_rqroom() ;
                                             }, 5000); // 1000 = 1 second
 
-                                        
+
                                             function tb_showroom() {
                                                 var totalel = "";
                                                 $.ajax({
@@ -186,11 +188,11 @@ try {
                                                                 // el_sum(val['id_room']) ;
 
                                                                 var status = val["room_fstatus"];
-                                                                var btn_status ;
-                                                                if(status == '0' ){
-                                                                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus("+val['id_room']+','+ status +")' class='btn badge badge-danger'>Off</button>";
-                                                                }else{
-                                                                    btn_status =  "<button type='button' onclick='ckick_btn_room_fstatus("+val['id_room']+','+ status +")'  class='btn badge badge-success'>On</button>";
+                                                                var btn_status;
+                                                                if (status == '0') {
+                                                                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
+                                                                } else {
+                                                                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
                                                                 }
                                                                 // el_sum(val['id_room']);
 
@@ -202,7 +204,7 @@ try {
                                                                 row += tr;
                                                                 row += td + val["room_num"] + _td;
                                                                 row += td + btn_status + _td;
-                                                                row += td + check_count + _td; 
+                                                                row += td + check_count + _td;
                                                                 row += _tr;
 
                                                                 $('#tb_showroom > tbody:last').append(row);
@@ -229,10 +231,10 @@ try {
 
                                             }
 
-                                            function ckick_btn_room_fstatus(id_room,status) {
-                                                if(status == "0"){
+                                            function ckick_btn_room_fstatus(id_room, status) {
+                                                if (status == "0") {
                                                     // alert("off");
-                                                }else if(status == "1"){
+                                                } else if (status == "1") {
                                                     // alert("on");
                                                 }
 
@@ -241,13 +243,13 @@ try {
                                                     type: "POST",
                                                     data: {
                                                         key: "ckick_btn_room_fstatus",
-                                                        id_room: id_room, 
+                                                        id_room: id_room,
                                                         status: status
                                                     },
                                                     success: function(result, textStatus, jqXHR) {
                                                         alert(result);
                                                     },
-                                                    error: function(jqXHR, textStatus, errorThrown){
+                                                    error: function(jqXHR, textStatus, errorThrown) {
                                                         alert(errorThrown);
                                                     }
                                                 });
@@ -270,7 +272,7 @@ try {
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover " id = "tb_showrqroom">
+                                    <table class="table table-hover " id="tb_showrqroom">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ลำดับ</th>
@@ -280,100 +282,105 @@ try {
                                                 <th class="text-center">ตรวจสอบ</th>
                                             </tr>
                                         </thead>
-                                        <tbody id ="tbb_showrqroom">
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>1339900662225</td>
-                                                <td>SOMPHOL WILA</td>
-                                                <td>วิทยาการ 3012</td>
-                                                <td class="text-center">
-                                                    <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-check color-success"></i></a>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-close color-danger"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">2</td>
-                                                <td>1339900662225</td>
-                                                <td>สมผล เจริฐพร</td>
-                                                <td>วิทยาการ 30182</td>
-                                                <td class="text-center">
-                                                    <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-check color-success"></i></a>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <a href="#" onclick="window.confirm('Press OK to close this option')"><i class="ti-close color-danger"></i></a>
-                                                </td>
-                                            </tr>
+                                        <tbody id="tbb_showrqroom">
                                         </tbody>
-                                        
+
                                     </table>
 
                                     <script>
+                                        
                                         function show_rqroom() {
                                             var totalel = "";
-                                                $.ajax({
-                                                    url: "./controller/con_admin.php",
-                                                    type: "POST",
-                                                    data: {
-                                                        key: "show_rqroom"
-                                                    },
-                                                    success: function(result, textStatus, jqXHR) {
-                                                        // alert(result);
-                                                        console.log(result);
-                                                        var count = 1;
-                                                        var json = jQuery.parseJSON(result);
-                                                        var i = 0;
-                                                        if (json != false) {
+                                            $.ajax({
+                                                url: "./controller/con_admin.php",
+                                                type: "POST",
+                                                data: {
+                                                    key: "show_rqroom"
+                                                },
+                                                success: function(result, textStatus, jqXHR) {
+                                                    // alert(result);
+                                                    console.log(result);
+                                                    var count = 1;
+                                                    var json = jQuery.parseJSON(result);
+                                                    var i = 0;
+                                                    if (json != false) {
 
-                                                            $("#tbb_showrqroom").empty();
+                                                        $("#tbb_showrqroom").empty();
 
-                                                            $.each(json, function(key, val) {
-                                                                // i += 1;
-                                                                var row = "";
-                                                                var tr = "<tr>";
-                                                                var _tr = "</tr>";
-                                                                var td = "<td>";
-                                                                var _td = "</td>";
-                                                               
-                                                                row += tr;
-
-                                                                var click_allow = " <a href='' onclick='window.confirm('Press OK to close this option')'><i class='ti-check color-success'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;" + 
-                                                                                    "<a id='cancel' ><i class='ti-close color-danger'></i></a>";
-                                                                row += td + count + _td; 
-                                                                row += td + val["id_code"] + _td;
-                                                                row += td + val["name"]+ "  " + val["last_name"] + _td;
-                                                                row += td + val["room_num"] + _td; 
-                                                                row += td + click_allow + _td; 
-
-                                                                row += _tr;
-                                                                count++;
-
-                                                                $('#tb_showrqroom > tbody:last').append(row);
-                                                            });
-                                                        } else {
-                                                            $("#tbb_showrqroom").empty();
+                                                        $.each(json, function(key, val) {
+                                                            // i += 1;
                                                             var row = "";
                                                             var tr = "<tr>";
                                                             var _tr = "</tr>";
                                                             var td = "<td>";
                                                             var _td = "</td>";
 
-                                                            row += td + "" + _td;
-                                                            row += td + "" + _td;
-                                                            row += td + "" + _td; 
-                                                            row += td + "" + _td; 
-                                                            row += td + "ไม่มีข้อมูล" + _td; 
+                                                            row += tr;
 
-                                                            $('#tb_showrqroom  > tbody:last').append(row);
-                                                        }
+                                                            var click_allow = "<button  type='button'  onclick='click_examine("+ 1 + ',' + val['id_room'] + ',' + val['id_mem'] + ")' class='btn btn-success btn-flat btn-addon btn-sm m-b-10 m-l-5'><i class='ti-check'></i>Allow</button>" + "&nbsp;&nbsp;&nbsp;&nbsp;" +
+                                                                                "<button onclick='click_examine("+ 0 + ',' + val['id_room'] + ',' + val['id_mem'] + ")' type='button' class='btn btn-danger  btn-flat btn-addon btn-sm m-b-10 m-l-5'><i class='ti-close'></i>Forbid</button>";
+                                                            row += td + count + _td;
+                                                            row += td + val["id_code"] + _td;
+                                                            row += td + val["name"] + "  " + val["last_name"] + _td;
+                                                            row += td + val["room_num"] + _td;
+                                                            row += td + click_allow + _td;
+
+                                                            row += _tr;
+                                                            count++;
+
+                                                            $('#tb_showrqroom > tbody:last').append(row);
+                                                        });
+                                                    } else {
+                                                        $("#tbb_showrqroom").empty();
+                                                        var row = "";
+                                                        var tr = "<tr>";
+                                                        var _tr = "</tr>";
+                                                        var td = "<td>";
+                                                        var _td = "</td>";
+
+                                                        row += td + "" + _td;
+                                                        row += td + "" + _td;
+                                                        row += td + "" + _td;
+                                                        row += td + "" + _td;
+                                                        row += td + "ไม่มีข้อมูล" + _td;
+
+                                                        $('#tb_showrqroom  > tbody:last').append(row);
                                                     }
-                                                }).error(function(xhr, status, error) {
-                                                    alert(xhr.statusText + status + error + ': ' + xhr.responseText);
-                                                });
+                                                }
+                                            }).error(function(xhr, status, error) {
+                                                alert(xhr.statusText + status + error + ': ' + xhr.responseText);
+                                            });
                                         }
-                                        $('#cancel').click(function(){
-                                            alert('Cancel action occurs!');
-                                        });
-
+                                        // $('#click').click(function() {
+                                        //     alert('Cancel action occurs!');
+                                        // });
+                                        // $("#click_allow").on("click", function() {
+                                        //     alert("Allow");
+                                        // });
+                                        // $("#click_cancel").on("click", function() {
+                                        //     alert("Cancel");
+                                        // });
+                                        function click_examine(keyclick,id_mem, id_room){
+                                            $.ajax({
+                                                url: "./controller/con_admin.php",
+                                                type: "POST",
+                                                data: {
+                                                    key : "click_examine",
+                                                    keyclick : keyclick,
+                                                    id_mem : id_mem,
+                                                    id_room : id_room
+                                                },
+                                                success: function(result, textStatus, jqXHR) {
+                                                    alert(result);
+                                                },
+                                                error: function(jqXHR, textStatus, errorThrown){
+                                                    alert("Error: " + errorThrown);
+                                                }
+                                            });
+                                        }
+                                        // function click_examine_forbid(){
+                                        //     alert("forbid");
+                                        // }
                                     </script>
                                 </div>
 
