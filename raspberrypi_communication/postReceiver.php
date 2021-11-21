@@ -1,7 +1,8 @@
 
 <?php
+
     $zip = new ZipArchive;
-    $face_dir = 'face/';
+    $face_dir = '../file_image/';
     $model_dir = 'model/';
     $permission_dir = 'permission/';
 
@@ -20,8 +21,8 @@
     //recieve model 
     if(isset($_FILES["file_model"]))
     {
-        if(!is_dir('model')){
-            mkdir('model');
+        if(!is_dir($model_dir)){
+            mkdir($model_dir);
         }
         
         echo $_FILES["file_model"]["name"];
@@ -31,11 +32,11 @@
         move_uploaded_file($_FILES["file_model"]["tmp_name"],$path);
     }
 
-    //recieve model 
+    //recieve permission 
     if(isset($_FILES["file_permission"]))
     {
-        if(!is_dir('permission')){
-            mkdir('permission');
+        if(!is_dir($permission_dir)){
+            mkdir($permission_dir);
         }
         
         echo $_FILES["file_permission"]["name"];
@@ -50,6 +51,9 @@
     // zip files for admin to download
     if(isset($_POST['zip_files']))
     {
+        if(!is_dir($face_dir)){
+            mkdir($face_dir);
+        }
         // Get real path for our folder
         $rootPath = realpath($face_dir);
 
