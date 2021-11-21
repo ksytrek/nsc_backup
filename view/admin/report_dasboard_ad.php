@@ -337,7 +337,7 @@ try {
                                                                 row += tr;
 
                                                                 var click_allow = " <a href='' onclick='window.confirm('Press OK to close this option')'><i class='ti-check color-success'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;" + 
-                                                                                    "<a href='javascript:'window.confirm('Press OK to close this option')'><i class='ti-close color-danger'></i></a>";
+                                                                                    "<a id='cancel' ><i class='ti-close color-danger'></i></a>";
                                                                 row += td + count + _td; 
                                                                 row += td + val["id_code"] + _td;
                                                                 row += td + val["name"]+ "  " + val["last_name"] + _td;
@@ -370,6 +370,10 @@ try {
                                                     alert(xhr.statusText + status + error + ': ' + xhr.responseText);
                                                 });
                                         }
+                                        $('#cancel').click(function(){
+                                            alert('Cancel action occurs!');
+                                        });
+
                                     </script>
                                 </div>
 
