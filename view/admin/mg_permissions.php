@@ -9,7 +9,11 @@ include_once("./sidebar_ad.php")
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Management Rooms Admin Dashboard</title>
+
+    <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
+
 
 <body>
     <div class="content-wrap">
@@ -48,7 +52,8 @@ include_once("./sidebar_ad.php")
                                 </div>
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <table id="row-select" class="display table table-borderd table-hover table-striped ">
+                                        <!-- id="row-select" class="display table table-borderd table-hover table-striped " -->
+                                        <table  class="table table-hover" id="dataTable">
                                             <thead>
                                                 <tr>
                                                     <th>รหัสประจำตัว</th>
@@ -60,6 +65,11 @@ include_once("./sidebar_ad.php")
                                                 </tr>
                                             </thead>
                                             <tbody>
+
+
+                                                <?php 
+
+                                                ?>
                                                 <tr>
                                                     <td>1339900662225</td>
                                                     <td>นายสมพล วิลา</td>
@@ -81,15 +91,15 @@ include_once("./sidebar_ad.php")
                                                     </th>
                                                 </tr>
                                             </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>.</th>
-                                                    <th>.</th>
-                                                    <th>.</th>
-                                                    <th>.</th>
-                                                </tr>
-                                            </tfoot>
                                         </table>
+                                        <script>
+                                            window.onload = function() {
+
+                                            };
+                                            setInterval(function() {
+                                            
+                                            }, 5000); // 1000 = 1 second
+                                        </script>
                                     </div>
                                 </div>
 
@@ -219,6 +229,9 @@ include_once("./sidebar_ad.php")
                         </div>
                         <!-- /# column -->
                     </div>
+                    
+
+                </div>
                     <!-- /# row -->
 
                 </section>
@@ -243,7 +256,18 @@ include_once("./sidebar_ad.php")
 
 
 
-    <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
+    <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
+
+      <!-- scripit init-->
+      <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
@@ -252,6 +276,16 @@ include_once("./sidebar_ad.php")
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
+
 </body>
 
 </html>

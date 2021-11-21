@@ -5,9 +5,9 @@ require_once("../../../Config/path.php");
 
 // include_once('./nabar.php');
 
-if ($_SESSION['success_Login'] != 'Admin_Login') {
-    header("location: ../../../Controller/check_login.php");
-}
+// if ($_SESSION['success_Login'] != 'Admin_Login') {
+//     header("location: ../../../Controller/check_login.php");
+// }
 
 
 $i_code = $_SESSION['id_code'];

@@ -1,13 +1,13 @@
 <?php
 // navigatio bar
 // include("./nav.php"); 
-include("./nabar.php"); 
+// include("./nabar.php"); 
 // session_start();
 
 //checking login
-if ($_SESSION['success_Login'] != 'Admin_Login') {
-    header("location: ../../../Controller/check_login.php");
-}
+// if ($_SESSION['success_Login'] != 'Admin_Login') {
+//     header("location: ../../../Controller/check_login.php");
+// }
 // require_once('../../../Model/ConnectDB.php');
 
 //show all
