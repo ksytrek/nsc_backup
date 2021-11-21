@@ -204,27 +204,29 @@ try {
                                             }
 
                                             function ckick_btn_room_fstatus(id_room, status) {
-                                                if (status == "0") {
-                                                    // alert("off");
-                                                } else if (status == "1") {
-                                                    // alert("on");
-                                                }
 
-                                                $.ajax({
-                                                    url: "./controller/con_admin.php",
-                                                    type: "POST",
-                                                    data: {
-                                                        key: "ckick_btn_room_fstatus",
-                                                        id_room: id_room,
-                                                        status: status
-                                                    },
-                                                    success: function(result, textStatus, jqXHR) {
-                                                        alert(result);
-                                                    },
-                                                    error: function(jqXHR, textStatus, errorThrown) {
-                                                        alert(errorThrown);
-                                                    }
-                                                });
+                                                if (confirm(status == "0" ? "you want to turn on the light" : "you want to turn off the light")) {
+                                                    $.ajax({
+                                                        url: "./controller/con_admin.php",
+                                                        type: "POST",
+                                                        data: {
+                                                            key: "ckick_btn_room_fstatus",
+                                                            id_room: id_room,
+                                                            status: status
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            // alert(result)
+                                                            swal(result, {
+                                                                icon: "success",
+                                                                buttons: false,
+                                                                timer: 1000,
+                                                            });
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown) {
+                                                            alert(errorThrown);
+                                                        }
+                                                    });
+                                                }
 
                                             }
                                         </script>
@@ -345,14 +347,14 @@ try {
                                                             },
                                                             success: function(result, textStatus, jqXHR) {
                                                                 // alert(result);
-                                                                if(result == "OK"){
+                                                                if (result == "OK") {
                                                                     swal("อนุญาติเข้าห้องสำเร็จ", {
-                                                                    icon: "success",
-                                                                    buttons: false,
-                                                                    timer: 1000,
-                                                                });
-                                                                
-                                                                }else{
+                                                                        icon: "success",
+                                                                        buttons: false,
+                                                                        timer: 1000,
+                                                                    });
+
+                                                                } else {
                                                                     alert("error")
                                                                 }
                                                             },
@@ -367,7 +369,7 @@ try {
                                             } else {
                                                 swal({
                                                     title: "Are you sure?",
-                                                    text:  name + " ",
+                                                    text: name + " ",
                                                     icon: "warning",
                                                     buttons: true,
                                                     dangerMode: true,
@@ -383,13 +385,13 @@ try {
                                                             },
                                                             success: function(result, textStatus, jqXHR) {
                                                                 // alert(result);
-                                                                if(result == "cancel"){
+                                                                if (result == "cancel") {
                                                                     swal("ปฏิเสธเข้าห้องสำเร็จ", {
-                                                                    icon: "success",
-                                                                    buttons: false,
-                                                                    timer: 1000,
-                                                                });
-                                                                }else{
+                                                                        icon: "success",
+                                                                        buttons: false,
+                                                                        timer: 1000,
+                                                                    });
+                                                                } else {
                                                                     alert("error")
                                                                 }
                                                             },
@@ -481,7 +483,11 @@ try {
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
 
-    <script>$(document).ready(function() {$('#dataTable').DataTable();});</script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
