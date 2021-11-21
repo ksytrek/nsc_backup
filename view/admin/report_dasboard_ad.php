@@ -469,13 +469,6 @@ try {
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
-    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- scripit init-->
     <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
@@ -487,6 +480,10 @@ try {
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
+
+    <script>$(document).ready(function() {$('#dataTable').DataTable();});</script>
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
 
 
