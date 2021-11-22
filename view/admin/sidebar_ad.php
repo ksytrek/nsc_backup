@@ -124,33 +124,31 @@
     </div>
 
 
-
-
     
     <!-- Common -->
     <script src="../../script/assets/js/lib/jquery.min.js"></script>
-    <!-- <script src="../../script/assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="../../script/assets/js/lib/jquery.nanoscroller.min.js"></script>
     <script src="../../script/assets/js/lib/menubar/sidebar.js"></script>
-    <script src="../../script/assets/js/lib/preloader/pace.min.js"></script> -->
+    <script src="../../script/assets/js/lib/preloader/pace.min.js"></script>
     <script src="../../script/assets/js/lib/bootstrap.min.js"></script>
     <script src="../../script/assets/js/scripts.js"></script>
 
     <script src="../../script/assets/js/sweetalert.min.js"></script>
 
-<!-- 
+
     <script src="../../script/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
     <script src="../../script/assets/js/lib/weather/weather-init.js"></script>
     <script src="../../script/assets/js/lib/circle-progress/circle-progress.min.js"></script>
-    <script src="../../script/assets/js/lib/circle-progress/circle-progress-init.js"></script> -->
-    <!-- <script src="../../script/assets/js/lib/chartist/chartist.min.js"></script> -->
-    <!-- <script src="../../script/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+    <script src="../../script/assets/js/lib/circle-progress/circle-progress-init.js"></script>
+    <script src="../../script/assets/js/lib/chartist/chartist.min.js"></script>
+    <script src="../../script/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
     <script src="../../script/assets/js/lib/sparklinechart/sparkline.init.js"></script>
     <script src="../../script/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
-    <script src="../../script/assets/js/lib/owl-carousel/owl.carousel-init.js"></script> -->
+    <script src="../../script/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
 
 
     <!-- scripit init-->
-    <!-- <script src="../../script/assets/js/dashboard2.js"></script> -->
+    <script src="../../script/assets/js/dashboard2.js"></script>
 
 
 </body>
