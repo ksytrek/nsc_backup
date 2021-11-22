@@ -114,8 +114,8 @@ class Server:
         # download model
         file.download_file(model_location_on_server, "permission/")
 
-#f = Server("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php")
-#print(f.check_update_model())
+f = Server("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php")
+print(f.check_update_model())
 
 #f = Server("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php")
 #f.download_face_from_server()

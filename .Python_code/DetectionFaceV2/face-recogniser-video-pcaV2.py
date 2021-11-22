@@ -12,7 +12,7 @@ server = connect.Server("http://skbright.totddns.com:28006/nsc_backup/raspberryp
 
 #permission list
 id_room = 1
-
+permission_list = file.get_current_permission_list(id_room, "id_mem")
 
 try:
     if server.check_update_model():

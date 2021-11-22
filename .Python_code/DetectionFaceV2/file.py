@@ -6,16 +6,15 @@ from os.path import basename
 import requests
 import os
 import zipfile
+import file
 
-# check lastest permission on server
+
 def send_log(link_of_postreciever_server):
     req = requests.post(link_of_postreciever_server, data={'id_mem': 'value1',
                                                            'id_room': 'value2',
                                                            'time_stamp': 'value3'})
     # .strip() = Trimming Whitespaces
     return req.text.strip()
-
-print(send_log("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php"))
 
 def get_current_permission():
     try:
@@ -165,3 +164,7 @@ def export_list():
 #print(get_all_current_permission_list())
 #print(get_current_permission_list(1,"id_mem"))
 #download_prep("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php")
+
+#print(get_current_model())
+
+print(get_latest_model("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php"))
