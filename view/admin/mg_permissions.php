@@ -293,7 +293,7 @@ include_once("./sidebar_ad.php")
 
                                                                         row += tr;
 
-                                                                        row += td + "<input type='checkbox' " + _td;
+                                                                        row += td + "<input type='checkbox'> " + _td;
                                                                         row += td + val['id_code'] + _td;
                                                                         row += td + val['name'] + " " + val['last_name'] + _td;
 
