@@ -15,16 +15,17 @@
             $json_txt =  json_encode($resultArray);
         }
 
-        $myfile = fopen("permission".time().".json", "w") or die("Unable to open file!");
+        $Afile = "permission".time().".json";
+        $myfile = fopen($Afile, "w") or die("Unable to open file!");
         if(fwrite($myfile, $json_txt)){
-            echo "Permission OK";
+            echo "json_Permission OK";
         }
         fclose($myfile);
 
 
         $file_version = fopen("name_permission.txt", "w") or die("Unable to open file!");
-        if(fwrite($file_version, $myfile)){
-            echo "Permission OK";
+        if(fwrite($file_version, $Afile)){
+            echo "name_Permission OK";
         }
         fclose($file_version);
 
