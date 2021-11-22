@@ -10,7 +10,5 @@ include_once('../config/connectdb.php');
         echo "OK!";
     }
 
-    
-
 
 ?>
