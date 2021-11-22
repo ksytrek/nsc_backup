@@ -22,7 +22,7 @@
         fclose($myfile);
 
 
-        $file_version = fopen("permission.txt", "w") or die("Unable to open file!");
+        $file_version = fopen("name_permission.txt", "w") or die("Unable to open file!");
         if(fwrite($file_version, $myfile)){
             echo "Permission OK";
         }
