@@ -1,0 +1,72 @@
+sudo apt-get update
+sudo apt-get upgrade
+sudo rpi-update
+sudo reboot
+
+
+#Installing the Remote Desktop Server on the Raspberry Pi
+sudo apt-get install xrdp
+http://www.raspberrysource.in.th/article/2/remote-desktop-on-raspberry-pi-with-xrdp
+
+
+#Setting tranfer file with FileZilla Client
+1.Enter sudo raspi-config in a terminal window
+2.Select Interfacing Options
+3.Navigate to and select SSH
+4.Choose Yes
+5.Select Ok
+6.Choose Finish
+
+
+#How to install / use the Raspberry Pi Camera
+https://www.ett.co.th/prod2015/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%97%E0%B8%94%E0%B8%AA%E0%B8%AD%E0%B8%9A%20Raspberry%20Pi%20Camera%20Board.pdf
+
+#Raspberry Pi จับภาพจากกล้อง Webcam
+http://www.raspberryhome.net/article/10/raspberry-pi-%E0%B8%88%E0%B8%B1%E0%B8%9A%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87-webcam
+sudo apt-get install fswebcam
+sudo fswebcam myhome.jpg
+
+
+#Raspberry Pi - Python 2 & 3 Install Setup and Update
+sudo apt-get upgrade python
+sudo apt-get upgrade python3
+sudo apt install python3-pip
+sudo apt-get install python3-numpy
+sudo apt-get install python3-scipy
+sudo apt-get install python3-pandas
+sudo apt-get install python3-joblib
+sudo pip3 install pathlib
+sudo apt-get install gfortran libopenblas-dev liblapack-dev
+sudo pip3 install scikit-learn
+sudo pip3 install face_recognition
+
+
+#Raspberry Pi - Http request
+sudo pip3 install requests
+sudo pip3 install urllib
+
+
+#Install OpenCV 3 + Python on your Raspberry Pi
+sudo apt install python3-opencv
+
+
+#GPIO on Raspberry Pi
+sudo pip3 install GPIO
+
+
+#Steps to disable Screen Blanking or Sleeping
+https://www.radishlogic.com/raspberry-pi/how-to-disable-screen-sleep-in-raspberry-pi/
+1. Click on the Menu button on the upper right (Raspberry Pi Icon) 
+	>> Preferences >> Raspberry Pi Configuration
+2. In Raspberry Pi Configuration Window, click on Display Tab.
+3. Look for the Screen Blanking row, click Disable.
+4. Then click OK.
+
+
+#Auto-run Script  Python Setup
+https://www.raspberrypi-spy.co.uk/2015/02/how-to-autorun-a-python-script-on-raspberry-pi-boot/
+sudo nano /etc/profile
+#Scroll to the bottom and add the following line :
+python3 /home/pi/DetectionFaceV2/face-recogniser-video-pcaV4.py &
+
+
