@@ -98,10 +98,12 @@ if (isset($_POST['key']) && $_POST['key'] == 'click_examine'){
 if(isset($_POST['key']) && $_POST['key'] == 'search_id_code'){
     // echo "Search";
     $id_code = $_POST['id_code'];
+    $id_room = $_POST['id_room'];
+
     // echo $id_code;
     $resultArray = array();
     try {
-        $sql = "SELECT * FROM `members` WHERE id_code LIKE '%{$id_code}%';";
+        $sql = "SELECT DISTINCT mm.id_mem,rm.id_room, mm.id_code,mm.name,mm.last_name , rm.room_num FROM eligibility as el JOIN rooms as rm JOIN members as mm WHERE rm.id_room IN ('{$id_room}') AND mm.id_mem LIKE '%{$id_code}%' ORDER BY mm.id_code ASC;";
         if ($show_tebelig = Database::query($sql, PDO::FETCH_ASSOC)) {
             foreach ($show_tebelig  as $row) {
                 array_push($resultArray, $row);
@@ -117,6 +119,8 @@ if(isset($_POST['key']) && $_POST['key'] == 'search_id_code'){
         echo json_encode($resultArray);
     }
 }
+
+
 
 
 

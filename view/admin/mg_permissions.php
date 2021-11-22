@@ -228,13 +228,13 @@ include_once("./sidebar_ad.php")
                                             <form>
                                                 <div class="form-group">
                                                     <label>เลือกห้อง</label>
-                                                    <select class="form-control">
-                                                        <option selected>กรุณาเลือก</option>
+                                                    <select id="select_id_room" class="form-control">
+                                                        <option disabled selected>กรุณาเลือก</option>
                                                         <?php
                                                         $room = Database::query("SELECT * FROM `rooms`", PDO::FETCH_ASSOC);
                                                         foreach ($room as $row) :
                                                         ?>
-                                                            <option><?php echo $row['room_num']; ?></option>
+                                                            <option value="<?php echo $row['id_room']?>"><?php echo $row['room_num']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -264,14 +264,16 @@ include_once("./sidebar_ad.php")
                                                 <script>
                                                     $('#search_id_code').on('keyup', function() {
                                                         // alert('keyup');
+                                                        var id_room = $('#select_id_room').val();
                                                         var id_code = $('#search_id_code').val();
-                                                        // alert(id_code);
+                                                        // alert(id_room);
                                                         $.ajax({
                                                             url: "./controller/con_admin.php",
                                                             type: "POST",
                                                             data: {
                                                                 key: "search_id_code",
-                                                                id_code: id_code
+                                                                id_code: id_code,
+                                                                id_room: id_room == null ? '': id_room
                                                             },
                                                             success: function(result, textStatus, jqXHR) {
                                                                 console.log(result);

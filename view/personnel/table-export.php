@@ -141,6 +141,7 @@
 
                                     row += tr;
                                     row += td + "" + _td;
+                                    row += td + "" + _td;
                                     row += td + "ยังไม่มีข้อมูลสิทธิ์" + _td;
                                     row += _tr;
 
