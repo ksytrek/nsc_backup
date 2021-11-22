@@ -16,7 +16,7 @@
         }
 
         $myfile = fopen("permission.json", "w") or die("Unable to open file!");
-        if(fwrite($myfile, $json_txt)){
+        if(fwrite($myfile.time(), $json_txt)){
             echo "Permission OK";
         }
         fclose($myfile);
