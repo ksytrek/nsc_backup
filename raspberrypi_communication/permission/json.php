@@ -14,7 +14,7 @@
         }else{
             $json_txt =  json_encode($resultArray);
         }
-
+        
         $Afile = "permission".time().".json";
         $myfile = fopen($Afile, "w") or die("Unable to open file!");
         if(fwrite($myfile, $json_txt)){
