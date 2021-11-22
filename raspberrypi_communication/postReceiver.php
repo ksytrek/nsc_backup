@@ -89,7 +89,7 @@
     {        
         if (file_exists($model_dir."namemodel.txt")) {
             $myfile = fopen($model_dir."namemodel.txt", "r") or die("Unable to open file!");
-            #echo fread($myfile,filesize($model_dir."namemodel.txt"));
+            echo fread($myfile,filesize($model_dir."namemodel.txt"));
             fclose($myfile);
         } else {
             echo 0;
