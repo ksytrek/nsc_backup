@@ -6,15 +6,15 @@ from os.path import basename
 import requests
 import os
 import zipfile
-import file
+import time
 
 
-def send_log(link_of_postreciever_server):
-    req = requests.post(link_of_postreciever_server, data={'id_mem': 'value1',
-                                                           'id_room': 'value2',
-                                                           'time_stamp': 'value3'})
+def send_log(link_of_postreciever_server, id_mem, id_room):
+    req = requests.post(link_of_postreciever_server, data={"id_mem": id_mem,
+                                                           "id_room": id_room})
     # .strip() = Trimming Whitespaces
     return req.text.strip()
+
 
 def get_current_permission():
     try:
@@ -24,28 +24,31 @@ def get_current_permission():
     except:
         NameError
 
-def get_current_permission_list(room,key):
+
+def get_current_permission_list(room, key):
     # Opening JSON file
-    f = open("permission/"+get_current_permission(),)
+    f = open("permission/" + get_current_permission(), )
     data = json.load(f)
     list = []
     for i in data:
-        if(i["id_room"] == str(room)):
+        if (i["id_room"] == str(room)):
             list.append(i[key])
     f.close()
-    #return list
+    # return list
     return list
+
 
 def get_all_current_permission_list():
     # Opening JSON file
-    f = open("permission/"+get_current_permission(),)
+    f = open("permission/" + get_current_permission(), )
     data = json.load(f)
     list = []
     for i in data:
-            list.append(i)
+        list.append(i)
     f.close()
-    #return list
+    # return list
     return list
+
 
 # check lastest permission on server
 def get_latest_permission(link_of_postreciever_server):
@@ -61,6 +64,7 @@ def get_current_model():
         f.close()
     except:
         NameError
+
 
 # check lastest model
 def get_latest_model(link_of_postreciever_server):
@@ -117,12 +121,14 @@ def upload_model(model_to_upload, link_of_postreciever_server):
     print("Uploaded")
     print(test_response.text)
 
+
 def upload_permission(model_to_upload, link_of_postreciever_server):
     test_file = {'file_permission': open(model_to_upload, "rb")}
     print("Uploading....")
     test_response = requests.post(link_of_postreciever_server, files=test_file)
     print("Uploaded")
     print(test_response.text)
+
 
 def zipdir(dirName, archived_name):
     # ziph is zipfile handle
@@ -159,12 +165,20 @@ def export_list():
 
     return js
 
-#ownload_file("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php",os.getcwd())
-#print(get_latest_permission("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php"))
-#print(get_all_current_permission_list())
-#print(get_current_permission_list(1,"id_mem"))
-#download_prep("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php")
 
-#print(get_current_model())
+def timer():
+    time_send_log = time.time()
+    while (True):
+        if time.time() - time_send_log >= 6:
+            print("time has passed for 6 secs")
+            #rest timer
+            time_send_log = time.time()
 
-print(get_latest_model("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php"))
+
+# ownload_file("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php",os.getcwd())
+# print(get_latest_permission("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php"))
+# print(get_all_current_permission_list())
+# print(get_current_permission_list(1,"id_mem"))
+# download_prep("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php")
+# print(get_current_permission_list(key="id_mem",room=1))
+#timer()

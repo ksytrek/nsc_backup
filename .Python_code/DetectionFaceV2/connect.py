@@ -43,16 +43,16 @@ class Server:
     def download_face_from_server(self):
         # signal for server to zip the files
         file.download_prep(self.postr)
-        #download zipped file from server
+        # download zipped file from server
         file.download_file(self.zip_location_on_server, os.getcwd())
 
-        #extract to this machine
+        # extract to this machine
         file.extract_file("face.zip", "datasets/faces/")
         file.os.remove("face.zip")
 
     def upload_model(self):
         file.upload_model("model/namemodel.txt", self.postr)
-        file.upload_model("model/"+file.get_current_model(),self.postr)
+        file.upload_model("model/" + file.get_current_model(), self.postr)
 
     def check_update_model(self):
         if file.get_latest_model(self.postr) == "0":
@@ -114,13 +114,15 @@ class Server:
         # download model
         file.download_file(model_location_on_server, "permission/")
 
-f = Server("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php")
-print(f.check_update_model())
+    def send_log_to_server(self, id_mem, id_room):
+        try:
+            return file.send_log(self.postr, id_mem, id_room)
+        except:
+            print("Can't log")
+
+# f = Server("http://skbright.totddns.com:28006/nsc_backup/raspberrypi_communication/postReceiver.php")
+# print(f.check_update_model())
 
 #f = Server("http://gonewhich.thddns.net:7071/Upload_Download/postReceiver.php")
-#f.download_face_from_server()
-
-
-
-
+#print(file.get_all_current_permission_list())
 

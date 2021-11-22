@@ -6,6 +6,20 @@
     $model_dir = 'model/';
     $permission_dir = 'permission/';
 
+    //recieve log
+    if(isset($_POST["id_mem"]) && isset($_POST["id_room"]))
+    {
+        include_once('../config/connectdb.php');
+        $data = [
+            'id_mem' => $_POST["id_mem"],
+            'id_room' => $_POST["id_room"] 
+        ];
+    
+        if(Database::insert_data('schedule',$data)){
+            echo "OK!";
+        }
+    }
+
     //recieve file zip of img
     if(isset($_FILES["file"]))
     {
