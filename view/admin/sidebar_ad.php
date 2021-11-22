@@ -150,7 +150,7 @@
 
 
     <!-- scripit init-->
-    <script src="../../script/assets/js/dashboard2.js"></script>
+    <!-- <script src="../../script/assets/js/dashboard2.js"></script> -->
 
 
 </body>

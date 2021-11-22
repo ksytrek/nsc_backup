@@ -27,7 +27,6 @@ include_once("./sidebar_ad.php")
                             </div>
                         </div>
                     </div>
-                    <!-- /# column -->
                     <div class="col-lg-4 p-l-0 title-margin-left">
                         <div class="page-header">
                             <div class="page-title">
@@ -38,11 +37,7 @@ include_once("./sidebar_ad.php")
                             </div>
                         </div>
                     </div>
-                    <!-- /# column -->
                 </div>
-                <!-- /# row -->
-
-
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -64,7 +59,7 @@ include_once("./sidebar_ad.php")
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="tbb_showeligibility">
                                                 <?php
                                                 $shom_el = Database::query("SELECT el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;", PDO::FETCH_ASSOC);
                                                 foreach ($shom_el as $room) :
@@ -102,7 +97,7 @@ include_once("./sidebar_ad.php")
                                                     },
                                                     success: function(result, textStatus, jqXHR) {
                                                         // alert(result);
-                                                        // console.log(result);
+                                                        console.log(result);
                                                         var json = jQuery.parseJSON(result);
                                                         // var i = 0;
                                                         if (json != false) {
@@ -355,52 +350,54 @@ include_once("./sidebar_ad.php")
                                                             id_code_array.push($(this).val());
                                                         }
                                                     });
+
+                                                    // $('#add_room').modal('close');
                                                     // alert(languages[0])
                                                     $.ajax({
                                                         url: "./controller/con_admin.php",
                                                         type: "POST",
-                                                        data:{
-                                                            key : "add_permission",
+                                                        data: {
+                                                            key: "add_permission",
                                                             id_mem: id_code_array,
                                                             id_room: id_room
                                                         },
                                                         success: function(result, textStatus, jqXHR) {
-                                                            alert(result);
+                                                            // alert(result);
+                                                            // $('#add_permission').attr("data-dismiss", "modal");
+
+                                                            swal("เพิ่ม Permission สำเร็จ", {
+                                                                icon: "success",
+                                                                buttons: false,
+                                                                timer: 1000,
+                                                            });
+                                                            add_el();
+                                                            // $('#add_permission').attr("data-dismiss", "modal");
+                                                            // location.reload();
+
+                                                            // .then((willDelete) => {
+                                                            //     if (willDelete) {
+                                                            //         // alert("result");
+                                                            //     }else{
+                                                            //         // alert("error");
+                                                            //         location.reload();
+                                                            //     }
+                                                            // });
+                                                            
+                                                            // $('#add_permission').attr("data-dismiss", "modal");
                                                         },
-                                                        error: function(jqXHR, textStatus, errorThrown){
-
+                                                        error: function(jqXHR, textStatus, errorThrown) {
                                                         }
-
                                                     });
                                                 });
                                             </script>
                                         </div>
                                     </div>
                                 </div>
-                                <script>
-                                    // var exampleModal = document.getElementById('add_room')
-                                    // exampleModal.addEventListener('show.bs.modal', function(event) {
-                                    //     // Button that triggered the modal
-                                    //     var button = event.relatedTarget
-                                    //     // Extract info from data-bs-* attributes
-                                    //     var recipient = button.getAttribute('data-bs-whatever')
-                                    //     // If necessary, you could initiate an AJAX request here
-                                    //     // and then do the updating in a callback.
-                                    //     //
-                                    //     // Update the modal's content.
-                                    //     var modalTitle = exampleModal.querySelector('.modal-title')
-                                    //     var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-                                    //     modalTitle.textContent = 'New message to ' + recipient
-                                    //     modalBodyInput.value = recipient
-                                    // });
-                                </script>
                             </div>
                         </div>
                     </div>
-            </div>
+                </div>
             </section>
-            </section> -->
         </div>
     </div>
     <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
@@ -415,13 +412,13 @@ include_once("./sidebar_ad.php")
 
     <!-- scripit init-->
     <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <!-- <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script> -->
+    <!-- <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script> -->
+    <!-- <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script> -->
+    <!-- <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script> -->
+    <!-- <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script> -->
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <!-- <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script> -->
     <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
 
     <script>

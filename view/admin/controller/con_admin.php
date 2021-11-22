@@ -149,27 +149,27 @@ if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
 
 
 
-// if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
+if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
 
-//     $resultArray = array();
-//     try {
-//         $sql_rqroom_search = "SELECT mm.id_code, mm.name ,mm.last_name , rm.room_num , mm.id_mem , rm.id_room , rq.rq_id FROM rqroom as rq INNER JOIN members as mm ON rq.id_mem = mm.id_mem INNER JOIN rooms as rm ON rq.id_room = rm.id_room;";
-//         if ($show_tebelig = Database::query($sql_rqroom_search, PDO::FETCH_ASSOC)) {
-//             foreach ($show_tebelig  as $row) {
-//                 array_push($resultArray, $row);
-//             }
-//             echo json_encode($resultArray);
-//         }else{
-//             echo json_encode($resultArray);
-//         }
-//     } catch (Exception $e) {
-//         $resultArray = [
-//             "error" => $e->getMessage()
-//         ];
-//         echo json_encode($resultArray);
-//     }
+    $resultArray = array();
+    try {
+        $sql_rqroom_search = "SELECT el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;";
+        if ($show_tebelig = Database::query($sql_rqroom_search, PDO::FETCH_ASSOC)) {
+            foreach ($show_tebelig  as $row) {
+                array_push($resultArray, $row);
+            }
+            echo json_encode($resultArray);
+        }else{
+            echo json_encode($resultArray);
+        }
+    } catch (Exception $e) {
+        $resultArray = [
+            "error" => $e->getMessage()
+        ];
+        echo json_encode($resultArray);
+    }
 
-// }
+}
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){
 //     $id_room = $_POST["id_room"];
