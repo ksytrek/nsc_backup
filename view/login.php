@@ -142,10 +142,9 @@
                                                     </script>
                                                 </div>
                                                 <button id="submit_ad" onclick="send_submit_ad('submit_ad')" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
-
-                                                <div class="register-link m-t-15 text-center">
+                                                <!-- <div class="register-link m-t-15 text-center">
                                                     <p>Don't have account ? <a href="./register.php"> Sign Up Here</a></p>
-                                                </div>
+                                                </div> -->
                                             </form>
                                         </div>
                                     </div>
