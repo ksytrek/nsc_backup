@@ -103,7 +103,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'search_id_code'){
     // echo $id_code;
     $resultArray = array();
     try {
-        $sql = "SELECT DISTINCT mm.id_mem,rm.id_room, mm.id_code,mm.name,mm.last_name , rm.room_num FROM eligibility as el JOIN rooms as rm JOIN members as mm WHERE rm.id_room IN ('{$id_room}') AND mm.id_mem LIKE '%{$id_code}%' ORDER BY mm.id_code ASC;";
+        $sql = "SELECT mm.id_mem,mm.id_code,mm.name ,mm.last_name,rm.room_num,rm.id_room FROM members as mm LEFT JOIN rooms as rm ON rm.id_room is NOT null WHERE rm.id_room NOT IN (SELECT el.id_room FROM `eligibility` as el WHERE el.id_room = rm.id_room and el.id_mem = mm.id_mem) AND id_code LIKE '%$id_code%' AND rm.id_room IN('$id_room');";
         if ($show_tebelig = Database::query($sql, PDO::FETCH_ASSOC)) {
             foreach ($show_tebelig  as $row) {
                 array_push($resultArray, $row);
@@ -121,6 +121,31 @@ if(isset($_POST['key']) && $_POST['key'] == 'search_id_code'){
 }
 
 
+
+// SELECT mm.id_mem,mm.id_code,mm.name ,mm.last_name,rm.room_num,rm.id_room FROM members as mm LEFT JOIN rooms as rm ON rm.id_room is NOT null WHERE rm.id_room NOT IN (SELECT el.id_room FROM `eligibility` as el WHERE el.id_room = rm.id_room and el.id_mem = mm.id_mem) AND id_code LIKE '%1339900662224%' AND rm.id_room IN('1');
+
+
+
+
+if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
+    // echo "save Permission";
+    $id_room = $_POST['id_room'];
+    $id_mem = $_POST['id_mem'];
+
+
+    // echo "save Permission".$id_room.$id_code[2];
+    foreach($id_mem as $list){  
+        // echo $list." ".$id_room. " ";
+        $ex = [
+            'id_room' => $id_room,
+            'id_mem' => $list
+        ];
+        if(Database::insert_data('eligibility',$ex)){
+            echo count($id_mem);
+        }   
+    } 
+
+}
 
 
 

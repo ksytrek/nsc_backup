@@ -234,7 +234,7 @@ include_once("./sidebar_ad.php")
                                                         $room = Database::query("SELECT * FROM `rooms`", PDO::FETCH_ASSOC);
                                                         foreach ($room as $row) :
                                                         ?>
-                                                            <option value="<?php echo $row['id_room']?>"><?php echo $row['room_num']; ?></option>
+                                                            <option value="<?php echo $row['id_room'] ?>"><?php echo $row['room_num']; ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -249,7 +249,7 @@ include_once("./sidebar_ad.php")
                                                             <table class="table table-hover" id="tb_select_show_mem">
                                                                 <thead>
                                                                     <tr>
-                                                                        <td>เลือก</td>
+                                                                        <td><input id='check_box_all' type='checkbox'> เลือกทั้งหมด</td>
                                                                         <td>รหัสประจำตัว</td>
                                                                         <td>ชื่อ</td>
                                                                     </tr>
@@ -262,7 +262,21 @@ include_once("./sidebar_ad.php")
 
                                                 </div>
                                                 <script>
+                                                    // $('#select_id_room').on('keyup', function() {
+                                                    //     add_el();
+                                                    // });
+                                                    $("#select_id_room").bind("change keyup", function(event) {
+                                                        //Code here
+                                                        add_el();
+                                                    });
                                                     $('#search_id_code').on('keyup', function() {
+                                                        add_el();
+                                                    });
+                                                    $("#check_box_all").click(function() {
+                                                        $('input:checkbox').not(this).prop('checked', this.checked);
+                                                    });
+
+                                                    function add_el() {
                                                         // alert('keyup');
                                                         var id_room = $('#select_id_room').val();
                                                         var id_code = $('#search_id_code').val();
@@ -273,7 +287,7 @@ include_once("./sidebar_ad.php")
                                                             data: {
                                                                 key: "search_id_code",
                                                                 id_code: id_code,
-                                                                id_room: id_room == null ? '': id_room
+                                                                id_room: id_room == null ? '' : id_room
                                                             },
                                                             success: function(result, textStatus, jqXHR) {
                                                                 console.log(result);
@@ -295,7 +309,7 @@ include_once("./sidebar_ad.php")
 
                                                                         row += tr;
 
-                                                                        row += td + "<input type='checkbox'> " + _td;
+                                                                        row += td + "<input  type='checkbox' class='checkbox_id_code'  value='" + val['id_mem'] + "'> " + _td;
                                                                         row += td + val['id_code'] + _td;
                                                                         row += td + val['name'] + " " + val['last_name'] + _td;
 
@@ -324,13 +338,42 @@ include_once("./sidebar_ad.php")
                                                             }
                                                         });
 
-                                                    });
+                                                    }
                                                 </script>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">SAVE</button>
+                                            <button id='add_permission' type="button" class="btn btn-primary">ADD Permissions</button>
+                                            <script>
+                                                $('#add_permission').on('click', function() {
+                                                    // alert('Permission : ' + $('.checkbox_id_code').val());
+                                                    var id_code_array = [];
+                                                    var id_room = $('#select_id_room').val();
+                                                    $('.checkbox_id_code').each(function() {
+                                                        if ($(this).is(":checked")) {
+                                                            id_code_array.push($(this).val());
+                                                        }
+                                                    });
+                                                    // alert(languages[0])
+                                                    $.ajax({
+                                                        url: "./controller/con_admin.php",
+                                                        type: "POST",
+                                                        data:{
+                                                            key : "add_permission",
+                                                            id_mem: id_code_array,
+                                                            id_room: id_room
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            alert(result);
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown){
+
+                                                        }
+
+                                                    });
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -355,9 +398,9 @@ include_once("./sidebar_ad.php")
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
             </section>
-        </section> -->
+            </section> -->
         </div>
     </div>
     <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
