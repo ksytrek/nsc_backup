@@ -22,6 +22,13 @@
         fclose($myfile);
 
 
+        $file_version = fopen("permission.txt", "w") or die("Unable to open file!");
+        if(fwrite($file_version, $myfile)){
+            echo "Permission OK";
+        }
+        fclose($file_version);
+
+
     } catch (Exception $e) {
         $resultArray = [
             "error" => $e->getMessage()
