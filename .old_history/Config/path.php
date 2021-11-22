@@ -1,8 +1,7 @@
 <?php 
-// include_once('./url.php');
-// define("_FILE", __DIR__);
+// 
 define("_HOST", "https://localhost/");
-define("_SITE", "24p12i0032/web/");
+define("_SITE", "nsc_backup/web/");
     define("_WEBSITE", _HOST._SITE);
         define("_CONTROLLER", _WEBSITE."Controller/");
             define("_CRL_MEMBER",_CONTROLLER.'Crl_member/');
