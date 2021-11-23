@@ -46,6 +46,7 @@ include_once("./sidebar.php")
         var phone = document.getElementById("phone");
         var position = document.getElementById("position");
         var full_name = document.getElementById("full_name");
+        var position_title = document.getElementById("position_title");
 
 
         //  Input - Edit 
@@ -69,6 +70,7 @@ include_once("./sidebar.php")
                 var json = JSON.parse(result);
                 if (json != false) {
                     full_name.innerHTML = json[0].name + ' ' + json[0].last_name;
+                    position_title.innerHTML = json[0].position;
                     id_code.innerHTML = json[0].id_code;
                     name.innerHTML = json[0].name;
                     last_name.innerHTML = json[0].last_name;
@@ -145,7 +147,7 @@ include_once("./sidebar.php")
                                             <div class="col-lg-12">
                                                 <div id="full_name" class="user-profile-name"></div>
 
-                                                <div class="user-job-title">นักศึกษาฝึกงาน</div>
+                                                <div id='position_title' class="user-job-title">นักศึกษาฝึกงาน</div>
 
                                                 <div class="row">
                                                 

@@ -1,5 +1,6 @@
 <?php 
 include("../../../config/connectdb.php");
+include_once("../../../raspberrypi_communication/permission/json.php");
 if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
     // echo "jen";
     // $id_mem = $_POST['id_mem'];
@@ -141,12 +142,11 @@ if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
             'id_mem' => $list
         ];
         if(Database::insert_data('eligibility',$ex)){
-            echo count($id_mem);
+           
         }   
     } 
-
+    update_permission::update('../../../raspberrypi_communication/permission/');
 }
-
 
 
 if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
@@ -169,6 +169,44 @@ if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
         echo json_encode($resultArray);
     }
 
+}
+
+if(isset($_POST['key']) && $_POST['key'] == "select_delete_el"){
+    // echo "Select";
+    $id_eligibilty = $_POST["id_eligibilty"];
+    foreach($id_eligibilty as $list){  
+        // echo $list." ".$id_room. " ";
+        $sql = "DELETE FROM `eligibility` WHERE `eligibility`.`id_eligibilty` = '{$list}';";
+        if(Database::query($sql)){
+            // echo count($id_eligibilty);
+        }
+    } 
+    update_permission::update('../../../raspberrypi_communication/permission/');
+}
+
+
+if(isset($_POST['key']) && $_POST['key'] = 'information_person_info'){
+    // echo 'information_person_info';
+    $id_mem = $_POST['id_mem'];
+    // echo $id_mem;
+    $resultArray = array();
+    try {
+        $search_mem = "SELECT * FROM members WHERE id_mem = '$id_mem'";
+
+        if ($show_tebelig = Database::query($search_mem, PDO::FETCH_ASSOC)) {
+            foreach ($show_tebelig  as $row) {
+                array_push($resultArray, $row);
+            }
+            echo json_encode($resultArray);
+        }else{
+            echo json_encode($resultArray);
+        }
+    } catch (Exception $e) {
+        $resultArray = [
+            "error" => $e->getMessage()
+        ];
+        echo json_encode($resultArray);
+    }
 }
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){

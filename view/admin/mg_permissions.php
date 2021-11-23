@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar_ad.php")
+include_once("./sidebar_ad.php");
+
 ?>
 
 <head>
@@ -56,30 +57,133 @@ include_once("./sidebar_ad.php")
                                                     <th>ห้องที่มีสิทธิ์เข้า</th>
                                                     <th class="text-center">
                                                         <a href="#" data-toggle="modal" data-target="#add_room" data-whatever="@mdo"><i class="ti-plus">&nbsp;เพิ่ม</i></a>
+                                                        &nbsp;&nbsp;&nbsp;<i id='checkbox_delet_all' class="ti-close">&nbsp;ลบ</i>
                                                     </th>
+
                                                 </tr>
                                             </thead>
+
                                             <tbody id="tbb_showeligibility">
                                                 <?php
-                                                $shom_el = Database::query("SELECT el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;", PDO::FETCH_ASSOC);
+                                                $shom_el = Database::query("SELECT mm.id_mem,rm.id_room, el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;", PDO::FETCH_ASSOC);
                                                 foreach ($shom_el as $room) :
                                                 ?>
                                                     <tr>
-                                                        <td><?php echo $room['id_code']; ?></td>
+
+                                                        <td><input type="hidden" name="id_mem" value="<?php echo $room['id_mem'] ?>"><?php echo $room['id_code']; ?></td>
                                                         <td><?php echo $room['name'] . " " . $room['last_name']; ?></td>
-                                                        <td><?php echo $room['room_num'] ?></td>
+                                                        <td><input type="hidden" name="id_room" value="<?php echo $room['id_room'] ?>"><?php echo $room['room_num'] ?></td>
                                                         <th class="text-center">
-                                                            <a href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                                            <a href="./personal_search_ad.php"><i class="ti-search"></i></a>
+                                                            <!-- <a href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp; -->
+                                                            <a class='click_submit_search'><i class="ti-search"></i></a>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;<input class="select_delete" type='checkbox' value='<?php echo $room['id_eligibilty'] ?>'>
                                                         </th>
                                                     </tr>
                                                 <?php
                                                 endforeach;
                                                 ?>
                                             </tbody>
+                                            <script>
+        
+                                                $("#tb_showeligibility").on('click', '.click_submit_search', function() {
+                                                    // get the current row
+                                                    var currentRow = $(this).closest("tr");
+                                                    var id_mem = currentRow.find("td:eq(0) input[type='hidden']").val();
+                                                    // var id_room = currentRow.find("td:eq(2) input[type='hidden']").val();
+                                                    send_post_get('personal_search_ad.php',{id:id_mem },'get');
+
+
+                                                });
+
+                                                function send_post_get(path, params, method) {
+                                                    const form = document.createElement('form');
+                                                    form.method = method;
+                                                    form.action = path;
+
+                                                    for (const key in params) {
+                                                        if (params.hasOwnProperty(key)) {
+                                                            const hiddenField = document.createElement('input');
+                                                            hiddenField.type = 'hidden';
+                                                            hiddenField.name = key;
+                                                            hiddenField.value = params[key];
+
+                                                            form.appendChild(hiddenField);
+                                                        }
+                                                    }
+
+                                                    document.body.appendChild(form);
+                                                    form.submit();
+                                                }
+
+
+
+                                                $("#checkbox_delet_all").click(function() {
+                                                    // $('input:checkbox').not(this).prop('checked', this.checked);
+                                                    // alert("Check");
+                                                    var select_delete_array = [];
+                                                    $('.select_delete').each(function() {
+                                                        if ($(this).is(":checked")) {
+                                                            select_delete_array.push($(this).val());
+                                                        }
+                                                    });
+                                                    // alert(select_delete_array.length)
+
+                                                    swal({
+                                                        title: "Are you sure?",
+                                                        text: "ต้องการลบข้อมูลสิทธิ์ใช้หรือไม่?",
+                                                        icon: "warning",
+                                                        buttons: true,
+                                                        dangerMode: true,
+                                                    }).then((willDelete) => {
+                                                        if (willDelete) {
+                                                            if (select_delete_array.length > 0) {
+                                                                $.ajax({
+                                                                    url: "./controller/con_admin.php",
+                                                                    type: "POST",
+                                                                    data: {
+                                                                        key: 'select_delete_el',
+                                                                        id_eligibilty: select_delete_array
+
+                                                                    },
+                                                                    success: function(result, textStatus, jqXHR) {
+                                                                        // alert(result);
+                                                                        timemer();
+
+                                                                    },
+                                                                    error: function(jqXHR, textStatus, errorThrown) {
+
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                swal("กรุณาเลือกข้อมูล", "", 'warning');
+                                                            }
+                                                        } else {
+                                                            // swal("Your imaginary file is safe!");
+                                                        }
+                                                    });
+
+
+                                                });
+
+                                                function sleep(ms) {
+                                                    return new Promise(resolve => setTimeout(resolve, ms));
+                                                }
+
+                                                async function timemer() {
+                                                    swal("ลบ Permission สำเร็จ", {
+                                                        icon: "success",
+                                                        buttons: false,
+                                                        // timer: 1000,
+                                                    });
+                                                    await sleep(2000);
+                                                    location.reload();
+                                                }
+
+                                                // demo();
+                                            </script>
                                         </table>
-                                        <script>
+                                        <!-- <script>
                                             window.onload = function() {
                                                 // show_tb_eligibility();
                                             };
@@ -141,7 +245,7 @@ include_once("./sidebar_ad.php")
                                                     alert(xhr.statusText + status + error + ': ' + xhr.responseText);
                                                 });
                                             }
-                                        </script>
+                                        </script> -->
                                     </div>
                                 </div>
 
@@ -338,9 +442,13 @@ include_once("./sidebar_ad.php")
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button id="btn_cancel_permission" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button id='add_permission' type="button" class="btn btn-primary">ADD Permissions</button>
                                             <script>
+                                                $('#btn_cancel_permission').on('click', function() {
+                                                    location.reload();
+                                                });
+
                                                 $('#add_permission').on('click', function() {
                                                     // alert('Permission : ' + $('.checkbox_id_code').val());
                                                     var id_code_array = [];
@@ -382,11 +490,10 @@ include_once("./sidebar_ad.php")
                                                             //         location.reload();
                                                             //     }
                                                             // });
-                                                            
+
                                                             // $('#add_permission').attr("data-dismiss", "modal");
                                                         },
-                                                        error: function(jqXHR, textStatus, errorThrown) {
-                                                        }
+                                                        error: function(jqXHR, textStatus, errorThrown) {}
                                                     });
                                                 });
                                             </script>
@@ -396,7 +503,7 @@ include_once("./sidebar_ad.php")
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
             </section>
         </div>
     </div>
