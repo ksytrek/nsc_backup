@@ -1,1 +1,5 @@
-[{"id_eligibilty":"16","id_mem":"41","id_room":"5"},{"id_eligibilty":"18","id_mem":"37","id_room":"4"},{"id_eligibilty":"19","id_mem":"37","id_room":"5"},{"id_eligibilty":"20","id_mem":"43","id_room":"3"},{"id_eligibilty":"22","id_mem":"43","id_room":"2"},{"id_eligibilty":"24","id_mem":"43","id_room":"4"},{"id_eligibilty":"25","id_mem":"42","id_room":"6"}]
+[
+    {"time_out":"09.00","id_room":"1","status":"0"},
+    {"time_out":"10.00","id_room":"2","status":"0"},
+    {"time_out":"11.00","id_room":"3","status":"0"}
+]
