@@ -5,6 +5,7 @@
     $face_dir = '../file_image/';
     $model_dir = 'model/';
     $permission_dir = 'permission/';
+    $time_out_dir = 'timeout/';
 
     //recieve log
     if(isset($_POST["id_mem"]) && isset($_POST["id_room"]))
@@ -110,7 +111,7 @@
         }
     }
 
-    //checking lastest model from a txt file
+    //checking lastest permission from a txt file
     if(isset($_POST['check_latest_permission']))
     {
 
@@ -122,5 +123,18 @@
             echo 0;
         }
     }  
+
+    //checkinng lastest time_out from a txt file
+    if(isset($_POST['check_latest_time']))
+    {
+
+        if (file_exists($time_out_dir."time.txt")) {
+            $myfile = fopen($time_out_dir."time.txt", "r") or die("Unable to open file!");
+            echo fread($myfile,filesize($time_out_dir."time.txt"));
+            fclose($myfile);
+        } else {
+            echo 0;
+        }
+    }
     
 ?>
