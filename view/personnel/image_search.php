@@ -4,6 +4,8 @@
 include_once("./sidebar.php");
 
 $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};", PDO::FETCH_ASSOC)->fetch();
+
+
 ?>
 
 <head>
@@ -53,8 +55,6 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
                         </div>
                         <div class="col-lg-6 ">
                             <div class="user-send-message">
-
-
                                 <?php if ($row_members['stu_face'] == '0') : ?>
                                     <div class="card-title float-right">
                                         <button type="button" class="btn  btn-warning btn-rounded btn-sm" onclick="save_face()">ยังไม่ได้บันทึกภาพใบหน้า</button>
@@ -68,8 +68,10 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
                                             }
                                         }
                                     </script>
-                                <?php endif; ?>
-                                <?php if ($row_members['stu_face'] == '1') : ?>
+                                <?php 
+                                endif; 
+                                if ($row_members['stu_face'] == '1') : 
+                                ?>
                                     <!-- <div class="card-title float-right">
                                         <button type="button" class="btn  btn-danger btn-rounded btn-sm" onclick="window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')">ลบข้อมูลรูปภาพ</button>
                                     </div> -->

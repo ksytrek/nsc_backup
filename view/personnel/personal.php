@@ -12,12 +12,12 @@ include_once("./sidebar.php")
     <!-- Styles -->
     <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <?php 
-        
-        $query_stu_face = Database::query("SELECT stu_face FROM  members WHERE `id_mem`= {$id_mem}",PDO::FETCH_ASSOC);
-        $row = $query_stu_face->fetch();
-        // echo $row['stu_face'];
-        $stu_face = $row['stu_face'];
+    <?php
+
+    $query_stu_face = Database::query("SELECT stu_face FROM  members WHERE `id_mem`= {$id_mem}", PDO::FETCH_ASSOC);
+    $row = $query_stu_face->fetch();
+    // echo $row['stu_face'];
+    $stu_face = $row['stu_face'];
     ?>
 
 
@@ -27,14 +27,15 @@ include_once("./sidebar.php")
     window.onload = function() {
         information();
     }
-    var accuracy_name = "";
-    var accuracy_lastname = "";
-    var accuracy_mail = "";
-    var accuracy_phone = "";
+    var accuracy_name = "success";
+    var accuracy_lastname = "success";
+    var accuracy_mail = "success";
+    var accuracy_phone = "success";
     var accuracy_pass = "";
-    var accuracy_position = "";
+    var accuracy_position = "success";
 
     var password = "";
+
     function information() {
         var btn_search_image = document.getElementById("status_btn_search_image");
         var btn_save_image = document.getElementById("status_btn_save_image");
@@ -150,16 +151,16 @@ include_once("./sidebar.php")
                                                 <div id='position_title' class="user-job-title">นักศึกษาฝึกงาน</div>
 
                                                 <div class="row">
-                                                
+
                                                     <div id="status_btn_search_image" style="display: none" class="user-send-message">
                                                         <button onclick="window.location.assign('./image_search.php') ;" class="btn btn-sm  btn-success btn-rounded" type="button">
                                                             <i class="ti-zoom-in"></i>&nbsp;&nbsp;ตรวจสอบภาพ</button>
                                                     </div>
-                                                    
+
                                                     <div id="status_btn_save_image" style="display: none" class="user-send-message">
                                                         <button class="btn btn-danger btn-rounded" type="button" onclick="if(confirm('คุณสามารถบันทึกได้เพียงครั้งเดี่ยว')){ window.location.assign('./on_save_face.php') ;}">
                                                             <i class="ti-cloud-up"></i>&nbsp;&nbsp;สถานะไม่สมบูรณ์</button>
-                                                    
+
                                                     </div>
                                                 </div>
                                                 <div class="custom-tab user-profile-tab">
@@ -234,6 +235,7 @@ include_once("./sidebar.php")
                                                                         <script>
                                                                             $("#input-name").on("keyup", function() {
                                                                                 var str = $(this).val();
+                                                                                accuracy_name = "success";
                                                                                 if (/^[ก-๏\s]+$/.test(str) != true && /^[a-zA-Z\s]+$/.test(str) != true && str.length != 0) {
                                                                                     document.getElementById("txt-name").innerHTML = "กรุณากรอกชื่อตามความจริง";
                                                                                     document.getElementById('div-name').className = 'form-group has-error';
@@ -260,6 +262,7 @@ include_once("./sidebar.php")
                                                                         <p id="txt-lastname">กรุณากรอกนามสกุลตามความจริง</p>
                                                                         <script>
                                                                             $("#input-lastn_name").on("keyup", function() {
+                                                                                accuracy_lastname = "success";
                                                                                 var str = $(this).val();
                                                                                 if (/^[ก-๏\s]+$/.test(str) != true && /^[a-zA-Z\s]+$/.test(str) != true && str.length != 0) {
                                                                                     document.getElementById("txt-lastname").innerHTML = "กรุณากรอกนามสกุลตามความจริง";
@@ -273,7 +276,7 @@ include_once("./sidebar.php")
                                                                                     accuracy_lastname = "";
                                                                                     return;
                                                                                 } else {
-                                                                                    document.getElementById("txt-lastname").innerHTML = "กรุณากรอกนามสกุลตามความจริง";
+                                                                                    document.getElementById("txt-lastname").innerHTML = "สามารถใช้นามสกุลนี้ได้";
                                                                                     document.getElementById('div-lastname').className = 'form-group has-success';
                                                                                     accuracy_lastname = "success";
                                                                                     return;
@@ -289,6 +292,8 @@ include_once("./sidebar.php")
                                                                             $("#input-email").on("keyup", function() {
                                                                                 var str = $(this).val();
                                                                                 // alert("Email");
+                                                                                accuracy_mail = "success";
+
                                                                                 // alert(str);
                                                                                 if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/.test(str) != true && str.length != 0) {
                                                                                     document.getElementById('div-mail').className = 'form-group has-error';
@@ -316,6 +321,7 @@ include_once("./sidebar.php")
                                                                         <p id="txt-phone">กรุณากรอกมือถือที่ติดต่อได้</p>
                                                                         <script>
                                                                             $("#input-phone").on("keyup", function() {
+                                                                                accuracy_phone = "success";
                                                                                 var str = $(this).val();
                                                                                 if (/[0-9]{3}[0-9]{3}[0-9]{4}/.test(str) != true && str.length != 0) {
                                                                                     document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
@@ -354,6 +360,8 @@ include_once("./sidebar.php")
                                                                         <script>
                                                                             $("#input-position").on("keyup", function() {
                                                                                 var str = $(this).val();
+                                                                                accuracy_position = "success";
+
                                                                                 if (str.length <= 4) {
                                                                                     document.getElementById("txt-position").innerHTML = "ตำแหน่งงานปัจจุบัน";
                                                                                     document.getElementById('div-position').className = 'form-group has-error';

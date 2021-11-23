@@ -1,6 +1,8 @@
 <?php 
 include("../../../config/connectdb.php");
 include_once("../../../raspberrypi_communication/permission/json.php");
+
+
 if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
     // echo "jen";
     // $id_mem = $_POST['id_mem'];
@@ -125,30 +127,6 @@ if(isset($_POST['key']) && $_POST['key'] == 'search_id_code'){
 
 // SELECT mm.id_mem,mm.id_code,mm.name ,mm.last_name,rm.room_num,rm.id_room FROM members as mm LEFT JOIN rooms as rm ON rm.id_room is NOT null WHERE rm.id_room NOT IN (SELECT el.id_room FROM `eligibility` as el WHERE el.id_room = rm.id_room and el.id_mem = mm.id_mem) AND id_code LIKE '%1339900662224%' AND rm.id_room IN('1');
 
-
-
-
-if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
-    // echo "save Permission";
-    $id_room = $_POST['id_room'];
-    $id_mem = $_POST['id_mem'];
-
-
-    // echo "save Permission".$id_room.$id_code[2];
-    foreach($id_mem as $list){  
-        // echo $list." ".$id_room. " ";
-        $ex = [
-            'id_room' => $id_room,
-            'id_mem' => $list
-        ];
-        if(Database::insert_data('eligibility',$ex)){
-           
-        }   
-    } 
-    update_permission::update('../../../raspberrypi_communication/permission/');
-}
-
-
 if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
 
     $resultArray = array();
@@ -172,30 +150,54 @@ if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
 }
 
 
-
-if(isset($_POST['key']) && $_POST['key'] = 'information_person_info'){
-    // echo 'information_person_info';
+if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
+    // echo "save Permission";
+    $id_room = $_POST['id_room'];
     $id_mem = $_POST['id_mem'];
-    // echo $id_mem;
-    $resultArray = array();
-    try {
-        $search_mem = "SELECT * FROM members WHERE id_mem = '$id_mem'";
 
-        if ($show_tebelig = Database::query($search_mem, PDO::FETCH_ASSOC)) {
-            foreach ($show_tebelig  as $row) {
-                array_push($resultArray, $row);
-            }
-            echo json_encode($resultArray);
-        }else{
-            echo json_encode($resultArray);
-        }
-    } catch (Exception $e) {
-        $resultArray = [
-            "error" => $e->getMessage()
+
+    // echo "save Permission".$id_room.$id_code[2];
+    foreach($id_mem as $list){  
+        // echo $list." ".$id_room. " ";
+        $ex = [
+            'id_room' => $id_room,
+            'id_mem' => $list
         ];
-        echo json_encode($resultArray);
-    }
+        if(Database::insert_data('eligibility',$ex)){
+           
+        }   
+    } 
+    update_permission::update('../../../raspberrypi_communication/permission/');
 }
+
+
+
+
+
+
+// if(isset($_POST['key']) && $_POST['key'] = 'information_person_info'){
+//     // echo 'information_person_info';
+//     $id_mem = $_POST['id_mem'];
+//     // echo $id_mem;
+//     $resultArray = array();
+//     try {
+//         $search_mem = "SELECT * FROM members WHERE id_mem = '$id_mem'";
+
+//         if ($show_tebelig = Database::query($search_mem, PDO::FETCH_ASSOC)) {
+//             foreach ($show_tebelig  as $row) {
+//                 array_push($resultArray, $row);
+//             }
+//             echo json_encode($resultArray);
+//         }else{
+//             echo json_encode($resultArray);
+//         }
+//     } catch (Exception $e) {
+//         $resultArray = [
+//             "error" => $e->getMessage()
+//         ];
+//         echo json_encode($resultArray);
+//     }
+// }
 
 
 

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar_ad.php")
+include_once("./sidebar_ad.php");
+$id_mem = $_GET["id"];
+$row_mm = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};", PDO::FETCH_ASSOC)->fetch();
+
 ?>
 
 <head>
@@ -12,6 +15,9 @@ include_once("./sidebar_ad.php")
 
 
 </head>
+<script>
+    const ID_MEM = '<?php echo $id_mem; ?>';
+</script>
 
 <body>
     <div class="content-wrap">
@@ -40,82 +46,238 @@ include_once("./sidebar_ad.php")
                 </div>
                 <!-- /# row -->
                 <section id="main-content">
-                    
+
                     <div class="row">
                         <div class="col-lg-6">
-                            
-                                <div class="card-title">
-                                    <h4>แสดงรูปภาพใบหน้าของคุณ สมพล วิลา</h4>
-                                </div>
-                            
+
+                            <div class="card-title">
+                                <h4>แสดงรูปภาพใบหน้าของคุณ <?php echo $row_mm['name'] . " " . $row_mm['last_name'] ?></h4>
+                            </div>
+
                         </div>
                         <div class="col-lg-6 ">
-                            
-                            <div class="card-title float-right">
-                                <button type="button" class="btn  btn-danger btn-rounded " onclick="window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')">ลบข้อมูลรูปภาพ</button>
-                            </div>
-                        
-                    </div>
-                    </div>
-                    <div class="row ">
-                    
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="../../script/assets/images/3.jpg" width="100%" alt="">
+                            <div class="user-send-message">
+                                <?php if ($row_mm['stu_face'] == '0') : ?>
+                                    <div class="card-title float-right">
+                                        <button id='btn_save_face_person' type="button" class="btn  btn-warning btn-rounded btn-sm">ยังไม่ได้บันทึกภาพใบหน้า</button>
+                                    </div>
+                                    <script>
+                                        $('#btn_save_face_person').click(function() {
+                                            if (confirm("คุณสามารถบันทึกได้เพียงครั้งเดี่ยว")) {
+                                                location.assign("./on_save_face.php?id=<?php echo $id_mem; ?>");
+                                            } else {
+                                                // alert("cancel");
+                                            }
+                                        });
+                                    </script>
+                                <?php
+                                else :
+                                ?>
+                                    <div class="card-title float-right">
+                                        <button id='delete_image_select' type="button" class="btn  btn-danger btn-rounded btn-sm">ลบรูปภาพที่เลือก</button>
+                                        <script>
+                                            $('#delete_image_select').click(function() {
+                                                // window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')"
+                                                var select_delete_array = [];
+                                                $('.select_delete_image').each(function() {
+                                                    if ($(this).is(":checked")) {
+                                                        select_delete_array.push($(this).val());
+                                                    }
+                                                });
+                                                // alert(select_delete_array[0]);
+
+                                                swal({
+                                                    title: "Are you sure?",
+                                                    text: "ต้องการลบข้อมูลที่เลือกใช้หรือไม่?",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true,
+                                                }).then((willDelete) => {
+                                                    if (willDelete) {
+                                                        if (select_delete_array.length > 0) {
+                                                            $.ajax({
+                                                                url: "./controller/con_image_search_ad.php",
+                                                                type: "POST",
+                                                                data: {
+                                                                    key: 'select_delete_image',
+                                                                    id_tbimage: select_delete_array
+
+                                                                },
+                                                                success: function(result, textStatus, jqXHR) {
+                                                                    // alert(result);
+                                                                    timemer();
+
+                                                                },
+                                                                error: function(jqXHR, textStatus, errorThrown) {
+
+                                                                }
+                                                            });
+                                                        } else {
+                                                            swal("กรุณาเลือกข้อมูลภาพ", "", 'warning');
+                                                        }
+                                                    } else {
+                                                        // swal("Your imaginary file is safe!");
+                                                    }
+                                                });
+                                            });
+
+                                            function sleep(ms) {
+                                                return new Promise(resolve => setTimeout(resolve, ms));
+                                            }
+
+                                            async function timemer() {
+                                                swal("ลบ Image สำเร็จ", {
+                                                    icon: "success",
+                                                    buttons: false,
+                                                    // timer: 1000,
+                                                });
+                                                await sleep(2000);
+                                                location.reload();
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="card-title float-right">
+                                        <button id="backup_img_person" name="backup" class="btn btn-info btn-rounded btn-sm" type="button">
+                                            <i class="ti-cloud-down"></i>&nbsp;&nbsp;สำรองข้อมูล</button>
+                                        <script>
+                                            function send_post_get(path, params, method) {
+                                                const form = document.createElement('form');
+                                                form.method = method;
+                                                form.action = path;
+
+                                                for (const key in params) {
+                                                    if (params.hasOwnProperty(key)) {
+                                                        const hiddenField = document.createElement('input');
+                                                        hiddenField.type = 'hidden';
+                                                        hiddenField.name = key;
+                                                        hiddenField.value = params[key];
+
+                                                        form.appendChild(hiddenField);
+                                                    }
+                                                }
+
+                                                document.body.appendChild(form);
+                                                form.submit();
+                                            }
+                                            $('#backup_img_person').click(function() {
+                                                send_post_get('./controller/con_image_search_ad.php', {
+                                                    key: "backup_img_person",
+                                                    id_mem: ID_MEM,
+                                                }, 'POST');
+                                                // $.ajax({
+                                                //     url: 'https://127.0.0.1/nsc_backup/file_image/1339900662224.zip',
+                                                //     method: 'GET',
+                                                //     xhrFields: {
+                                                //         responseType: 'blob'
+                                                //     },
+                                                //     success: function(data) {
+                                                //         var a = document.createElement('a');
+                                                //         var url = window.URL.createObjectURL(data);
+                                                //         a.href = url;
+                                                //         a.download = '1339900662224.zip';
+                                                //         document.body.append(a);
+                                                //         a.click();
+                                                //         a.remove();
+                                                //         window.URL.revokeObjectURL(url);
+                                                //     }
+                                                // });
+                                                // $.ajax({
+                                                //     url: "./controller/con_image_search_ad.php",
+                                                //     type: "POST",
+                                                //     data: {
+                                                //         key: "backup_img_person",
+                                                //         id_mem:  ID_MEM
+                                                //     },
+                                                //     success: function(result, textStatus,jqXHR){
+                                                //         alert(result);
+                                                //     },
+                                                //     error: function(jqXHR, textStatus, errorThrown){
+                                                //         alert(errorThrown);
+                                                //     }
+                                                // });
+                                            });
+                                        </script>
+                                    </div>
+                                <?php endif; ?>
+
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <style>
+                            input[type=checkbox] {
 
+                                -ms-transform: scale(1.5);
+                                -moz-transform: scale(1.5);
+                                -webkit-transform: scale(1.5);
+                                -o-transform: scale(1.5);
+                                transform: scale(1.5);
+                                padding: 10px;
+                                margin-left: 10px;
+                                margin-top: 20px;
+                            }
+
+
+                            label {
+                                font-size: 105%;
+                            }
+
+                            .img_face {
+                                border-radius: 10px;
+                                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+                            }
+                        </style>
+                        <?php
+                        if ($row_mm['stu_face'] == '1') :
+                            foreach (Database::query("SELECT * FROM `tbimage` INNER JOIN `members` ON tbimage.id_mem = members.id_mem WHERE tbimage.id_mem = {$id_mem};", PDO::FETCH_ASSOC) as $row) :                            ?>
+                                <div id='show_tb_image' class="col-lg-3">
+                                    <img class='img_face' src="../../<?php echo $row['path_image'] . $row['name_image'] ?>" width="100%" alt="">
+                                    <input type="checkbox" class="select_delete_image " value='<?php echo $row['id_tbimage'] ?>'><label>&nbsp;&nbsp;&nbsp;เลือกรูปที่ต้องการลบ</label>
+                                </div>
+                        <?php
+                            endforeach;
+                        endif;
+                        ?>
+                        <!-- <div id='show_tb_image' class="col-lg-3">
+                            <div class="pp"></div>
+                        </div> -->
+                        <script>
+                            $(document).ready(function() {
+                                update_show_image();
+                            });
+
+                            function update_show_image() {
+                                $.ajax({
+                                    url: "./controller/con_image_search_ad.php",
+                                    type: "POST",
+                                    data: {
+                                        key: 'update_show_image',
+                                        id_mem: ID_MEM
+                                    },
+                                    success: function(result, textStatus, jqXHR) {
+                                        // alert(result);
+                                        // var json = jQuery.parseJSON(result);
+                                        // $.each(json, function(key, val) {
+                                        //     // $('#show_tb_image').attr("src", '../../' + val['path_image'] + val['name_image']);
+                                        //     // $('#show_tb_image').html(""+
+                                        //     //     ""+
+                                        //     // );
+                                        //     var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+                                        //     img.attr('src', '../../' + val['path_image'] + val['name_image']);
+                                        //     img.attr('width', '100%');
+                                        //     img.appendTo('.pp');
+                                        // });
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+
+                                    }
+                                });
+                            }
+                        </script>
+
+                    </div>
             </div>
-            <!-- /# row -->
-
-
-
         </div>
-    </div>
     </div>
 
 
