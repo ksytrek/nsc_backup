@@ -74,8 +74,7 @@ include_once("./sidebar_ad.php");
                                                         <td><?php echo $room['name'] . " " . $room['last_name']; ?></td>
                                                         <td><input type="hidden" name="id_room" value="<?php echo $room['id_room'] ?>"><?php echo $room['room_num'] ?></td>
                                                         <th class="text-center">
-                                                            <!-- <a href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp; -->
+                                                            
                                                             <a class='click_submit_search'><i class="ti-search"></i></a>
                                                             &nbsp;&nbsp;&nbsp;&nbsp;<input class="select_delete" type='checkbox' value='<?php echo $room['id_eligibilty'] ?>'>
                                                         </th>

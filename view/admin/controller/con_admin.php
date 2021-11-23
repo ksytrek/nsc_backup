@@ -171,18 +171,6 @@ if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
 
 }
 
-if(isset($_POST['key']) && $_POST['key'] == "select_delete_el"){
-    // echo "Select";
-    $id_eligibilty = $_POST["id_eligibilty"];
-    foreach($id_eligibilty as $list){  
-        // echo $list." ".$id_room. " ";
-        $sql = "DELETE FROM `eligibility` WHERE `eligibility`.`id_eligibilty` = '{$list}';";
-        if(Database::query($sql)){
-            // echo count($id_eligibilty);
-        }
-    } 
-    update_permission::update('../../../raspberrypi_communication/permission/');
-}
 
 
 if(isset($_POST['key']) && $_POST['key'] = 'information_person_info'){
@@ -207,6 +195,21 @@ if(isset($_POST['key']) && $_POST['key'] = 'information_person_info'){
         ];
         echo json_encode($resultArray);
     }
+}
+
+
+
+if(isset($_POST['key']) && $_POST['key'] == "select_delete_el"){
+    // echo "Select";
+    $id_eligibilty = $_POST["id_eligibilty"];
+    foreach($id_eligibilty as $list){  
+        // echo $list." ".$id_room. " ";
+        $sql = "DELETE FROM `eligibility` WHERE `eligibility`.`id_eligibilty` = '{$list}';";
+        if(Database::query($sql)){
+            // echo count($id_eligibilty);
+        }
+    } 
+    update_permission::update('../../../raspberrypi_communication/permission/');
 }
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){

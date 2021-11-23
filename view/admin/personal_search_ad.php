@@ -25,6 +25,7 @@ if (isset($_GET['id'])) :
 
     <body>
         <script>
+
             const ID_MEM = '<?php echo $id_mem; ?>';
             window.onload = function() {
                 information_person_info();
@@ -390,40 +391,36 @@ if (isset($_GET['id'])) :
                                                 </tbody>
                                             </table>
                                             <script>
-                                                function get_tb(){
-                                                    $("#bootstrap-data-table-export").find('tbody')
-                                                    .append($('<tr>')
-                                                        .append($('<td>')
-                                                            .text('1')
-                                                        ).append($('<td>')
-                                                            .text('คณิต')
-                                                        ).append($('<td>')
-                                                            .text('09:25 น. 18/10/64 ')
-                                                        )
-                                                    );
-                                                    $("#bootstrap-data-table-export").find('tbody')
-                                                    .append($('<tr>')
-                                                        .append($('<td>')
-                                                            .text('1')
-                                                        ).append($('<td>')
-                                                            .text('คณิต')
-                                                        ).append($('<td>')
-                                                            .text('09:25 น. 18/10/64 ')
-                                                        )
-                                                    );
-                                                    $("#bootstrap-data-table-export").find('tbody')
-                                                    .append($('<tr>')
-                                                        .append($('<td>')
-                                                            .text('1')
-                                                        ).append($('<td>')
-                                                            .text('คณิต')
-                                                        ).append($('<td>')
-                                                            .text('09:25 น. 18/10/64 ')
-                                                        )
-                                                    );
+                                                function get_tb_eligibility_person() {
+                                                    $.ajax({
+                                                        url:"",
+                                                        type:"POST",
+                                                        data: {
+                                                            key : "get_tb_eligibility_person",
+                                                            id_mem : ID_MEM
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            alert(result);
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown){
+
+                                                        }
+                                                    
+                                                    });
+                                                    for (var i = 0; i <= 20; i++) {
+                                                        $("#bootstrap-data-table-export").find('tbody')
+                                                            .append($('<tr>')
+                                                                .append($('<td>')
+                                                                    .text('1')
+                                                                ).append($('<td>')
+                                                                    .text('คณิต')
+                                                                ).append($('<td>')
+                                                                    .text('09:25 น. 18/10/64 ')
+                                                                )
+                                                            );
+                                                    }
                                                 }
-                                                get_tb();
-                                                
+                                                get_tb_eligibility_person();
                                             </script>
                                         </div>
                                     </div>
