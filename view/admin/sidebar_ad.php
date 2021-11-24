@@ -140,7 +140,7 @@
     <script src="../../script/assets/js/lib/weather/weather-init.js"></script>
     <script src="../../script/assets/js/lib/circle-progress/circle-progress.min.js"></script>
     <script src="../../script/assets/js/lib/circle-progress/circle-progress-init.js"></script>
-    <script src="../../script/assets/js/lib/chartist/chartist.min.js"></script>
+    <!-- <script src="../../script/assets/js/lib/chartist/chartist.min.js"></script> -->
     <script src="../../script/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
     <script src="../../script/assets/js/lib/sparklinechart/sparkline.init.js"></script>
     <script src="../../script/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
@@ -148,7 +148,7 @@
 
 
     <!-- scripit init-->
-    <script src="../../script/assets/js/dashboard2.js"></script>
+    <!-- <script src="../../script/assets/js/dashboard2.js"></script> -->
 
 
 </body>

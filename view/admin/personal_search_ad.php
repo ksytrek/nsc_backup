@@ -267,41 +267,43 @@ if (isset($_GET['id'])) :
                                                             <button id="delete_person" class="btn btn-danger btn-rounded btn-sm  sweet-confirm btn btn-success btn sweet-success btn btn-primary btn sweet-text btn btn-info btn sweet-message btn btn-danger btn sweet-wrong" type="button">
                                                                 <i class="ti-alert"></i>&nbsp;&nbsp;ลบบุคลากร</button>
 
-                                                                <script>
-
-                                                                    $('#delete_person').click(function(){
+                                                            <script>
+                                                                $('#delete_person').click(function() {
+                                                                    if (confirm('Are you sure you want to delete!')) {
                                                                         $.ajax({
                                                                             url: "./controller/con_per_search.php",
                                                                             type: "POST",
                                                                             data: {
                                                                                 key: "delete_person",
-                                                                                id_mem : ID_MEM
+                                                                                id_mem: ID_MEM
                                                                             },
                                                                             success: function(result, textStatus, jqXHR) {
                                                                                 // alert(result);
-                                                                                if(result == 'success'){
+                                                                                if (result == 'success') {
                                                                                     timemer_delete();
                                                                                 }
                                                                             },
-                                                                            error: function(jqXHR, textStatus, errorThrown){
-
+                                                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                                                alert("เกิดข้อผิดพลาดขึ้น");
                                                                             }
                                                                         });
+                                                                    }
+
+                                                                });
+                                                                async function timemer_delete() {
+                                                                    swal("ลบข้อมูลสำร็จ", "ระบบจะพาท่านกลับไปยังหน้าก่อนหน้านี้ ประมาณ 2 วินาที", {
+                                                                        icon: "success",
+                                                                        buttons: false,
+                                                                        timer: 1500,
                                                                     });
-                                                                    async function timemer_delete() {
-                                                                                swal("ลบข้อมูลสำร็จ","ระบบจะพาท่านกลับไปยังหน้าก่อนหน้านี้ ประมาณ 2 วินาที", {
-                                                                                    icon: "success",
-                                                                                    buttons: false,
-                                                                                    timer: 1500,
-                                                                                });
-                                                                                // swal("SUCCESS", "อัพเดตข้อมูลสำร็จ!", "success", {
-                                                                                //     buttons: false
-                                                                                // });
-                                                                                await sleep(2000);
-                                                                                // location.reload();
-                                                                                history.back(1);
-                                                                            }
-                                                                </script>
+                                                                    // swal("SUCCESS", "อัพเดตข้อมูลสำร็จ!", "success", {
+                                                                    //     buttons: false
+                                                                    // });
+                                                                    await sleep(2000);
+                                                                    // location.reload();
+                                                                    history.back(1);
+                                                                }
+                                                            </script>
                                                         </div>
 
                                                         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -677,7 +679,7 @@ if (isset($_GET['id'])) :
                         [10, 25, 50, "All"]
                     ],
                     buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
+                        'copy', 'csv', 'excel', 'print'
                     ]
                 });
             });

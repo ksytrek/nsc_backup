@@ -164,10 +164,9 @@ if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
             'id_mem' => $list
         ];
         if(Database::insert_data('eligibility',$ex)){
-           
+            update_permission::update('../../../raspberrypi_communication/permission/');
         }   
     } 
-    update_permission::update('../../../raspberrypi_communication/permission/');
 }
 
 
@@ -208,10 +207,10 @@ if(isset($_POST['key']) && $_POST['key'] == "select_delete_el"){
         // echo $list." ".$id_room. " ";
         $sql = "DELETE FROM `eligibility` WHERE `eligibility`.`id_eligibilty` = '{$list}';";
         if(Database::query($sql)){
+            update_permission::update('../../../raspberrypi_communication/permission/');
             // echo count($id_eligibilty);
         }
     } 
-    update_permission::update('../../../raspberrypi_communication/permission/');
 }
 
 // if(isset($_POST['key']) && $_POST['key'] == 'el_id_room'){

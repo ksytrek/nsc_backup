@@ -146,24 +146,6 @@ include_once("./sidebar_ad.php")
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        var exampleModal = document.getElementById('edit_personal')
-                                        exampleModal.addEventListener('show.bs.modal', function(event) {
-                                            // Button that triggered the modal
-                                            var button = event.relatedTarget
-                                            // Extract info from data-bs-* attributes
-                                            var recipient = button.getAttribute('data-bs-whatever')
-                                            // If necessary, you could initiate an AJAX request here
-                                            // and then do the updating in a callback.
-                                            //
-                                            // Update the modal's content.
-                                            var modalTitle = exampleModal.querySelector('.modal-title')
-                                            var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-                                            modalTitle.textContent = 'New message to ' + recipient
-                                            modalBodyInput.value = recipient
-                                        })
-                                    </script>
                                 </div>
                                 <div class="modal fade" id="add_personal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -222,24 +204,7 @@ include_once("./sidebar_ad.php")
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        var exampleModal = document.getElementById('add_personal')
-                                        exampleModal.addEventListener('show.bs.modal', function(event) {
-                                            // Button that triggered the modal
-                                            var button = event.relatedTarget
-                                            // Extract info from data-bs-* attributes
-                                            var recipient = button.getAttribute('data-bs-whatever')
-                                            // If necessary, you could initiate an AJAX request here
-                                            // and then do the updating in a callback.
-                                            //
-                                            // Update the modal's content.
-                                            var modalTitle = exampleModal.querySelector('.modal-title')
-                                            var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-                                            modalTitle.textContent = 'New message to ' + recipient
-                                            modalBodyInput.value = recipient
-                                        })
-                                    </script>
+                                    
                                 </div>
                             </div>
                             <!-- /# card -->

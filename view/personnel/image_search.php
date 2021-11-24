@@ -86,12 +86,35 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
 
                             </div>
                         </div>
+                        <style>
+                            /* input[type=checkbox] {
+
+                                -ms-transform: scale(1.5);
+                                -moz-transform: scale(1.5);
+                                -webkit-transform: scale(1.5);
+                                -o-transform: scale(1.5);
+                                transform: scale(1.5);
+                                padding: 10px;
+                                margin-left: 10px;
+                                margin-top: 20px;
+                            } */
+
+
+                            label {
+                                font-size: 105%;
+                            }
+
+                            .img_face {
+                                border-radius: 10px;
+                                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+                            }
+                        </style>
                         <div class="row ">
                             <?php
                             if ($row_members['stu_face'] == '1') :
                                 foreach (Database::query("SELECT * FROM `tbimage` INNER JOIN `members` ON tbimage.id_mem = members.id_mem WHERE tbimage.id_mem = {$id_mem};", PDO::FETCH_ASSOC) as $row) :                            ?>
                                     <div class="col-lg-3">
-                                        <img src="../../<?php echo $row['path_image'] . $row['name_image'] ?>" width="100%" alt="">
+                                        <img class='img_face' src="../../<?php echo $row['path_image'] . $row['name_image'] ?>" width="100%" alt="">
                                     </div>
                             <?php
                                 endforeach;

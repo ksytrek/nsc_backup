@@ -104,32 +104,27 @@ try {
                                         <tbody id="tbb_showroom">
 
                                         </tbody>
-                                        <?php
-                                        function shom_id_room($id_room)
-                                        {
-                                            // echo $id_room; 
-                                            $show_tebelig = Database::query("SELECT count(*) as total  FROM `schedule`  WHERE `id_room` = '{$id_room}';", PDO::FETCH_ASSOC);
-                                            if ($row = $show_tebelig->fetch()) {
-                                                return $row['total'];
-                                            } else {
-                                                return "ยังไม่มีสิทธิ์เข้าห้อง";
-                                            }
-                                        }
-                                        ?>
                                         <script>
                                             window.onload = function() {
                                                 tb_showroom();
                                                 show_rqroom();
+
                                             };
+                                            $(document).ready(function() {
+                                            });
+
 
                                             setInterval(function() {
-                                                tb_showroom();
-                                                // show_rqroom() ;
-                                            }, 5000); // 1000 = 1 second
+                                                // tb_showroom();
+                                                show_rqroom() ;
+                                            }, 2000); // 1000 = 1 second
 
 
+                                            
                                             function tb_showroom() {
-                                                var totalel = "";
+                                                var tb_showroom = $('#tb_showroom').DataTable();
+                                                    tb_showroom.clear();
+
                                                 $.ajax({
                                                     url: "./controller/con_admin.php",
                                                     type: "POST",
@@ -140,61 +135,85 @@ try {
                                                         // alert(result);
                                                         // console.log(result);
                                                         var json = jQuery.parseJSON(result);
-                                                        var i = 0;
+
                                                         if (json != false) {
-
-                                                            $("#tbb_showroom").empty();
-
+                                                            // $("#tbb_showroom").empty();
                                                             $.each(json, function(key, val) {
                                                                 // i += 1;
-                                                                var row = "";
-                                                                var tr = "<tr>";
-                                                                var _tr = "</tr>";
-                                                                var td = "<td>";
-                                                                var _td = "</td>";
-                                                                // var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
-                                                                //     timeZone: 'Asia/Bangkok'
-                                                                // });
-                                                                // console.log(date);
-
-                                                                // el_sum(val['id_room']) ;
-
+                                                                var id_room = val['id_room'];
+                                                                var room_num = val['room_num'];
+                                                                var count = val['count'];
                                                                 var status = val["room_fstatus"];
+                                                                // var count = val['count'];
+
+
+                                                                var check_count = count == "0" ? 'ว่าง' : count
                                                                 var btn_status;
                                                                 if (status == '0') {
                                                                     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
                                                                 } else {
                                                                     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
                                                                 }
-                                                                // el_sum(val['id_room']);
+                                                                tb_showroom.row.add([
+                                                                    room_num,
+                                                                    btn_status,
+                                                                    check_count
+                                                                ]).draw(true);
+                                                                
+                                                                // var row = "";
+                                                                // var tr = "<tr>";
+                                                                // var _tr = "</tr>";
+                                                                // var td = "<td>";
+                                                                // var _td = "</td>";
+                                                                // // var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
+                                                                // //     timeZone: 'Asia/Bangkok'
+                                                                // // });
+                                                                // // console.log(date);
 
-                                                                // alert("ข้อความ " + sta);
+                                                                // // el_sum(val['id_room']) ;
 
-                                                                // alert("ข้อความ ");
-                                                                var count = val['count'];
-                                                                var check_count = count == "0" ? 'ว่าง' : count
-                                                                row += tr;
-                                                                row += td + val["room_num"] + _td;
-                                                                row += td + btn_status + _td;
-                                                                row += td + check_count + _td;
-                                                                row += _tr;
+                                                                // var status = val["room_fstatus"];
+                                                                // var btn_status;
+                                                                // if (status == '0') {
+                                                                //     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
+                                                                // } else {
+                                                                //     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
+                                                                // }
+                                                                // // el_sum(val['id_room']);
 
-                                                                $('#tb_showroom > tbody:last').append(row);
+                                                                // // alert("ข้อความ " + sta);
+
+                                                                // // alert("ข้อความ ");
+                                                                // var count = val['count'];
+                                                                // var check_count = count == "0" ? 'ว่าง' : count
+                                                                // row += tr;
+                                                                // row += td + val["room_num"] + _td;
+                                                                // row += td + btn_status + _td;
+                                                                // row += td + check_count + _td;
+                                                                // row += _tr;
+
+                                                                // $('#tb_showroom > tbody:last').append(row);
                                                             });
                                                         } else {
-                                                            $("#tbb_showroom").empty();
-                                                            var row = "";
-                                                            var tr = "<tr>";
-                                                            var _tr = "</tr>";
-                                                            var td = "<td>";
-                                                            var _td = "</td>";
 
-                                                            row += tr;
-                                                            row += td + "" + _td;
-                                                            row += td + "ยังไม่มีข้อมูลห้อง" + _td;
-                                                            row += _tr;
+                                                            tb_showroom.row.add([
+                                                                    "",
+                                                                    "",
+                                                                    "ไม่มีข้อมูลห้อง"
+                                                                ]).draw(true);
+                                                            // $("#tbb_showroom").empty();
+                                                            // var row = "";
+                                                            // var tr = "<tr>";
+                                                            // var _tr = "</tr>";
+                                                            // var td = "<td>";
+                                                            // var _td = "</td>";
 
-                                                            $('#tb_showroom  > tbody:last').append(row);
+                                                            // row += tr;
+                                                            // row += td + "" + _td;
+                                                            // row += td + "ยังไม่มีข้อมูลห้อง" + _td;
+                                                            // row += _tr;
+
+                                                            // $('#tb_showroom  > tbody:last').append(row);
                                                         }
                                                     }
                                                 }).error(function(xhr, status, error) {
@@ -221,6 +240,7 @@ try {
                                                                 buttons: false,
                                                                 timer: 1000,
                                                             });
+                                                            tb_showroom();
                                                         },
                                                         error: function(jqXHR, textStatus, errorThrown) {
                                                             alert(errorThrown);
@@ -263,7 +283,6 @@ try {
 
                                     <script>
                                         function show_rqroom() {
-                                            var totalel = "";
                                             $.ajax({
                                                 url: "./controller/con_admin.php",
                                                 type: "POST",

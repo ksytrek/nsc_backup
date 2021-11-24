@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar_ad.php")
+include_once("./sidebar_ad.php");
+if (isset($_GET['id'])) {
+    $id_room = $_GET['id'];
+    $sql = "SELECT * FROM `rooms` WHERE id_room = $id_room;";
+    $search = Database::query($sql, PDO::FETCH_ASSOC);
+    $row_room = $search->fetch();
+}
 ?>
 
 <head>
@@ -9,11 +15,48 @@ include_once("./sidebar_ad.php")
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Focus Admin: Creative Admin Dashboard</title>
-    <!-- Styles -->
-    <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
 
+    <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
+<script>
+    const ID_ROOM = '<?php echo $id_room ?>';
+    $(document).ready(function() {
+        search_room_info();
+    });
+
+    function search_room_info() {
+        $.ajax({
+            url: "./controller/con_room_search_ad.php",
+            type: "POST",
+            data: {
+                key: 'search_room_info',
+                id_room: ID_ROOM
+            },
+            success: function(result, textStatus, jqXHR) {
+                // alert(result);
+                // swal('เกิดข้อผิดพลาด','success','success');
+
+                var json = JSON.parse(result);
+
+                // alert(json['0']['id_room']);
+                $('.name_rooom').html(json[0].room_num);
+
+                $('.info_id_room').html(json[0].id_room);
+                $('.info_name_room').html(json[0].room_num)
+                $('.info_room_dclose').html(json[0].room_dclose.substr(0, 5));
+                $('.info_room_fstatus').html(json[0].room_fstatus == 0 ? '<span class="badge badge-danger">Off</span>' : '<span class="badge badge-success">On</span>');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('ไม่สามารถแสดงข้อมูลได้!!');
+                history.back(1);
+            }
+        });
+        // $('.info_room_fstatus').html('<span class="badge badge-success">On</span>');
+
+    }
+    // <span class="badge badge-danger">Off</span>
+</script>
 
 <body>
     <div class="content-wrap">
@@ -33,7 +76,7 @@ include_once("./sidebar_ad.php")
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="./mg_room_ad.php">Management Room</a></li>
-                                    <li class="breadcrumb-item active">ห้อง 3011</li>
+                                    <li class="breadcrumb-item active">ตรวจสอบห้อง</li>
 
                                 </ol>
                             </div>
@@ -51,8 +94,8 @@ include_once("./sidebar_ad.php")
                                     <div class="user-profile">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="user-profile-name">ห้อง :</div>
-                                                <div class="user-profile-name">วิทคอม 3012578</div>
+                                                <div class="user-profile-name">ชื่อห้อง :</div>
+                                                <div class="user-profile-name name_rooom"></div>
                                                 <div class="user-job-title"></div>
 
                                                 <div class="row">
@@ -74,21 +117,20 @@ include_once("./sidebar_ad.php")
                                                                 <h4>information</h4>
                                                                 <div class="phone-content">
                                                                     <span class="contact-title">รหัสประจำเครื่อง:</span>
-                                                                    <span class="contact-skype">5645185156</span>
+                                                                    <span class="contact-skype info_id_room"></span>
                                                                 </div>
                                                                 <div class="address-content">
                                                                     <span class="contact-title">ชื่อห้อง:</span>
-                                                                    <span class="contact-skype">วิทคอม 3012578</span>
+                                                                    <span class="contact-skype info_room_num"></span>
                                                                 </div>
                                                                 <div class="email-content">
                                                                     <span class="contact-title">เวลาปิด:</span>
-                                                                    <span class="contact-email">18:20 น.</span>
+                                                                    <span class="contact-email info_room_dclose"></span>
                                                                 </div>
                                                                 <div class="email-content">
                                                                     <span class="contact-title">สถานะไฟ:</span>
-                                                                    <span class="contact-email"><span class="badge badge-danger">Off</span></span>
+                                                                    <span class="contact-email info_room_fstatus"></span>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -160,24 +202,7 @@ include_once("./sidebar_ad.php")
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <script>
-                                                            var exampleModal = document.getElementById('edit')
-                                                            exampleModal.addEventListener('show.bs.modal', function(event) {
-                                                                // Button that triggered the modal
-                                                                var button = event.relatedTarget
-                                                                // Extract info from data-bs-* attributes
-                                                                var recipient = button.getAttribute('data-bs-whatever')
-                                                                // If necessary, you could initiate an AJAX request here
-                                                                // and then do the updating in a callback.
-                                                                //
-                                                                // Update the modal's content.
-                                                                var modalTitle = exampleModal.querySelector('.modal-title')
-                                                                var modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-                                                                modalTitle.textContent = 'New message to ' + recipient
-                                                                modalBodyInput.value = recipient
-                                                            })
-                                                        </script>
                                                     </div>
 
                                                 </div>
@@ -197,7 +222,7 @@ include_once("./sidebar_ad.php")
                                     </div>
                                     <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
-                                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <table id="tb_room_el" class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>รหัสประจำตัว</th>
@@ -206,26 +231,71 @@ include_once("./sidebar_ad.php")
 
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
+                                                <tbody id='tbb_room_el'>
+
+                                                    <!-- <tr>
                                                         <td>1339900662225</td>
                                                         <td>นายสมพล วิลา</td>
                                                         <th class="text-center">
-
                                                             <a href="#"><i class="ti-search"></i></a>
                                                         </th>
-                                                    </tr>
-                                                    <tr>
+                                                    </tr> -->
+
+                                                    <!-- <tr>
                                                         <td>1339906884516</td>
                                                         <td>นายรักนะ วรรณะ</td>
                                                         <th class="text-center">
 
                                                             <a href="#"><i class="ti-search"></i></a>
                                                         </th>
-                                                    </tr>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    show_tb_room_el();
+                                                    show_tb_room_schedule();
+                                                });
+                                                function show_tb_room_el(){
+                                                    var tb_room_el = $('#tb_room_el').DataTable({
+                                                        dom: 'lBfrtip',
+                                                        lengthMenu: [
+                                                            [5,10, 25, 50,60, -1],
+                                                            [5,10, 25, 50, 60,"All"]
+                                                        ],
+                                                        buttons: [
+                                                            'copy', 'csv', 'excel', 'print'
+                                                        ]
+                                                    });
 
+                                                    tb_room_el.clear();
+
+                                                    $.ajax({
+                                                        url : './controller/con_room_search_ad.php',
+                                                        type : 'POST',
+                                                        data: {
+                                                            key: 'show_tb_room_el',
+                                                            id_room : ID_ROOM
+
+                                                        },success: function(result, textStatus, jqXHR) {
+                                                            // alert(result);
+                                                            var json = JSON.parse(result);
+                                                            $.each(json, function(key,val){
+                                                                var id_code = val.id_code;
+                                                                // val
+                                                                tb_room_el.row.add([
+                                                                    val.id_code,
+                                                                    val.name + ' ' + val.last_name,
+                                                                    '<div class="text-center"><a href="./personal_search_ad.php?id='+ val.id_mem + '"><i class="ti-search"></i></a></div>'
+                                                                ]).draw(true);
+                                                            });
+                                                        },error: function(jqXHR, textStatus, errorThrown){
+
+                                                        }
+                                                    });
+
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +314,7 @@ include_once("./sidebar_ad.php")
                                     </div>
                                     <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
-                                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <table id="tb_room_schedule" class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>รหัสประจำตัว</th>
@@ -275,7 +345,48 @@ include_once("./sidebar_ad.php")
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <script>
+                                                function show_tb_room_schedule(){
+                                                    var tb_room_el = $('#tb_room_schedule').DataTable({
+                                                        dom: 'lBfrtip',
+                                                        lengthMenu: [
+                                                            [5,10, 25, 50,60, -1],
+                                                            [5,10, 25, 50, 60,"All"]
+                                                        ],
+                                                        buttons: [
+                                                            'copy', 'csv', 'excel', 'print'
+                                                        ]
+                                                    });
 
+                                                    tb_room_el.clear();
+
+                                                    $.ajax({
+                                                        url : './controller/con_room_search_ad.php',
+                                                        type : 'POST',
+                                                        data: {
+                                                            key: 'show_tb_room_schedule',
+                                                            id_room : ID_ROOM
+
+                                                        },success: function(result, textStatus, jqXHR) {
+                                                            // alert(result);
+                                                            var json = JSON.parse(result);
+                                                            $.each(json, function(key,val){
+                                                                var id_code = val.id_code;
+                                                                // val
+                                                                tb_room_el.row.add([
+                                                                    val.id_code,
+                                                                    val.name + ' ' + val.last_name,
+                                                                    val.time_stamp,
+                                                                    '<div class="text-center"><a href="./personal_search_ad.php?id='+ val.id_mem + '"><i class="ti-search"></i></a></div>'
+                                                                ]).draw(true);
+                                                            });
+                                                        },error: function(jqXHR, textStatus, errorThrown){
+
+                                                        }
+                                                    });
+
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -298,117 +409,15 @@ include_once("./sidebar_ad.php")
 
 
 
-    <script src="../../script/assets/js/lib/sweetalert/sweetalert.min.js"></script>
+    <!-- <script src="../../script/assets/js/lib/sweetalert/sweetalert.min.js"></script> -->
     <!-- <script src="../../script/assets/js/lib/sweetalert/sweetalert.init.js"></script> -->
 
-    <script>
-        document.querySelector('.sweet-wrong').onclick = function() {
-            sweetAlert("Oops...", "Something went wrong !!", "error");
-        };
-        document.querySelector('.sweet-message').onclick = function() {
-            swal("Hey, Here's a message !!")
-        };
-        document.querySelector('.sweet-text').onclick = function() {
-            swal("Hey, Here's a message !!", "It's pretty, isn't it?")
-        };
-        document.querySelector('.sweet-success').onclick = function() {
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-        };
-        document.querySelector('.sweet-confirm').onclick = function() {
-            swal({
-                    title: "Are you sure to delete ?",
-                    text: "You will not be able to recover this imaginary file !!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it !!",
-                    closeOnConfirm: false
-                },
-                function() {
-                    swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success");
-                });
-        };
-        document.querySelector('.sweet-success-cancel').onclick = function() {
-            swal({
-                    title: "Are you sure to delete ?",
-                    text: "You will not be able to recover this imaginary file !!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it !!",
-                    cancelButtonText: "No, cancel it !!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm) {
-                    if (isConfirm) {
-                        swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success");
-                    } else {
-                        swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error");
-                    }
-                });
-        };
-        document.querySelector('.sweet-image-message').onclick = function() {
-            swal({
-                title: "Sweet !!",
-                text: "Hey, Here's a custom image !!",
-                imageUrl: "assets/images/hand.jpg"
-            });
-        };
-        document.querySelector('.sweet-html').onclick = function() {
-            swal({
-                title: "Sweet !!",
-                text: "<span style='color:#ff0000'>Hey, you are using HTML !!<span>",
-                html: true
-            });
-        };
-        document.querySelector('.sweet-auto').onclick = function() {
-            swal({
-                title: "Sweet auto close alert !!",
-                text: "Hey, i will close in 2 seconds !!",
-                timer: 2000,
-                showConfirmButton: false
-            });
-        };
-        document.querySelector('.sweet-prompt').onclick = function() {
-            swal({
-                    title: "Enter an input !!",
-                    text: "Write something interesting !!",
-                    type: "input",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    animation: "slide-from-top",
-                    inputPlaceholder: "Write something"
-                },
-                function(inputValue) {
-                    if (inputValue === false) return false;
-                    if (inputValue === "") {
-                        swal.showInputError("You need to write something!");
-                        return false
-                    }
-                    swal("Hey !!", "You wrote: " + inputValue, "success");
-                });
-        };
-        document.querySelector('.sweet-ajax').onclick = function() {
-            swal({
-                    title: "Sweet ajax request !!",
-                    text: "Submit to run ajax request !!",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true,
-                },
-                function() {
-                    setTimeout(function() {
-                        swal("Hey, your ajax request finished !!");
-                    }, 2000);
-                });
-        };
-    </script>
 
 
 
-    <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
@@ -416,7 +425,8 @@ include_once("./sidebar_ad.php")
     <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
+    <!-- <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
+
 </body>
 
 </html>

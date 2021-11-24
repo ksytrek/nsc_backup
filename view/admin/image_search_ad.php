@@ -232,15 +232,12 @@ $row_mm = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};", PD
                             foreach (Database::query("SELECT * FROM `tbimage` INNER JOIN `members` ON tbimage.id_mem = members.id_mem WHERE tbimage.id_mem = {$id_mem};", PDO::FETCH_ASSOC) as $row) :                            ?>
                                 <div id='show_tb_image' class="col-lg-3">
                                     <img class='img_face' src="../../<?php echo $row['path_image'] . $row['name_image'] ?>" width="100%" alt="">
-                                    <input type="checkbox" class="select_delete_image " value='<?php echo $row['id_tbimage'] ?>'><label>&nbsp;&nbsp;&nbsp;เลือกรูปที่ต้องการลบ</label>
+                                    <label><input type="checkbox" class="select_delete_image " value='<?php echo $row['id_tbimage'] ?>'  >&nbsp;&nbsp;&nbsp;เลือกรูปที่ต้องการลบ</label>
                                 </div>
                         <?php
                             endforeach;
                         endif;
                         ?>
-                        <!-- <div id='show_tb_image' class="col-lg-3">
-                            <div class="pp"></div>
-                        </div> -->
                         <script>
                             $(document).ready(function() {
                                 update_show_image();
