@@ -154,6 +154,7 @@ try {
                                                                 } else {
                                                                     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
                                                                 }
+                                                                
                                                                 tb_showroom.row.add([
                                                                     room_num,
                                                                     btn_status,

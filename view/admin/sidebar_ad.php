@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
+<?php
+    date_default_timezone_set('Asia/Bangkok');
+    session_start();
     include("../../config/connectdb.php");
-
+    $id_admin = $_SESSION['id_admin'];
 ?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Styles -->
-    <!-- <link href="../../script/assets/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet"> -->
-    <!-- <link href="../../script/assets/css/lib/chartist/chartist.min.css" rel="stylesheet"> -->
+
     <link href="../../script/assets/css/lib/font-awesome.min.css" rel="stylesheet">
     <link href="../../script/assets/css/lib/themify-icons.css" rel="stylesheet">
     <link href="../../script/assets/css/lib/owl.carousel.min.css" rel="stylesheet" />

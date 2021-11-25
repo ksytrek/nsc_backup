@@ -2,14 +2,14 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 30, 2021 at 08:12 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- Host: localhost
+-- Generation Time: Nov 25, 2021 at 08:24 PM
+-- Server version: 8.0.27-0ubuntu0.20.04.1
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+07:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -30,17 +30,10 @@ USE `face_detection`;
 --
 
 CREATE TABLE `eligibility` (
-  `id_eligibilty` int(11) NOT NULL,
-  `id_mem` int(11) NOT NULL,
-  `id_room` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `eligibility`
---
-
-INSERT INTO `eligibility` (`id_eligibilty`, `id_mem`, `id_room`) VALUES
-(6, 37, 1);
+  `id_eligibilty` int NOT NULL,
+  `id_mem` int NOT NULL,
+  `id_room` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -49,7 +42,7 @@ INSERT INTO `eligibility` (`id_eligibilty`, `id_mem`, `id_room`) VALUES
 --
 
 CREATE TABLE `members` (
-  `id_mem` int(11) NOT NULL,
+  `id_mem` int NOT NULL,
   `id_code` varchar(13) NOT NULL,
   `name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
@@ -57,15 +50,8 @@ CREATE TABLE `members` (
   `pass` varchar(25) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `position` varchar(60) NOT NULL,
-  `stu_face` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `members`
---
-
-INSERT INTO `members` (`id_mem`, `id_code`, `name`, `last_name`, `e_mail`, `pass`, `phone`, `position`, `stu_face`) VALUES
-(37, '1339900662224', 'SOMPHOL', 'WILA', 'std.62122710108@ubru.ac.th', '1234', '0971271931', 'นักศึกษา', 0);
+  `stu_face` int DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -74,18 +60,11 @@ INSERT INTO `members` (`id_mem`, `id_code`, `name`, `last_name`, `e_mail`, `pass
 --
 
 CREATE TABLE `rooms` (
-  `id_room` int(11) NOT NULL,
+  `id_room` int NOT NULL,
   `room_num` varchar(20) NOT NULL,
-  `room_fstatus` int(11) NOT NULL DEFAULT 0,
+  `room_fstatus` int NOT NULL DEFAULT '0',
   `room_dclose` time NOT NULL DEFAULT '00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `rooms`
---
-
-INSERT INTO `rooms` (`id_room`, `room_num`, `room_fstatus`, `room_dclose`) VALUES
-(1, 'ห้องนอน', 0, '00:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -94,18 +73,11 @@ INSERT INTO `rooms` (`id_room`, `room_num`, `room_fstatus`, `room_dclose`) VALUE
 --
 
 CREATE TABLE `rqroom` (
-  `rq_id` int(11) NOT NULL,
-  `id_mem` int(11) NOT NULL,
-  `id_room` int(11) NOT NULL,
-  `time_stamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `rqroom`
---
-
-INSERT INTO `rqroom` (`rq_id`, `id_mem`, `id_room`, `time_stamp`) VALUES
-(20, 37, 1, '2021-10-30 03:54:10');
+  `rq_id` int NOT NULL,
+  `id_mem` int NOT NULL,
+  `id_room` int NOT NULL,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -114,18 +86,11 @@ INSERT INTO `rqroom` (`rq_id`, `id_mem`, `id_room`, `time_stamp`) VALUES
 --
 
 CREATE TABLE `schedule` (
-  `id_ schedule` int(11) NOT NULL,
-  `id_mem` int(11) NOT NULL,
-  `id_room` int(11) NOT NULL,
-  `time_stamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `schedule`
---
-
-INSERT INTO `schedule` (`id_ schedule`, `id_mem`, `id_room`, `time_stamp`) VALUES
-(2, 37, 1, '2021-10-30 05:43:06');
+  `id_ schedule` int NOT NULL,
+  `id_mem` int NOT NULL,
+  `id_room` int NOT NULL,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -134,11 +99,11 @@ INSERT INTO `schedule` (`id_ schedule`, `id_mem`, `id_room`, `time_stamp`) VALUE
 --
 
 CREATE TABLE `tbadmin` (
-  `id_admin` int(11) NOT NULL,
+  `id_admin` int NOT NULL,
   `name_ad` varchar(50) NOT NULL,
   `pass_ad` varchar(20) NOT NULL,
   `e_emil_ad` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -147,11 +112,11 @@ CREATE TABLE `tbadmin` (
 --
 
 CREATE TABLE `tbimage` (
-  `id_tbimage` int(11) NOT NULL,
-  `id_mem` int(11) NOT NULL,
+  `id_tbimage` int NOT NULL,
+  `id_mem` int NOT NULL,
   `path_image` varchar(100) NOT NULL,
   `name_image` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Indexes for dumped tables
@@ -194,6 +159,12 @@ ALTER TABLE `schedule`
   ADD KEY `id_room` (`id_room`);
 
 --
+-- Indexes for table `tbadmin`
+--
+ALTER TABLE `tbadmin`
+  ADD PRIMARY KEY (`id_admin`);
+
+--
 -- Indexes for table `tbimage`
 --
 ALTER TABLE `tbimage`
@@ -208,31 +179,37 @@ ALTER TABLE `tbimage`
 -- AUTO_INCREMENT for table `eligibility`
 --
 ALTER TABLE `eligibility`
-  MODIFY `id_eligibilty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_eligibilty` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id_mem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_mem` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rqroom`
 --
 ALTER TABLE `rqroom`
-  MODIFY `rq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `rq_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id_ schedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ schedule` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbadmin`
+--
+ALTER TABLE `tbadmin`
+  MODIFY `id_admin` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbimage`
 --
 ALTER TABLE `tbimage`
-  MODIFY `id_tbimage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tbimage` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

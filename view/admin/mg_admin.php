@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar_ad.php")
+// session_start();
+include_once("./sidebar_ad.php");
+
+
+
 ?>
 
 <head>
@@ -11,6 +15,49 @@ include_once("./sidebar_ad.php")
     <title>Focus Admin: Creative Admin Dashboard</title>
 
 </head>
+<script>
+    const ID_ADMIN = '<?php echo $id_admin; ?>';
+    var str_pass = '';
+
+    $(document).ready(function() {
+        show_admin_info();
+
+    });
+
+
+
+    function show_admin_info() {
+        $.ajax({
+            url: './controller/con_mg_admin.php',
+            type: 'POST',
+            data: {
+                key: 'show_admin_info'
+            },
+            success: function(result, textStatus, jqXHR) {
+                // alert(result + ': ' + textStatus);
+                var json = JSON.parse(result);
+
+                str_pass = json[0].pass_ad;
+                var str = "";
+                for (index in str_pass) {
+                    str += '*';
+                }
+                $('.tl_name').html(json[0].name_ad);
+                $('.ad_name').html(json[0].name_ad);
+                $('.ad_e_mail').html(json[0].e_emil_ad);
+                $('.ad_pass').html(str);
+
+                $('.input-name-ad').val(json[0].name_ad);
+                $('.input-email-ad').val(json[0].e_emil_ad);
+                $('.input-new-pass-ad').val(json[0].pass_ad);
+
+            },
+            error: function(result, textStatus, jqX) {
+                history.back(1);
+            }
+        });
+    }
+</script>
 
 <body>
     <div class="content-wrap">
@@ -20,7 +67,7 @@ include_once("./sidebar_ad.php")
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <!-- <h1>Hello, <span>Welcome Here</span></h1> -->
+                                
                             </div>
                         </div>
                     </div>
@@ -46,8 +93,8 @@ include_once("./sidebar_ad.php")
                                     <div class="user-profile">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="user-profile-name">สมพล วิลา</div>
-                                                <div class="user-job-title">ผู้ดูแลระบบ</div>
+                                                <div class="user-profile-name tl_name">สมพล วิลา</div>
+                                                <div class="user-job-title ">ผู้ดูแลระบบ</div>
                                                 <div class="custom-tab user-profile-tab">
                                                     <ul class="nav nav-tabs" role="tablist">
                                                         <li role="presentation" class="active">
@@ -60,35 +107,34 @@ include_once("./sidebar_ad.php")
                                                                 <h4>information</h4>
                                                                 <div class="address-content">
                                                                     <span class="contact-title">ชื่อ:</span>
-                                                                    <span class="contact-skype">สมพล</span>
+                                                                    <span class="contact-skype ad_name">สมพล</span>
                                                                 </div>
                                                                 <div class="email-content">
                                                                     <span class="contact-title">Email:</span>
-                                                                    <span class="contact-email">std.62122710108@ubru.ac.th</span>
+                                                                    <span class="contact-email ad_e_mail"></span>
                                                                 </div>
                                                                 <div class="phone-content">
                                                                     <span class="contact-title">รหัสผ่าน:</span>
-                                                                    <a id="click-show" class="user-job-title1" href="#" onclick="show()" >*******</a>
-                                                                    <span  class="contact-email" id="show-pass"></span>
+                                                                    <!-- <a id="click-show" class="user-job-title1" href="#" onclick="show()" >*******</a> -->
+                                                                    <span class="contact-email ad_pass" id="show-pass"></span>
                                                                 </div>
-                                                                <script>
-                                                                    function show() {
-                                                                        document.getElementById('show-pass').innerHTML ="123456789";
-                                                                        document.getElementById('click-show').style.display = "none";
-                                                                    }
-                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
-                                            
+
                                                     <div class="user-send-message">
-                                                        <button class="btn btn-sm btn-warning btn-rounded" type="button" data-toggle="modal" data-target="#edit">
+                                                        <button class="btn btn-sm btn-warning btn-rounded edit-admin-btn" type="button" data-toggle="modal" data-target="#edit">
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
+                                                            <script>
+                                                            //     $('.edit-admin-btn').click(function(){
+                                                            //         confrime("slkdfjsdf");
+                                                            //     });
+                                                            // </script>
                                                     </div>
-                                                
+
                                                     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -101,52 +147,89 @@ include_once("./sidebar_ad.php")
                                                                 <div class="modal-body">
                                                                     <form>
                                                                         <div class="form-group">
-                                                                            <label>User Name</label>
-                                                                            <input type="text" class="form-control" placeholder="User Name">
+                                                                            <label>Name Admin</label>
+                                                                            <input type="text" class="form-control input-name-ad" placeholder="Name Admin">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Email address</label>
-                                                                            <input type="email" class="form-control" placeholder="Email">
+                                                                            <input type="email" class="form-control input-email-ad" placeholder="Email">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>New Password </label>
-                                                                            <input type="password" class="form-control" placeholder="Password">
+                                                                            <input type="password" class="form-control input-new-pass-ad" placeholder="New Password">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>Current Password</label>
-                                                                            <input type="password" class="form-control" placeholder="Password">
+                                                                            <input type="password" class="form-control input-confrime-pass-ad" placeholder="Password">
                                                                         </div>
                                                                         <div class="checkbox">
                                                                             <label>
-                                                                                <input type="checkbox"> Agree the terms and policy
+                                                                                <input class="input-checkbox" type="checkbox"> Agree the terms and policy
                                                                             </label>
+                                                                            <script>
+                                                                                $(document).ready(function() {
+                                                                                    $('#div-btn-edit-ad').hide();
+                                                                                });
+                                                                                $('.input-checkbox').click(function() {
+                                                                                    if ($('.input-checkbox').prop('checked') == true) {
+                                                                                        // alert('OK');
+                                                                                        $('#div-btn-edit-ad').show();
+                                                                                    } else {
+                                                                                        $('#div-btn-edit-ad').hide();
+                                                                                    }
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn btn-primary">SAVE</button>
+                                                                    <div id='div-btn-edit-ad'> <button id='btn-edit-save' type="button" class="btn btn-primary">SAVE</button> </div>
+                                                                    <script>
+                                                                        $('#btn-edit-save').click(function() {
+                                                                            // alert('ckick');
+                                                                            if (confirm('Are you sure you want to Edit?')){
+                                                                                // alert($('.input-confrime-pass-ad').val() + ' ' + str_pass);
+                                                                                if ($('.input-confrime-pass-ad').val() == str_pass) {
+                                                                                    $.ajax({
+                                                                                        url: './controller/con_mg_admin.php',
+                                                                                        type: 'POST',
+                                                                                        data: {
+                                                                                            key: 'btn-edit-save',
+                                                                                            id_admin: ID_ADMIN,
+                                                                                            name_ad: $('.input-name-ad').val(),
+                                                                                            pass_ad: $('.input-new-pass-ad').val(),
+                                                                                            e_emil_ad: $('.input-email-ad').val()
+
+                                                                                        },
+                                                                                        success: function(result, textStatus, jqx) {
+                                                                                            swal("SUCCESS", "แก้ไขสำเร็จ", 'success', {
+                                                                                                button: false,
+                                                                                                timer: 1000
+                                                                                            });
+                                                                                            show_admin_info();
+                                                                                            // alert(result);
+                                                                                        },
+                                                                                        error: function(jqxhr, textStatus, errorThrown) {
+
+                                                                                        }
+                                                                                    });
+                                                                                } else {
+                                                                                    swal("Please", "รหัสผ่านปัจจุบัน", 'warning', {
+                                                                                        button: false,
+                                                                                        timer: 1000
+                                                                                    });
+                                                                                }
+
+                                                                            }
+
+
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <script>
-                                                            var exampleModal = document.getElementById('edit')
-                                                            exampleModal.addEventListener('show.bs.modal', function(event) {
-                                                                // Button that triggered the modal
-                                                                var button = event.relatedTarget
-                                                                // Extract info from data-bs-* attributes
-                                                                var recipient = button.getAttribute('data-bs-whatever')
-                                                                // If necessary, you could initiate an AJAX request here
-                                                                // and then do the updating in a callback.
-                                                                //
-                                                                // Update the modal's content.
-                                                                var modalTitle = exampleModal.querySelector('.modal-title')
-                                                                var modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-                                                                modalTitle.textContent = 'New message to ' + recipient
-                                                                modalBodyInput.value = recipient
-                                                            })
-                                                        </script>
                                                     </div>
 
                                                 </div>
@@ -157,19 +240,19 @@ include_once("./sidebar_ad.php")
                             </div>
                         </div>
                     </div>
-                    
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="footer">
-                                <p>2022 © Admin Board. - <a href="#">example.com</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer">
+                        <p>2022 © Admin Board. - <a href="#">example.com</a></p>
+                    </div>
+                </div>
+            </div>
+            </section>
+
         </div>
+    </div>
     </div>
 </body>
 

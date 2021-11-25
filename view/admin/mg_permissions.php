@@ -14,7 +14,27 @@ include_once("./sidebar_ad.php");
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
+<script>
+    function send_post_get(path, params, method) {
+        const form = document.createElement('form');
+        form.method = method;
+        form.action = path;
 
+        for (const key in params) {
+            if (params.hasOwnProperty(key)) {
+                const hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = key;
+                hiddenField.value = params[key];
+
+                form.appendChild(hiddenField);
+            }
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 
 <body>
     <div class="content-wrap">
@@ -64,56 +84,21 @@ include_once("./sidebar_ad.php");
                                             </thead>
 
                                             <tbody id="tbb_showeligibility">
-                                                <?php
-                                                $shom_el = Database::query("SELECT mm.id_mem,rm.id_room, el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;", PDO::FETCH_ASSOC);
-                                                foreach ($shom_el as $room) :
-                                                ?>
-                                                    <tr>
-
-                                                        <td><input type="hidden" name="id_mem" value="<?php echo $room['id_mem'] ?>"><?php echo $room['id_code']; ?></td>
-                                                        <td><?php echo $room['name'] . " " . $room['last_name']; ?></td>
-                                                        <td><input type="hidden" name="id_room" value="<?php echo $room['id_room'] ?>"><?php echo $room['room_num'] ?></td>
-                                                        <th class="text-center">
-                                                            
-                                                            <a class='click_submit_search'><i class="ti-search"></i></a>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;<input class="select_delete" type='checkbox' value='<?php echo $room['id_eligibilty'] ?>'>
-                                                        </th>
-                                                    </tr>
-                                                <?php
-                                                endforeach;
-                                                ?>
                                             </tbody>
+
                                             <script>
-        
                                                 $("#tb_showeligibility").on('click', '.click_submit_search', function() {
                                                     // get the current row
                                                     var currentRow = $(this).closest("tr");
                                                     var id_mem = currentRow.find("td:eq(0) input[type='hidden']").val();
                                                     // var id_room = currentRow.find("td:eq(2) input[type='hidden']").val();
-                                                    send_post_get('personal_search_ad.php',{id:id_mem },'get');
+                                                    send_post_get('personal_search_ad.php', {
+                                                        id: id_mem
+                                                    }, 'get');
 
 
                                                 });
 
-                                                function send_post_get(path, params, method) {
-                                                    const form = document.createElement('form');
-                                                    form.method = method;
-                                                    form.action = path;
-
-                                                    for (const key in params) {
-                                                        if (params.hasOwnProperty(key)) {
-                                                            const hiddenField = document.createElement('input');
-                                                            hiddenField.type = 'hidden';
-                                                            hiddenField.name = key;
-                                                            hiddenField.value = params[key];
-
-                                                            form.appendChild(hiddenField);
-                                                        }
-                                                    }
-
-                                                    document.body.appendChild(form);
-                                                    form.submit();
-                                                }
 
 
 
@@ -173,81 +158,83 @@ include_once("./sidebar_ad.php");
                                                     swal("ลบ Permission สำเร็จ", {
                                                         icon: "success",
                                                         buttons: false,
-                                                        // timer: 1000,
+                                                        timer: 1000,
                                                     });
                                                     await sleep(2000);
-                                                    location.reload();
+                                                    // location.reload();
+                                                    show_tb_eligibility();
                                                 }
 
                                                 // demo();
                                             </script>
                                         </table>
-                                        <!-- <script>
-                                            window.onload = function() {
-                                                // show_tb_eligibility();
-                                            };
-                                            setInterval(function() {
 
-                                            }, 5000); // 1000 = 1 second
-
-                                            function show_tb_eligibility() {
-                                                // alert('Eligibility');
-                                                $.ajax({
-                                                    url: "./controller/con_admin.php",
-                                                    type: "POST",
-                                                    data: {
-                                                        key: "show_tb_eligibility"
-                                                    },
-                                                    success: function(result, textStatus, jqXHR) {
-                                                        // alert(result);
-                                                        console.log(result);
-                                                        var json = jQuery.parseJSON(result);
-                                                        // var i = 0;
-                                                        if (json != false) {
-
-                                                            $("#tbb_showeligibility").empty();
-
-                                                            $.each(json, function(key, val) {
-                                                                var row = "";
-                                                                var tr = "<tr>";
-                                                                var _tr = "</tr>";
-                                                                var td = "<td>";
-                                                                var _td = "</td>";
-
-
-                                                                row += tr;
-                                                                row += td + 1 + _td;
-                                                                row += td + 2 + _td;
-                                                                row += td + 3 + _td;
-                                                                row += td + 4 + _td;
-                                                                row += _tr;
-
-                                                                $('#tb_showeligibility > tbody:last').append(row);
-                                                            });
-                                                        } else {
-                                                            $("#tbb_showeligibility").empty();
-                                                            var row = "";
-                                                            var tr = "<tr>";
-                                                            var _tr = "</tr>";
-                                                            var td = "<td>";
-                                                            var _td = "</td>";
-
-                                                            row += tr;
-                                                            row += td + "" + _td;
-                                                            row += td + "ยังไม่มีข้อมูลห้อง" + _td;
-                                                            row += _tr;
-
-                                                            $('#tb_showeligibility  > tbody:last').append(row);
-                                                        }
-                                                    }
-                                                }).error(function(xhr, status, error) {
-                                                    alert(xhr.statusText + status + error + ': ' + xhr.responseText);
-                                                });
-                                            }
-                                        </script> -->
                                     </div>
                                 </div>
+                                <script>
+                                    window.onload = function() {
+                                        show_tb_eligibility();
+                                        // var tb_eligibility = $("#tbb_showeligibility").DataTable();
+                                    };
+                                    setInterval(function() {
 
+                                    }, 5000); // 1000 = 1 second
+
+                                    function show_tb_eligibility() {
+                                        // alert('Eligibility');
+                                        var tb_eligibility = $("#tb_showeligibility").DataTable();
+                                        tb_eligibility.clear();
+
+                                        $.ajax({
+                                            url: "./controller/con_admin.php",
+                                            type: "POST",
+                                            data: {
+                                                key: "show_tb_eligibility"
+                                            },
+                                            success: function(result, textStatus, jqXHR) {
+                                                // alert(result);
+                                                // console.log(result);
+                                                var json = jQuery.parseJSON(result);
+                                                // var i = 0;
+                                                if (json != false) {
+
+                                                    $.each(json, function(key, val) {
+
+                                                        var col1 = '<input type="hidden" name="id_mem" value="' + val['id_mem'] + '">' + val['id_code'];
+                                                        var col2 = val['name'] + " " + val['last_name'];
+                                                        var col3 = '<input type="hidden" name="id_room" value="' + val['id_room'] + '">' + val['room_num'];
+                                                        var col4 = '<div class="text-center"><a class="click_submit_search"><i class="ti-search"></i></a>' +
+                                                            '&nbsp;&nbsp;&nbsp;&nbsp;' +
+                                                            '<input class="select_delete" type="checkbox" value=\' ' + val['id_eligibilty'] + '\'> </div>';
+                                                        tb_eligibility.row.add([
+                                                            col1,
+                                                            col2,
+                                                            col3,
+                                                            col4
+                                                        ]).draw(true);
+
+                                                    });
+                                                } else {
+                                                    // $("#tbb_showeligibility").empty();
+                                                    // var row = "";
+                                                    // var tr = "<tr>";
+                                                    // var _tr = "</tr>";
+                                                    // var td = "<td>";
+                                                    // var _td = "</td>";
+
+                                                    // row += tr;
+                                                    // row += td + "" + _td;
+                                                    // row += td + "ยังไม่มีข้อมูลห้อง" + _td;
+                                                    // row += _tr;
+
+                                                    // $('#tb_showeligibility  > tbody:last').append(row);
+                                                }
+                                            }
+                                        }).error(function(xhr, status, error) {
+                                            alert(xhr.statusText + status + error + ': ' + xhr.responseText);
+                                        });
+                                    }
+                                </script>
                                 <div class="modal fade" id="edit_room" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -290,7 +277,7 @@ include_once("./sidebar_ad.php");
                                             </div>
                                         </div>
                                     </div>
-        
+
                                 </div>
                             </div>
 
@@ -354,7 +341,7 @@ include_once("./sidebar_ad.php");
                                                         add_el();
                                                     });
                                                     $("#check_box_all").click(function() {
-                                                        $('input:checkbox').not(this).prop('checked', this.checked);
+                                                        $('.checkbox_id_code').not(this).prop('checked', this.checked);
                                                     });
 
                                                     function add_el() {
@@ -428,7 +415,8 @@ include_once("./sidebar_ad.php");
                                             <button id='add_permission' type="button" class="btn btn-primary">ADD Permissions</button>
                                             <script>
                                                 $('#btn_cancel_permission').on('click', function() {
-                                                    location.reload();
+                                                    // location.reload();
+                                                    show_tb_eligibility();
                                                 });
 
                                                 $('#add_permission').on('click', function() {
@@ -441,42 +429,54 @@ include_once("./sidebar_ad.php");
                                                         }
                                                     });
 
+                                                    if (id_code_array.length > 0) {
+                                                        $.ajax({
+                                                            url: "./controller/con_admin.php",
+                                                            type: "POST",
+                                                            data: {
+                                                                key: "add_permission",
+                                                                id_mem: id_code_array,
+                                                                id_room: id_room
+                                                            },
+                                                            success: function(result, textStatus, jqXHR) {
+                                                                // alert(result);
+                                                                // $('#add_permission').attr("data-dismiss", "modal");
+
+                                                                swal("เพิ่ม Permission สำเร็จ", {
+                                                                    icon: "success",
+                                                                    buttons: false,
+                                                                    timer: 1000,
+                                                                });
+                                                                add_el();
+                                                                show_tb_eligibility();
+                                                                // $('#add_permission').attr("data-dismiss", "modal");
+                                                                // location.reload();
+
+                                                                // .then((willDelete) => {
+                                                                //     if (willDelete) {
+                                                                //         // alert("result");
+                                                                //     }else{
+                                                                //         // alert("error");
+                                                                //         location.reload();
+                                                                //     }
+                                                                // });
+
+                                                                // $('#add_permission').attr("data-dismiss", "modal");
+                                                            },
+                                                            error: function(jqXHR, textStatus, errorThrown) {}
+                                                        });
+                                                    } else {
+                                                        swal("กรุณาเลือก Permission", {
+                                                            icon: "warning",
+                                                            buttons: false,
+                                                            timer: 1000,
+                                                        });
+                                                    }
+
+
                                                     // $('#add_room').modal('close');
                                                     // alert(languages[0])
-                                                    $.ajax({
-                                                        url: "./controller/con_admin.php",
-                                                        type: "POST",
-                                                        data: {
-                                                            key: "add_permission",
-                                                            id_mem: id_code_array,
-                                                            id_room: id_room
-                                                        },
-                                                        success: function(result, textStatus, jqXHR) {
-                                                            // alert(result);
-                                                            // $('#add_permission').attr("data-dismiss", "modal");
 
-                                                            swal("เพิ่ม Permission สำเร็จ", {
-                                                                icon: "success",
-                                                                buttons: false,
-                                                                timer: 1000,
-                                                            });
-                                                            add_el();
-                                                            // $('#add_permission').attr("data-dismiss", "modal");
-                                                            // location.reload();
-
-                                                            // .then((willDelete) => {
-                                                            //     if (willDelete) {
-                                                            //         // alert("result");
-                                                            //     }else{
-                                                            //         // alert("error");
-                                                            //         location.reload();
-                                                            //     }
-                                                            // });
-
-                                                            // $('#add_permission').attr("data-dismiss", "modal");
-                                                        },
-                                                        error: function(jqXHR, textStatus, errorThrown) {}
-                                                    });
                                                 });
                                             </script>
                                         </div>
@@ -500,19 +500,19 @@ include_once("./sidebar_ad.php");
     <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
 
     <!-- scripit init-->
-    <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
-    <!-- <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script> -->
-    <!-- <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script> -->
-    <!-- <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script> -->
-    <!-- <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script> -->
-    <!-- <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script> -->
+    <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <!-- <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script> -->
-    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script> -->
+    <!-- <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
 
     <script>
         $(document).ready(function() {
-            $('#tb_showeligibility').DataTable();
+            // $('#tb_showeligibility').DataTable();
             // $('#tb_select_show_mem').DataTable();
 
         });

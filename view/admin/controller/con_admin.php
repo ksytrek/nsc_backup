@@ -131,7 +131,7 @@ if(isset($_POST['key']) && $_POST['key'] == "show_tb_eligibility"){
 
     $resultArray = array();
     try {
-        $sql_rqroom_search = "SELECT el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;";
+        $sql_rqroom_search = "SELECT mm.id_mem,rm.id_room, el.id_eligibilty,mm.id_code,mm.name,mm.last_name,mm.position,rm.room_num FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem INNER JOIN rooms as rm ON el.id_room = rm.id_room;";
         if ($show_tebelig = Database::query($sql_rqroom_search, PDO::FETCH_ASSOC)) {
             foreach ($show_tebelig  as $row) {
                 array_push($resultArray, $row);

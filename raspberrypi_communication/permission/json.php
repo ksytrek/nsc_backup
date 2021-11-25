@@ -1,7 +1,5 @@
 <?php
-
 include_once('../../config/connectdb.php');
-
 class update_permission
 {
     public static function update($path): void
@@ -9,6 +7,7 @@ class update_permission
         $resultArray = array();
         $json_txt = "";
         try {
+
             $sql = "SELECT * FROM `eligibility`";
             if ($show_tebelig = Database::query($sql, PDO::FETCH_ASSOC)) {
                 foreach ($show_tebelig  as $row) {
@@ -40,5 +39,3 @@ class update_permission
         }
     }
 }
-
-// update_permission::update();
