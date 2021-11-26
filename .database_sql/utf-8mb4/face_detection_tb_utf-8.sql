@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+07:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -149,8 +149,8 @@ ALTER TABLE `rooms`
 --
 ALTER TABLE `rqroom`
   ADD PRIMARY KEY (`rq_id`),
-  ADD KEY `s` (`id_mem`),
-  ADD KEY `sd` (`id_room`);
+  ADD KEY `id_mem` (`id_mem`),
+  ADD KEY `id_room` (`id_room`);
 
 --
 -- Indexes for table `schedule`
@@ -171,7 +171,7 @@ ALTER TABLE `tbadmin`
 --
 ALTER TABLE `tbimage`
   ADD PRIMARY KEY (`id_tbimage`),
-  ADD KEY `tb` (`id_mem`);
+  ADD KEY `id_mem` (`id_mem`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -182,6 +182,14 @@ ALTER TABLE `tbimage`
 --
 ALTER TABLE `eligibility`
   MODIFY `id_eligibilty` int NOT NULL AUTO_INCREMENT COMMENT 'รหัสสิทธิ์เข้าห้อง';
+
+
+--
+-- AUTO_INCREMENT for table `rooms`
+--
+ALTER TABLE `rooms`
+  MODIFY `id_room` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีห้อง';
+
 
 --
 -- AUTO_INCREMENT for table `members`
