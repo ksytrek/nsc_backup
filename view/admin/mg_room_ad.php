@@ -85,15 +85,18 @@ include_once("./sidebar_ad.php")
                                         <table class="table table-bordered" id="tb_mg_room">
                                             <thead>
                                                 <tr>
-                                                    <th>รหัสห้อง</th>
+                                                    <th>รหัสประจำเครื่อง</th>
                                                     <th>ชื่อห้อง</th>
                                                     <th>เวลา ปิด ไฟ</th>
                                                     <th class="text-center">สถานะไฟ</th>
                                                     <th class="text-center">
-                                                        <a href="#" data-toggle="modal" data-target="#add_room" data-whatever="@mdo"><i class="ti-plus">&nbsp;เพิ่มห้อง</i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#add_room" data-whatever="@mdo"><i class="ti-plus add_room">&nbsp;เพิ่มห้อง</i></a>
                                                     </th>
                                                 </tr>
                                             </thead>
+
+
+
                                             <tbody id='tbb_mg_room'>
 
                                             </tbody>
@@ -122,6 +125,7 @@ include_once("./sidebar_ad.php")
                                                             $.each(json, function(key, val) {
 
                                                                 var id_room = val['id_room'];
+                                                                var room_id_code = val['room_id_code'];
                                                                 var room_num = val['room_num'];
                                                                 var room_dclose = val['room_dclose'].substr(0, 5);
                                                                 var status = val["room_fstatus"];
@@ -135,13 +139,14 @@ include_once("./sidebar_ad.php")
                                                                 }
 
 
+                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] +"'>" + room_id_code;
                                                                 var col4 = '<div class="text-center">' +
                                                                     '<a class ="click_edit_search" href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>' +
-                                                                    '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="#"><i class="ti-search"></i></a>' +
+                                                                    '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id='+ val['id_room'] +'"><i class="ti-search"></i></a>' +
                                                                     '</div>'
                                                                 // tb_mg_room.clear();
                                                                 tb_mg_room.row.add([
-                                                                    id_room,
+                                                                    col1,
                                                                     room_num,
                                                                     room_dclose,
                                                                     btn_status,
@@ -161,10 +166,12 @@ include_once("./sidebar_ad.php")
                                                 $("#tb_mg_room").on('click', '#seach_room_link', function() {
                                                     // get the current row
                                                     var currentRow = $(this).closest("tr");
-                                                    var id_room_txt = currentRow.find("td:eq(0)").text();
+                                                    var id_room_txt = currentRow.find("td:eq(0) input[type='hidden']").val();
 
 
-                                                    send_post_get("./room_search_ad.php",{id:id_room_txt},'GET');
+                                                    send_post_get("./room_search_ad.php", {
+                                                        id: id_room_txt
+                                                    }, 'GET');
                                                 });
 
                                                 function ckick_btn_room_fstatus(id_room, status) {
@@ -214,7 +221,8 @@ include_once("./sidebar_ad.php")
                                                     <div class="modal-body">
                                                         <form>
                                                             <div class="form-group">
-                                                                <label>ID Room</label>
+                                                                <label>รหัสประจำเครื่อง</label>
+                                                                <!-- <input id="edit-hidden-id_room" type="hidden" > -->
                                                                 <input id="edit_input_id_room" type="text" disabled class="form-control" placeholder="ID Room">
                                                             </div>
                                                             <div class="form-group">
@@ -254,9 +262,11 @@ include_once("./sidebar_ad.php")
                                                     </div>
 
                                                     <script>
+                                                        var id_room_edit = '';
                                                         $("#tb_mg_room").on('click', '.click_edit_search', function() {
                                                             // get the current row
                                                             var currentRow = $(this).closest("tr");
+                                                            id_room_edit = currentRow.find("td:eq(0) input[type='hidden']").val();
                                                             var id_room_txt = currentRow.find("td:eq(0)").text();
                                                             var room_name_txt = currentRow.find("td:eq(1)").text();
                                                             var room_dclose_tex = currentRow.find("td:eq(2)").text();
@@ -271,9 +281,13 @@ include_once("./sidebar_ad.php")
 
                                                         $('#btn_edit_room').click(function() {
                                                             // get Value Edit
-                                                            var id_room = $('#edit_input_id_room').val();
+                                                        
+                                                            var id_room = id_room_edit;
+                                                            var room_id_code = $('#edit_input_id_room').val();
                                                             var room_name = $('#edit_input_room_name').val();
                                                             var room_dclose = $('#edit_input_room_dclose').val();
+
+                                                            // alert(id_room + " " + room_name + " " + room_id_code + " " + room_dclose);
 
 
                                                             // alert(id_room + ' ' + room_name + ' ' + room_dclose);
@@ -285,6 +299,7 @@ include_once("./sidebar_ad.php")
                                                                     data: {
                                                                         key: 'btn_edit_room',
                                                                         id_room: id_room,
+                                                                        room_id_code: room_id_code,
                                                                         room_name: room_name,
                                                                         room_dclose: room_dclose
 
@@ -330,6 +345,9 @@ include_once("./sidebar_ad.php")
                                                                     timer: 1500,
                                                                 });
                                                             }
+
+
+
                                                             // alert(id_room + " " + room_name + " " + room_dclose);
 
                                                         });
@@ -351,8 +369,8 @@ include_once("./sidebar_ad.php")
                                                     <div class="modal-body">
                                                         <form>
                                                             <div class="form-group">
-                                                                <label>ID Room</label>
-                                                                <input id='id_room' type="text" class="form-control" placeholder="ID Room">
+                                                                <label>รหัสประจำห้อง &nbsp;&nbsp;<a class="btn badge badge-success text-danger btn-random">สุม</a></label>
+                                                                <input id='id_room' disabled type="text" class="form-control" placeholder="ID Room">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Room Name</label>
@@ -390,20 +408,38 @@ include_once("./sidebar_ad.php")
                                                         <div id='div_btn_create'>
                                                             <button id='btn_create_room' type="button" class="btn btn-primary">SAVE</button>
                                                             <script>
+                                                                function random_string(length) {
+                                                                    var result = '';
+                                                                    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                                                                    var cnaracters_ = '0123456789!@#$%^&*';
+                                                                    var charactersLength = characters.length;
+                                                                    for (var i = 0; i < length; i++) {
+                                                                        result += characters.charAt(Math.floor(Math.random() *
+                                                                            charactersLength));
+                                                                    }
+                                                                    return result;
+                                                                }
+                                                                $('.add_room').click(function() {
+                                                                    // alert(random_string(8));
+                                                                    $('#id_room').val(random_string(29));
+                                                                });
+                                                                $('.btn-random').click(function(){
+                                                                    $('#id_room').val(random_string(29));
+                                                                });
                                                                 $('#btn_create_room').click(function() {
                                                                     // alert('Room created');
-                                                                    var id_room = $('#id_room').val();
+                                                                    var room_id_code = $('#id_room').val();
                                                                     var room_name = $('#room_name').val();
                                                                     var room_dclose = $('#room_dclose').val();
                                                                     // alert(room_dclose);
 
-                                                                    if (id_room != '' && room_name != '' && room_dclose != '') {
+                                                                    if (room_id_code != '' && room_name != '' && room_dclose != '') {
                                                                         $.ajax({
                                                                             url: './controller/con_mg_room.php',
                                                                             type: 'POST',
                                                                             data: {
                                                                                 key: 'btn_create_room',
-                                                                                id_room: id_room,
+                                                                                room_id_code: room_id_code,
                                                                                 room_name: room_name,
                                                                                 room_dclose: room_dclose
 
@@ -431,7 +467,7 @@ include_once("./sidebar_ad.php")
                                                                                 }
                                                                             },
                                                                             error: function(jqXHR, textStatus, errorThrown) {
-                                                                                swal('เกิดข้อผิดพลาด', {
+                                                                                swal(errorThrown, {
                                                                                     icon: "error",
                                                                                     buttons: false,
                                                                                     timer: 1000,

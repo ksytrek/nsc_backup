@@ -29,4 +29,8 @@ class CreateFileRoom
             return false;
         }
     }
+
+    public static function delete_room($path, $room_id_code){
+
+    }
 }

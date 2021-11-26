@@ -11,11 +11,6 @@ include_once("./sidebar_ad.php")
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Focus Admin: Creative Admin Dashboard</title>
     <style>
-        /* Start by setting display:none to make this hidden.
-   Then we position it in relation to the viewport window
-   with position:fixed. Width, height, top and left speak
-   for themselves. Background we set to 80% white with
-   our animation centered, and no-repeating */
         .modal {
             display: none;
             position: fixed;
@@ -26,15 +21,10 @@ include_once("./sidebar_ad.php")
             width: 100%;
             background: rgba(255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
         }
-
-        /* When the body has the loading class, we turn
-   the scrollbar off with overflow:hidden */
         body.loading .modal {
             overflow: hidden;
         }
 
-        /* Anytime the body has the loading class, our
-   modal element will be visible */
         body.loading .modal {
             display: block;
         }
@@ -79,7 +69,9 @@ include_once("./sidebar_ad.php")
                             </div>
                             <div class="card-toggle-body">
                                 <p class="text-muted m-b-15">
-                                    รายละเอียดควรรู้ก่อน Train <code> Run Script Python Train</code>
+                                    รายละเอียดควรรู้ก่อน Train 
+                                    <h5>กรุณาอย่าปิด บราวเซอร์ จนกว่าระบบทำงานเสร็จ</h5>
+                                    <code> Run Script Python Train</code>
                                 </p>
                                 <!-- <form active="./train_model.php" method="post"> -->
                                 <button name="btn-train" id="btn-train" type="button" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-pie-chart"></i>Start Train Model</button>
@@ -87,17 +79,26 @@ include_once("./sidebar_ad.php")
                                 <script>
                                     var body = $("body");
                                     $('#btn-train').click(function() {
-                                        if(window.confirm('คุณต้องการ Train Model ?...')){
-                                            
+                                        if (window.confirm('คุณต้องการ Train Model ?...')) {
                                             $.ajax({
                                                 url: './controller/com_train_model.php',
                                                 type: 'POST',
                                                 data: {
                                                     key: 'btn-train'
-                                                },success: function(result, textStatus, jqXHR) {
-                                                    alert(result);
-                                                },error: function(jqXHR, textStatus, errorThrown){
+                                                },
+                                                cache: false,
+                                                beforeSend: function() {
                                                     body.addClass("loading");
+                                                },
+                                                complete: function() {
+                                                    // body.addClass("loading");
+                                                },
+                                                success: function(result, textStatus, jqXHR) {
+                                                    body.removeClass("loading");
+                                                    $('#code_show_').html(result)
+                                                },
+                                                error: function(jqXHR, textStatus, errorThrown) {
+                                                    // body.addClass("loading");
                                                 }
                                             });
                                         }
@@ -124,10 +125,6 @@ include_once("./sidebar_ad.php")
                             </div>
                             <div class="col-lg-12" style="background-color: black;">
                                 <code id="code_show_">
-                                    <script>
-
-                                    </script>
-                                    
                                 </code>
                             </div>
 

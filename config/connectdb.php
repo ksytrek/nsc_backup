@@ -57,4 +57,16 @@ class Database {
         self::getLink() == null;
     }
 
-} ?>
+} 
+
+
+
+
+
+
+
+
+
+
+
+?>

@@ -74,7 +74,7 @@ try {
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-heading">จำนวนประวัติใช้ห้อง</div>
+                                        <div class="stat-heading">ประวัติใช้ห้อง</div>
                                         <div class="stat-text">Total : <?php echo $row_schedule['total'] ?> </div>
                                     </div>
                                 </div>
@@ -98,6 +98,7 @@ try {
                                             <tr>
                                                 <th>ชื่อห้อง</th>
                                                 <th>สถานะไฟ</th>
+                                                <th>สถานะประตู</th>
                                                 <th>จำนวนที่มีสิทธิ์เข้า</th>
                                             </tr>
                                         </thead>
@@ -110,20 +111,48 @@ try {
                                                 show_rqroom();
 
                                             };
-                                            $(document).ready(function() {
-                                            });
+                                            $(document).ready(function() {});
 
 
                                             setInterval(function() {
                                                 // tb_showroom();
-                                                show_rqroom() ;
+                                                show_rqroom();
                                             }, 2000); // 1000 = 1 second
 
+                                            function ckick_btn_room_door(id_room, status) {
 
-                                            
+                                                if (confirm(status == "0" ? "you want to turn on the Door" : "you want to turn off the Door")) {
+                                                    $.ajax({
+                                                        url: "./controller/con_room_search_ad.php",
+                                                        type: "POST",
+                                                        data: {
+                                                            key: "ckick_btn_room_door",
+                                                            id_room: id_room,
+                                                            status: status
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            // alert(result)
+                                                            swal(result, {
+                                                                icon: "success",
+                                                                buttons: false,
+                                                                timer: 1000,
+                                                            });
+                                                            tb_showroom();
+                                                            // search_room_info();
+
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown) {
+                                                            alert(errorThrown);
+                                                        }
+                                                    });
+                                                }
+
+
+                                            }
+
                                             function tb_showroom() {
                                                 var tb_showroom = $('#tb_showroom').DataTable();
-                                                    tb_showroom.clear();
+                                                tb_showroom.clear();
 
                                                 $.ajax({
                                                     url: "./controller/con_admin.php",
@@ -154,13 +183,25 @@ try {
                                                                 } else {
                                                                     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
                                                                 }
-                                                                
+
+                                                                var status_door = val['status_door'];
+                                                                var btn_door = '';
+
+                                                                if (status_door == '0') {
+                                                                    // alert(status);
+                                                                    btn_door = "<button type='button' onclick='ckick_btn_room_door(" + val['id_room'] + ',' + status_door + ")' class='btn badge badge-danger'>Off</button>";
+                                                                } else {
+                                                                    // alert(status);
+                                                                    btn_door = "<button type='button' onclick='ckick_btn_room_door(" + val['id_room']  + ',' + status_door + ")'  class='btn badge badge-success'>On</button>";
+                                                                }
+
                                                                 tb_showroom.row.add([
                                                                     room_num,
                                                                     btn_status,
+                                                                    btn_door,
                                                                     check_count
                                                                 ]).draw(true);
-                                                                
+
                                                                 // var row = "";
                                                                 // var tr = "<tr>";
                                                                 // var _tr = "</tr>";
@@ -198,10 +239,10 @@ try {
                                                         } else {
 
                                                             tb_showroom.row.add([
-                                                                    "",
-                                                                    "",
-                                                                    "ไม่มีข้อมูลห้อง"
-                                                                ]).draw(true);
+                                                                "",
+                                                                "",
+                                                                "ไม่มีข้อมูลห้อง"
+                                                            ]).draw(true);
                                                             // $("#tbb_showroom").empty();
                                                             // var row = "";
                                                             // var tr = "<tr>";
@@ -459,15 +500,15 @@ try {
                                         <tbody>
                                             <?php
                                             $num = 0;
-                                            $sql = Database::query("SELECT mm.id_code, mm.name,mm.last_name,rm.room_num , sc.time_stamp FROM `schedule` as sc INNER JOIN members as mm ON sc.id_mem = mm.id_mem INNER JOIN rooms as rm ON sc.id_room = rm.id_room;", PDO::FETCH_ASSOC);
+                                            $sql = Database::query("SELECT * FROM `schedule` as sc ORDER BY time_stamp DESC ;", PDO::FETCH_ASSOC);
                                             foreach ($sql as $row) :
                                                 $num += 1;
                                             ?>
                                                 <tr>
                                                     <th scope="row"><?php echo $num; ?></th>
                                                     <td><?php echo $row['id_code'] ?></td>
-                                                    <td><?php echo $row['name'] . " " . $row['last_name'] ?></td>
-                                                    <td><?php echo $row['room_num'] ?></td>
+                                                    <td><?php echo $row['full_name'] ?></td>
+                                                    <td><?php echo $row['room_name'] ?></td>
                                                     <td class="color-primary text-center"><?php echo date("H:i d/m/Y", strtotime($row['time_stamp'])); ?></td>
                                                 </tr>
                                             <?php

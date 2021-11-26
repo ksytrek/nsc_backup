@@ -55,21 +55,21 @@ include_once("./sidebar_ad.php");
                                                     <th>รหัสประจำตัว</th>
                                                     <th>ชื่อบุคลากร</th>
                                                     <th>ชื่อห้อง</th>
-                                                    <th>เวลา เข้า</th>
+                                                    <th class="text-center">เวลา เข้า</th>
                                                     <th class="text-center">เช็ค</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php 
-                                                $sql = "SELECT mm.id_mem ,mm.id_code, mm.name ,mm.last_name ,rm.room_num, sc.time_stamp FROM `schedule` as sc INNER JOIN members as mm ON sc.id_mem = mm.id_mem INNER JOIN rooms as rm ON sc.id_room = rm.id_room;";
+                                                $sql = "SELECT * FROM `schedule` as sc ORDER BY time_stamp DESC ;";
                                                 $search = Database::query($sql, PDO::FETCH_ASSOC);
                                                 foreach($search as $row):
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $row['id_code']?></td>
-                                                    <td><?php echo $row['name']." ".$row['last_name']?></td>
-                                                    <td><?php echo $row['room_num']?></td>
-                                                    <td><?php echo $row['time_stamp']?></td>
+                                                    <td><?php echo $row['full_name']?></td>
+                                                    <td><?php echo $row['room_name']?></td>
+                                                    <td class="color-primary text-center" ><?php echo date("H:i  d/m/Y", strtotime($row['time_stamp']))?></td>
                                                     <td class="text-center">
                                                         <a href="./personal_search_ad.php?id=<?php echo $row['id_mem'] ?>"><i class="ti-search"></i></a>
                                                     </td>

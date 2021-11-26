@@ -128,6 +128,7 @@ if (isset($_GET['id'])) :
 
                         } else {
                             alert("แจ้งเตือนข้อผิดพลาดไม่สามารถแสดงข้อมูลได้")
+                            history.back(1);
                         }
 
                     },
@@ -630,12 +631,12 @@ if (isset($_GET['id'])) :
                                                 <tbody id="tbb_el">
                                                     <?php
                                                     $co = 1;
-                                                    foreach ($src = Database::query("SELECT rm.room_num, sc.time_stamp FROM `schedule` as sc INNER JOIN rooms as rm ON rm.id_room = sc.id_room WHERE sc.id_mem = '$id_mem';") as $row) :
+                                                    foreach ($src = Database::query("SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';") as $row) :
 
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $co ?></td>
-                                                            <td><?php echo $row['room_num'] ?></td>
+                                                            <td><?php echo $row['room_name'] ?></td>
                                                             <td><?php echo $row['time_stamp'] ?></td>
                                                         </tr>
                                                     <?php

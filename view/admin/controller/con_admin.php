@@ -8,7 +8,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
     // $id_mem = $_POST['id_mem'];
     $resultArray = array();
     try {
-        $sql_room_search = "SELECT rm.id_room , rm.room_num,rm.room_fstatus ,COUNT(el.id_room) as 'count' FROM rooms as rm LEFT JOIN eligibility as el ON rm.id_room = el.id_room GROUP BY rm.id_room;";
+        $sql_room_search = "SELECT rm.id_room , rm.room_num,rm.room_fstatus, rm.status_door ,COUNT(el.id_room) as 'count' FROM rooms as rm LEFT JOIN eligibility as el ON rm.id_room = el.id_room GROUP BY rm.id_room;";
         if ($show_tebelig = Database::query($sql_room_search, PDO::FETCH_ASSOC)) {
             foreach ($show_tebelig  as $row) {
                 array_push($resultArray, $row);

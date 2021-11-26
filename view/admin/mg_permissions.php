@@ -76,7 +76,7 @@ include_once("./sidebar_ad.php");
                                                     <th>ชื่อ - สกุล</th>
                                                     <th>ห้องที่มีสิทธิ์เข้า</th>
                                                     <th class="text-center">
-                                                        <a href="#" data-toggle="modal" data-target="#add_room" data-whatever="@mdo"><i class="ti-plus">&nbsp;เพิ่ม</i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#add_el" data-whatever="@mdo"><i class="ti-plus">&nbsp;เพิ่ม</i></a>
                                                         &nbsp;&nbsp;&nbsp;<i id='checkbox_delet_all' class="ti-close">&nbsp;ลบ</i>
                                                     </th>
 
@@ -160,7 +160,7 @@ include_once("./sidebar_ad.php");
                                                         buttons: false,
                                                         timer: 1000,
                                                     });
-                                                    await sleep(2000);
+                                                    await sleep(1000);
                                                     // location.reload();
                                                     show_tb_eligibility();
                                                 }
@@ -203,7 +203,7 @@ include_once("./sidebar_ad.php");
                                                         var col1 = '<input type="hidden" name="id_mem" value="' + val['id_mem'] + '">' + val['id_code'];
                                                         var col2 = val['name'] + " " + val['last_name'];
                                                         var col3 = '<input type="hidden" name="id_room" value="' + val['id_room'] + '">' + val['room_num'];
-                                                        var col4 = '<div class="text-center"><a class="click_submit_search"><i class="ti-search"></i></a>' +
+                                                        var col4 = '<div class="text-center"><a href="./personal_search_ad.php?id=' + val['id_mem']+ '"class="click_submit_search_clode"><i class="ti-search"></i></a>' +
                                                             '&nbsp;&nbsp;&nbsp;&nbsp;' +
                                                             '<input class="select_delete" type="checkbox" value=\' ' + val['id_eligibilty'] + '\'> </div>';
                                                         tb_eligibility.row.add([
@@ -283,7 +283,7 @@ include_once("./sidebar_ad.php");
 
 
 
-                            <div class="modal fade" id="add_room" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="add_el" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -474,7 +474,7 @@ include_once("./sidebar_ad.php");
                                                     }
 
 
-                                                    // $('#add_room').modal('close');
+                                                    // $('#add_el').modal('close');
                                                     // alert(languages[0])
 
                                                 });

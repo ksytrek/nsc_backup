@@ -1,7 +1,7 @@
 <?php
 
-include("../../../config/connectdb.php");
-include("../../../config/create_file_room.php");
+include_once("../../../config/connectdb.php");
+include_once("../../../config/create_file_room.php");
 if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     // echo "NMalkjdfljeo ";
     $resultArray = array();
@@ -23,39 +23,30 @@ if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     }
 }
 
+include("../../../config/cl_mg_room.php");
 if (isset($_POST['key']) && $_POST['key'] == 'btn_create_room') {
-    $id_room = $_POST['id_room'];
+
+
+    $room_id_code = $_POST['room_id_code'];
     $room_name = $_POST['room_name'];
     $room_dclose = $_POST['room_dclose'];
 
-    $json_arr= [
-        'id_room' => $id_room,
-        'room_name' => $room_name,
-        'room_dclose' => $room_dclose,
-        'room_fstatus' => '0'
-    ];
+    $pathForder = '../../../raspberrypi_communication/create_room/';
 
-
-    $json_encode = json_encode($json_arr);
-    $path = '../../../raspberrypi_communication/create_room/';
-
-    try {
-        $sql_insert_room = "INSERT INTO `rooms` (`id_room`, `room_num`, `room_fstatus`, `room_dclose`) VALUES ('{$id_room}', '{$room_name}', '0', '{$room_dclose}');";
-        if (Database::query($sql_insert_room)) {
-            CreateFileRoom::create_room($path,$id_room, $json_encode);
-            echo "success";
-        } else {
-            echo "error";
-        }
-    } catch (Exception $e) {
+    if(ManagementRoom::Create_room($pathForder,$room_id_code,$room_name,$room_dclose)){
+        echo "success";
+    }else{
         echo "error: ";
     }
+    
+
 }
 
 
 if(isset($_POST['key']) && $_POST['key'] == 'btn_edit_room'){
     // echo "success";
     $id_room = $_POST['id_room'];
+    $room_id_code = $_POST['room_id_code'];
     $room_name = $_POST['room_name'];
     $room_dclose = $_POST['room_dclose'];
 
@@ -64,29 +55,36 @@ if(isset($_POST['key']) && $_POST['key'] == 'btn_edit_room'){
 
     $room_fstatus = $row['room_fstatus'];
 
+    // echo $room_fstatus ;
+
     // echo $room_fstatus;
     $json_arr= [
-        'id_room' => $id_room,
+        'room_id_code' => $room_id_code,
         'room_name' => $room_name,
         'room_dclose' => $room_dclose,
-        'room_fstatus' => $room_fstatus
+        'room_fstatus' => $room_fstatus 
     ];
 
     $json_encode = json_encode($json_arr);
     $path = '../../../raspberrypi_communication/create_room/';
 
     try {
-        $sql_update_room = "UPDATE `rooms` SET `room_num` = '$room_name', `room_fstatus` = '$room_fstatus', `room_dclose` = '$room_dclose' WHERE `rooms`.`id_room` = '$id_room';";
+        $sql_update_room = "UPDATE `rooms` SET `room_id_code` = '$room_id_code', `room_num` = '$room_name', `room_fstatus` = '$room_fstatus', `room_dclose` = '$room_dclose', `status_door` = '1' WHERE `rooms`.`id_room` = '$id_room';";
         if (Database::query($sql_update_room)) {
-            CreateFileRoom::create_room($path,$id_room, $json_encode);
+            CreateFileRoom::create_room($path,$room_id_code, $json_encode);
             echo "success";
             // echo false;
         } else {
             echo "error";
         }
     } catch (Exception $e) {
-        echo "error: ";
+        echo "error: ".$e->getMessage();
     }
+}
+
+
+if(isset($_POST['key']) && $_POST['key'] == ''){
+
 }
 
 

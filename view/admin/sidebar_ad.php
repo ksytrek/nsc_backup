@@ -22,6 +22,8 @@
     <link href="../../script/assets/css/style.css" rel="stylesheet">
 
     <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+
 
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
@@ -53,7 +55,7 @@
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="./mg_room_ad.php">จัดการตารางห้อง</a></li>
-                            <li><a href="./check_request_ad.php">ตรวจสอบการร้องขอ</a></li>
+                            <!-- <li><a href="./check_request_ad.php">ตรวจสอบการร้องขอ</a></li> -->
                             <li><a href="./room_history_all.php">ประวัติการ เข้า ห้อง</a></li>
                             
                         </ul>
@@ -150,7 +152,9 @@
     <!-- scripit init-->
     <!-- <script src="../../script/assets/js/dashboard2.js"></script> -->
 
-
+<!-- 
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script> -->
 </body>
 
 </html>

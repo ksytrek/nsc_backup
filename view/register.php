@@ -31,7 +31,6 @@ include('../config/connectdb.php');
         var accuracy_phone = "";
         var accuracy_pass = "";
         var accuracy_position = "";
-        
     </script>
     <div class="unix-login">
         <div class="container-fluid">
@@ -167,7 +166,7 @@ include('../config/connectdb.php');
                                                             accuracy_mail = "";
                                                             return;
                                                         }
-                                                        
+
                                                         // alert(this.responseText);
                                                         if (this.responseText == 'success') {
                                                             document.getElementById('div-mail').className = 'form-group has-success';
@@ -205,12 +204,12 @@ include('../config/connectdb.php');
                                                 document.getElementById('div-phone').className = 'form-group has-error';
                                                 accuracy_phone = "";
                                                 return;
-                                            }else if (str.length == 0 ) {
+                                            } else if (str.length == 0) {
                                                 document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
                                                 document.getElementById('div-phone').className = 'form-group ';
                                                 accuracy_phone = "";
                                                 return;
-                                            }else if(str.length >= 11){
+                                            } else if (str.length >= 11) {
                                                 document.getElementById("txt-phone").innerHTML = "กรุณากรอกมือถือที่ติดต่อได้";
                                                 document.getElementById('div-phone').className = 'form-group has-error';
                                                 accuracy_phone = "";
@@ -218,10 +217,10 @@ include('../config/connectdb.php');
                                             } else {
                                                 document.getElementById("txt-phone").innerHTML = "สามารถใช้เบอร์มือถือนี้ได้";
                                                 document.getElementById('div-phone').className = 'form-group has-success';
-                                                str_pho1= str.substring(0, 3);
-                                                str_pho2= str.substring(3, 6);
-                                                str_pho3= str.substring(6, );
-                                                phone.value = str_pho1+str_pho2+str_pho3;
+                                                str_pho1 = str.substring(0, 3);
+                                                str_pho2 = str.substring(3, 6);
+                                                str_pho3 = str.substring(6, );
+                                                phone.value = str_pho1 + str_pho2 + str_pho3;
                                                 accuracy_phone = "success";
                                                 return;
                                             }
@@ -240,7 +239,7 @@ include('../config/connectdb.php');
                                                 document.getElementById('div-pass').className = 'form-group has-error';
                                                 accuracy_pass = "";
                                                 return;
-                                            }else if (str.length == 0) {
+                                            } else if (str.length == 0) {
                                                 document.getElementById("txt-pass").innerHTML = "ต้องผสมด้วย A-Za-z0-9!@#$%^&* จำนวน 8 - 12 ตัว";
                                                 document.getElementById('div-pass').className = 'form-group ';
                                                 accuracy_pass = "";
@@ -256,7 +255,7 @@ include('../config/connectdb.php');
                                 </div>
                                 <div id="div-position" class="form-group">
                                     <label>position</label>
-                                    <input id="position"onkeyup="check_position(this.value)" type="text" class="form-control" placeholder="position">
+                                    <input id="position" onkeyup="check_position(this.value)" type="text" class="form-control" placeholder="position">
                                     <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
                                     <script>
                                         function check_position(str) {
@@ -313,12 +312,12 @@ include('../config/connectdb.php');
                                         //     && accuracy_lastname == "success" && accuracy_mail == "success"
                                         //     && accuracy_pass == "success" && accuracy_phone == "success"
                                         //     && accuracy_position == "success");
-                                        if (accuracy_id == "success" && accuracy_name == "success"
-                                            && accuracy_lastname == "success" && accuracy_mail == "success"
-                                            && accuracy_pass == "success" && accuracy_phone == "success"
-                                            && accuracy_position == "success") {
-                                        // if (true) {
-                                            swal({
+                                        if (accuracy_id == "success" && accuracy_name == "success" &&
+                                            accuracy_lastname == "success" && accuracy_mail == "success" &&
+                                            accuracy_pass == "success" && accuracy_phone == "success" &&
+                                            accuracy_position == "success") {
+                                            // if (true) {
+                                                swal({
                                                     title: "Are you sure?",
                                                     text: "Once deleted, you will not be able to recover this imaginary file!",
                                                     icon: "warning",
@@ -327,42 +326,61 @@ include('../config/connectdb.php');
 
                                                 }).then((willDelete) => {
                                                     if (willDelete) {
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            data: {
-                                                                key: key,
-                                                                cid: cid,
-                                                                uname: uname,
-                                                                lastname: lastname,
-                                                                phone: phone,
-                                                                email: email,
-                                                                pass: pass,
-                                                                position: position
-                                                            },
-                                                            url: "./controller/inser_register.php",
-                                                            success: function(result, textStatus, jqXHR) {
-                                                                // alert(result);
-                                                                swal("Hey, i will close in 2 seconds !!", {
-                                                                    icon: "success",
-                                                                    buttons: false,
-                                                                    timer: 2000,
-                                                                });
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        data: {
+                                                            key: key,
+                                                            cid: cid,
+                                                            uname: uname,
+                                                            lastname: lastname,
+                                                            phone: phone,
+                                                            email: email,
+                                                            pass: pass,
+                                                            position: position
+                                                        },
+                                                        url: "./controller/inser_register.php",
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            // alert(result);
+                                                            swal("Hey, i will close in 2 seconds !!", {
+                                                                icon: "success",
+                                                                buttons: false,
+                                                                timer: 2000,
+                                                            });
+                                                            timemer();
 
-                                                            },
-                                                            error: function(jqXHR, textStatus, errorTh) {
-                                                                // alert(errorTh + ": " + textStatus + " " + jqXHR.text)
-                                                                swal("", "เกินข้อผิดพลาด!", "error");
 
-                                                            }
-                                                        });
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorTh) {
+                                                            // alert(errorTh + ": " + textStatus + " " + jqXHR.text)
+                                                            swal("", "เกินข้อผิดพลาด!", "error");
 
-                                                    } else {
-                                                        swal("Your imaginary file is safe!");
-                                                    }
-                                                });
+                                                        }
+                                                    });
+
+                                                } else {
+                                                    swal("Your imaginary file is safe!");
+                                                }
+                                            });
                                         } else {
                                             swal("", "ตรวจสอบข้อมูลอีกครั้ง!", "info");
                                         }
+                                    }
+
+                                    function sleep(ms) {
+                                        return new Promise(resolve => setTimeout(resolve, ms));
+                                    }
+
+                                    async function timemer() {
+                                        swal("Hey, i will close in 2 seconds !!", {
+                                            icon: "success",
+                                            buttons: false,
+                                            timer: 2000,
+                                        });
+                                        // swal("SUCCESS", "อัพเดตข้อมูลสำร็จ!", "success", {
+                                        //     buttons: false
+                                        // });
+                                        await sleep(2000);
+                                        history.back(1);
                                     }
                                 </script>
                                 <div class="register-link m-t-15 text-center">
