@@ -240,7 +240,7 @@ try {
 
                                                             tb_showroom.row.add([
                                                                 "",
-                                                                "",
+                                                                "","",
                                                                 "ไม่มีข้อมูลห้อง"
                                                             ]).draw(true);
                                                             // $("#tbb_showroom").empty();
