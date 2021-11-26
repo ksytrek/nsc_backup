@@ -26,6 +26,7 @@ if (isset($_GET['id'])) :
     <body>
         <script>
             const ID_MEM = '<?php echo $id_mem; ?>';
+            var id_code = '';
             window.onload = function() {
                 information_person_info();
             }
@@ -92,6 +93,9 @@ if (isset($_GET['id'])) :
                         // console.log(result);
                         var json = JSON.parse(result);
                         if (json != false) {
+
+
+                            id_code = json[0].id_code;
                             $('.user-profile-name').html(json[0].name + ' ' + json[0].last_name);
                             $('.user-job-title').html(json[0].position);
 
@@ -610,6 +614,131 @@ if (isset($_GET['id'])) :
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-title">
+                                        <h4>รายชื่อห้องที่มีสิทธิ์เข้า</h4>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="table_el" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ลำดับ</th>
+                                                        <th>ห้อง</th>
+                                                        <th class="text-center">ตรวจสอบ </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbb_el">
+                                                </tbody>
+                                            </table>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    table_el();
+                                                });
+
+                                                function table_el() {
+                                                    var table_el = $('#table_el').DataTable({
+                                                        dom: 'lBfrtip',
+                                                        lengthMenu: [
+                                                            [5, 10, 25, 50, 60, -1],
+                                                            [5, 10, 25, 50, 60, "All"]
+                                                        ],
+                                                        language: {
+                                                            sProcessing: "กำลังดำเนินการ...",
+                                                            sLengthMenu: "แสดง_MENU_ แถว",
+                                                            sZeroRecords: "ไม่พบข้อมูล",
+                                                            sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                            sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                            sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                            sInfoPostFix: "",
+                                                            sSearch: "ค้นหา:",
+                                                            sUrl: "",
+                                                            oPaginate: {
+                                                                "sFirst": "เริ่มต้น",
+                                                                "sPrevious": "ก่อนหน้า",
+                                                                "sNext": "ถัดไป",
+                                                                "sLast": "สุดท้าย"
+                                                            }
+                                                        },
+
+                                                        // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                                        processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                        //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                        order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+                                                        ajax: {
+
+                                                        },
+
+                                                        buttons: [{
+                                                            extend: 'excel',
+                                                            text: 'ส่งออก EXCEL',
+                                                            messageTop: 'Cybernetics Corp.',
+                                                            filename: function() {
+                                                                // const d = new Date();
+                                                                // // let time = d.getTime();
+                                                                // let hour = d.getHours();
+                                                                // let minutes = d.getMinutes();
+                                                                // let day = d.getDay();
+                                                                // let month = d.getMonth();
+                                                                // let year = d.getFullYear();
+                                                                return "รายชื่อห้องที่มีสิทธิ์เข้าของ" + id_code; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                            },
+                                                            // title: 'รายชื่อสิทเข้าห้อง',
+                                                            exportOptions: {
+                                                                columns: [0, 1],
+                                                                // คอลัมส์ที่จะส่งออก
+                                                                // modifier: {
+                                                                //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                                // },
+                                                                // stripHtml: true
+                                                            }
+                                                        }],
+                                                        retrieve: true,
+
+                                                    });
+
+                                                    table_el.clear();
+                                                    $.ajax({
+                                                        url: "./controller/con_per_search.php",
+                                                        type: "POST",
+                                                        data: {
+                                                            key: 'table_el',
+                                                            id_mem: ID_MEM
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            // alert(result);
+
+                                                            var json = JSON.parse(result);
+
+                                                            var count = 1;
+                                                            $.each(json, function(key, val) {
+
+                                                                var col1 = count++;
+                                                                var col2 = val['room_num'];
+                                                                var col3 = '<div class="text-center"> <a href="./room_search_ad.php?id=' + val['id_room'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a> </div>';
+
+
+                                                                table_el.row.add([
+                                                                    col1, col2, col3
+                                                                ]).draw(true);
+
+                                                            });
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown) {
+
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /# column -->
+                        </div>
                         <!-- /# row -->
                         <div class="row">
                             <div class="col-lg-12">
@@ -620,7 +749,7 @@ if (isset($_GET['id'])) :
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <table id="bootstrap-data-table-export" class="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>ลำดับ</th>
@@ -676,12 +805,61 @@ if (isset($_GET['id'])) :
                 $('#bootstrap-data-table-export').DataTable({
                     dom: 'lBfrtip',
                     lengthMenu: [
-                        [10, 25, 50, -1],
-                        [10, 25, 50, "All"]
+                        [5, 10, 25, 50, 60, -1],
+                        [5, 10, 25, 50, 60, "All"]
                     ],
-                    buttons: [
-                        'copy', 'csv', 'excel', 'print'
-                    ]
+                    language: {
+                        sProcessing: "กำลังดำเนินการ...",
+                        sLengthMenu: "แสดง_MENU_ แถว",
+                        sZeroRecords: "ไม่พบข้อมูล",
+                        sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                        sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                        sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                        sInfoPostFix: "",
+                        sSearch: "ค้นหา:",
+                        sUrl: "",
+                        oPaginate: {
+                            "sFirst": "เริ่มต้น",
+                            "sPrevious": "ก่อนหน้า",
+                            "sNext": "ถัดไป",
+                            "sLast": "สุดท้าย"
+                        }
+                    },
+
+                    // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                    processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                    //serverSide: true, // ใช้งานในโหมด Server-side processing
+                    order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+                    ajax: {
+
+                    },
+
+                    buttons: [{
+                        extend: 'excel',
+                        text: 'ส่งออก EXCEL',
+                        messageTop: 'Cybernetics Corp.',
+                        filename: function() {
+                            // const d = new Date();
+                            // // let time = d.getTime();
+                            // let hour = d.getHours();
+                            // let minutes = d.getMinutes();
+                            // let day = d.getDay();
+                            // let month = d.getMonth();
+                            // let year = d.getFullYear();
+                            return "ประวัติการใช้งานห้องของ" + id_code; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                        },
+                        // title: 'รายชื่อสิทเข้าห้อง',
+                        exportOptions: {
+                            columns: [0, 1],
+                            // คอลัมส์ที่จะส่งออก
+                            // modifier: {
+                            //     page: 'all' // หน้าที่จะส่งออก all / current
+                            // },
+                            // stripHtml: true
+                        }
+                    }],
+                    retrieve: true,
+
                 });
             });
         </script>

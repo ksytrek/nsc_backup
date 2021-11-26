@@ -2,10 +2,6 @@
 <html lang="en">
 <?php
 
-// session_start();
-// include('../../config/connectdb.php');
-// $id_mem =  $_SESSION["id_mem"];
-
 ?>
 
 <head>
@@ -252,7 +248,6 @@
                                                 </tr>";
                                             }
                                         }
-
                                         echo $tb_schedule_result;
                                         ?>
 

@@ -23,6 +23,7 @@ if (isset($_GET['id'])) {
     const ID_ROOM = '<?php echo $id_room ?>';
     $(document).ready(function() {
         search_room_info();
+        $('#div_btn_edit').hide();
     });
 
 
@@ -158,6 +159,12 @@ if (isset($_GET['id'])) {
                 $('.info_room_door').html(btn_door);
 
 
+                $('#edit_input_id_room').val(json[0].room_id_code);
+                $('#edit_input_room_name').val(json[0].room_num);
+                $('#edit_input_room_dclose').val(json[0].room_dclose.substr(0, 5))
+
+
+
                 // $('.info_room_fstatus').html(json[0].room_fstatus == 0 ? '<span class="badge badge-danger">Off</span>' : '<span class="badge badge-success">On</span>');
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -259,7 +266,7 @@ if (isset($_GET['id'])) {
                                                             <i class="ti-cloud-down"></i>&nbsp;&nbsp;สำรองข้อมูล</button>
                                                     </div> -->
                                                     <div class="user-send-message">
-                                                        <button class="btn btn-sm btn-warning btn-rounded" type="button" data-toggle="modal" data-target="#edit">
+                                                        <button class="btn btn-sm btn-warning btn-rounded" type="button" data-toggle="modal" data-target="#edit_room">
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
                                                     </div>
                                                     <div class="user-send-message">
@@ -306,53 +313,132 @@ if (isset($_GET['id'])) {
                                                         });
                                                     </script>
 
-                                                    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="edit_room" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูลส่วนตัว</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูลห้อง</h5>
+                                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="false">&times;</span>
+                                                                    </button> -->
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form>
                                                                         <div class="form-group">
-                                                                            <label>User Name</label>
-                                                                            <input type="text" class="form-control" placeholder="User Name">
+                                                                            <label>รหัสประจำเครื่อง</label>
+                                                                            <!-- <input id="edit-hidden-id_room" type="hidden" > -->
+                                                                            <input id="edit_input_id_room" type="text" disabled class="form-control" placeholder="ID Room">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label>Last Name</label>
-                                                                            <input type="email" class="form-control" placeholder="Last Name">
+                                                                            <label>Room Name</label>
+                                                                            <input id="edit_input_room_name" type="text" class="form-control" placeholder="Room Name">
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label>Email address</label>
-                                                                            <input type="email" class="form-control" placeholder="Email">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>Password</label>
-                                                                            <input type="password" class="form-control" placeholder="Password">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>position</label>
 
-                                                                            <select class="form-control">
-                                                                                <option>1</option>
-                                                                                <option>2</option>
-                                                                                <option>3</option>
-                                                                                <option>4</option>
-                                                                                <option>5</option>
-                                                                            </select>
-
+                                                                        <div class="form-group">
+                                                                            <label>ตั้งเวลา ปิด</label>
+                                                                            <input id="edit_input_room_dclose" type="time" value="" class="form-control">
                                                                         </div>
+
+
                                                                         <div class="checkbox">
                                                                             <label>
-                                                                                <input type="checkbox"> Agree the terms and policy
+                                                                                <input id='check_edit_room' type="checkbox"> Agree the terms and policy
                                                                             </label>
+                                                                            <script>
+                                                                                // $('#check_show_create').
+                                                                                $('#check_edit_room').click(function() {
+                                                                                    if ($('#check_edit_room').prop('checked') == true) {
+                                                                                        // alert('OK');
+                                                                                        $('#div_btn_edit').show();
+                                                                                    } else {
+                                                                                        $('#div_btn_edit').hide();
+
+                                                                                        // alert('Error');
+                                                                                    }
+                                                                                });
+                                                                            </script>
                                                                         </div>
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn btn-primary">SAVE</button>
+                                                                    <div id='div_btn_edit'><button id='btn_edit_room' type="button" class="btn btn-primary">SAVE</button></div>
                                                                 </div>
+
+                                                                <script>
+                                                                    $('#btn_edit_room').click(function() {
+                                                                        // get Value Edit
+
+                                                                        // var id_room = id_room_edit;
+                                                                        var room_id_code = $('#edit_input_id_room').val();
+                                                                        var room_name = $('#edit_input_room_name').val();
+                                                                        var room_dclose = $('#edit_input_room_dclose').val();
+
+                                                                        // alert(id_room + " " + room_name + " " + room_id_code + " " + room_dclose);
+
+
+                                                                        // alert(id_room + ' ' + room_name + ' ' + room_dclose);
+
+                                                                        if (room_id_code != '' && room_name != '' && room_dclose != '') {
+                                                                            $.ajax({
+                                                                                url: './controller/con_mg_room.php',
+                                                                                type: 'POST',
+                                                                                data: {
+                                                                                    key: 'btn_edit_room',
+                                                                                    id_room: ID_ROOM,
+                                                                                    room_id_code: room_id_code,
+                                                                                    room_name: room_name,
+                                                                                    room_dclose: room_dclose
+
+                                                                                },
+                                                                                success: function(result, textStatus, jqXHR) {
+                                                                                    // alert(result);
+                                                                                    if (result == "success") {
+                                                                                        swal('แกไขห้องสำเร็จ', {
+                                                                                            icon: "success",
+                                                                                            buttons: false,
+                                                                                            timer: 1000,
+                                                                                        });
+                                                                                        search_room_info();
+                                                                                        $('#edit_room').modal('hide');
+                                                                                        $('#btn_edit_room').attr('ata-dismiss', 'modal');
+                                                                                        // $('#btn_create_room').attr('ata-dismiss','modal');
+                                                                                    } else {
+                                                                                        // alert(result);
+                                                                                        swal('กรุณาตรวจสอบข้อมูล', {
+                                                                                            icon: "warning",
+                                                                                            buttons: false,
+                                                                                            timer: 1000,
+                                                                                        });
+                                                                                        search_room_info();
+                                                                                        // $('#btn_edit_room').attr('ata-dismiss', 'modal');
+                                                                                    }
+
+                                                                                    // $('#btn_edit_room').attr('ata-dismiss', 'modal');
+
+                                                                                },
+                                                                                error: function(jqXHR, textStatus, errorThrown) {
+                                                                                    swal('เกิดข้อผิดพลาด', {
+                                                                                        icon: "error",
+                                                                                        buttons: false,
+                                                                                        timer: 1000,
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        } else {
+                                                                            swal('กรุณาตรวจสอบ ข้อมูล', {
+                                                                                icon: "warning",
+                                                                                buttons: false,
+                                                                                timer: 1500,
+                                                                            });
+                                                                        }
+
+
+
+                                                                        // alert(id_room + " " + room_name + " " + room_dclose);
+
+                                                                    });
+                                                                </script>
                                                             </div>
                                                         </div>
 
@@ -479,6 +565,16 @@ if (isset($_GET['id'])) {
                                                     show_tb_room_schedule();
                                                 });
 
+                                                // pdfMake.fonts = {
+                                                //     THSarabunNew: {
+                                                //         normal: './controller/font/THSarabunNew.ttf',
+                                                //         bold: './controller/font/THSarabunNew-Bold.ttf',
+                                                //         italics: './controller/font/THSarabunNew-Italic.ttf',
+                                                //         bolditalics: './controller/font/THSarabunNew-BoldItalic.ttf'
+                                                //     }
+
+                                                // }
+
                                                 function show_tb_room_el() {
                                                     var tb_room_el = $('#tb_room_el').DataTable({
                                                         dom: 'lBfrtip',
@@ -486,10 +582,58 @@ if (isset($_GET['id'])) {
                                                             [5, 10, 25, 50, 60, -1],
                                                             [5, 10, 25, 50, 60, "All"]
                                                         ],
-                                                        buttons: [
-                                                            'copy', 'csv', 'excel', 'print'
-                                                        ],
+                                                        language: {
+                                                            sProcessing: "กำลังดำเนินการ...",
+                                                            sLengthMenu: "แสดง_MENU_ แถว",
+                                                            sZeroRecords: "ไม่พบข้อมูล",
+                                                            sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                            sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                            sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                            sInfoPostFix: "",
+                                                            sSearch: "ค้นหา:",
+                                                            sUrl: "",
+                                                            oPaginate: {
+                                                                "sFirst": "เริ่มต้น",
+                                                                "sPrevious": "ก่อนหน้า",
+                                                                "sNext": "ถัดไป",
+                                                                "sLast": "สุดท้าย"
+                                                            }
+                                                        },
+
+                                                        // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                                        processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                        //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                        order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+                                                        ajax: {
+
+                                                        },
+
+                                                        buttons: [{
+                                                            extend: 'excel',
+                                                            text: 'ส่งออก EXCEL',
+                                                            messageTop: 'Cybernetics Corp.',
+                                                            filename: function() {
+                                                                // const d = new Date();
+                                                                // // let time = d.getTime();
+                                                                // let hour = d.getHours();
+                                                                // let minutes = d.getMinutes();
+                                                                // let day = d.getDay();
+                                                                // let month = d.getMonth();
+                                                                // let year = d.getFullYear();
+                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง";//+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                            },
+                                                            // title: 'รายชื่อสิทเข้าห้อง',
+                                                            exportOptions: {
+                                                                columns: [0, 1],
+                                                                // คอลัมส์ที่จะส่งออก
+                                                                // modifier: {
+                                                                //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                                // },
+                                                                // stripHtml: true
+                                                            }
+                                                        }],
                                                         retrieve: true,
+
                                                     });
 
                                                     tb_room_el.clear();
@@ -528,9 +672,10 @@ if (isset($_GET['id'])) {
                                                             } else {
 
                                                             }
+                                                        },
+                                                        error: function(xhr, status, error) {
+                                                            alert(xhr.statusText + status + error + ': ' + xhr.responseText);
                                                         }
-                                                    }).error(function(xhr, status, error) {
-                                                        alert(xhr.statusText + status + error + ': ' + xhr.responseText);
                                                     });
 
                                                 }
@@ -798,9 +943,56 @@ if (isset($_GET['id'])) {
                                                             [5, 10, 25, 50, 60, -1],
                                                             [5, 10, 25, 50, 60, "All"]
                                                         ],
-                                                        buttons: [
-                                                            'copy', 'csv', 'excel', 'print'
-                                                        ],
+                                                        language: {
+                                                            sProcessing: "กำลังดำเนินการ...",
+                                                            sLengthMenu: "แสดง_MENU_ แถว",
+                                                            sZeroRecords: "ไม่พบข้อมูล",
+                                                            sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                            sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                            sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                            sInfoPostFix: "",
+                                                            sSearch: "ค้นหา:",
+                                                            sUrl: "",
+                                                            oPaginate: {
+                                                                "sFirst": "เริ่มต้น",
+                                                                "sPrevious": "ก่อนหน้า",
+                                                                "sNext": "ถัดไป",
+                                                                "sLast": "สุดท้าย"
+                                                            }
+                                                        },
+
+                                                        // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                                        processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                        //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                        order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+                                                        // ajax: function(){
+                                                            
+                                                        // },
+
+                                                        buttons: [{
+                                                            extend: 'excel',
+                                                            text: 'ส่งออก EXCEL',
+                                                            messageTop: 'Cybernetics Corp.',
+                                                            filename: function() {
+                                                                // const d = new Date();
+                                                                // // let time = d.getTime();
+                                                                // let hour = d.getHours();
+                                                                // let minutes = d.getMinutes();
+                                                                // let day = d.getDay();
+                                                                // let month = d.getMonth();
+                                                                // let year = d.getFullYear();
+                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง";//+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                            },
+                                                            // title: 'รายชื่อสิทเข้าห้อง',
+                                                            exportOptions: {
+                                                                columns: [0, 1],
+                                                                // คอลัมส์ที่จะส่งออก
+                                                                // modifier: {
+                                                                //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                                // },
+                                                                // stripHtml: true
+                                                            }
+                                                        }],
                                                         retrieve: true,
 
                                                     });
@@ -874,9 +1066,11 @@ if (isset($_GET['id'])) {
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <!-- <script src="../../script/vfs_fonts.js"></script> -->
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <!-- <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
+
+    <!-- <script src="cdn.datatables.net/plug-ins/1.11.3/i18n/th.json"></script> -->
 
 </body>
 

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar_ad.php")
+include_once("./sidebar_ad.php");
+
+$id_mem = $_GET['id'];
+
 ?>
 
 <head>
@@ -49,7 +52,7 @@ include_once("./sidebar_ad.php")
                                 </div>
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable">
+                                        <table class="table table-bordered" id="dataTable_no_face">
                                             <thead>
                                                 <tr>
                                                     <th>รหัสประจำตัว</th>
@@ -59,29 +62,45 @@ include_once("./sidebar_ad.php")
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1339900662225</td>
-                                                    <td>นายสมพล วิลา</td>
-                                                    <td>นักศึกษาฝึกงาน</td>
-                                                    <td class="text-center"><a href="./on_save_face.php"><span class="badge badge-danger ">Upload</span></a></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>1339906884516</td>
-                                                    <td>นายรักนะ วรรณะ</td>
-                                                    <td>นักศึกษาฝึกงาน</td>
-                                                    <td class="text-center"><a href="./on_save_face.php"><span class="badge badge-danger">Upload</span></a></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>1339906884516</td>
-                                                    <td>นายรักนะ วรรณะ</td>
-                                                    <td>นักศึกษาฝึกงาน</td>
-                                                    <td class="text-center"><a href="./on_save_face.php"><span class="badge badge-danger">Upload</span></a></td>
-
-                                                </tr>
                                             </tbody>
                                         </table>
+                                        <script>
+                                            $(document).ready(function() {
+                                                DataTable_on_face();
+                                            });
+                                            function DataTable_on_face() {
+                                                var dataTable_no_face = $('#dataTable_no_face').DataTable();
+                                                dataTable_no_face.clear();
+
+                                                $.ajax({
+                                                    url : './controller/con_on_face_name.php',
+                                                    type : 'POST',
+                                                    data:{
+                                                        key : 'DataTable_on_face'
+                                                    },success: function(result, textStatus, jqXHR) {
+                                                        // alert(result);
+                                                        var json = JSON.parse(result);
+                                                        $.each(json, function(key, val) {
+
+                                                            var col1 = val['id_code'];
+                                                            var col2 = val['name'] + " " + val['last_name'];
+                                                            var col3 = val['position'];
+                                                            var col4 = '<div class="text-center"><a href="./on_save_face.php?id='+ val['id_mem'] +'  "><span class="badge badge-danger">Upload</span></a></div>';
+                                                            dataTable_no_face.row.add([
+                                                                col1, col2, col3, col4
+                                                            ]).draw(true);
+                                                        });
+
+                                                    },error: function(result, textStatus, jqXHR){
+
+                                                    }
+                                                });
+
+
+
+
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -102,11 +121,7 @@ include_once("./sidebar_ad.php")
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
+
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 

@@ -147,6 +147,7 @@
     <script src="../../script/assets/js/lib/sparklinechart/sparkline.init.js"></script>
     <script src="../../script/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
     <script src="../../script/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    <script src="../../script/vfs_fonts.js"></script>
 
 
     <!-- scripit init-->
