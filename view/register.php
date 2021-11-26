@@ -155,35 +155,7 @@ include('../config/connectdb.php');
                                                 accuracy_mail = "";
                                                 return;
                                             } else {
-                                                var xmlhttp = new XMLHttpRequest();
-
-                                                xmlhttp.onreadystatechange = function() {
-                                                    if (this.readyState == 4 && this.status == 200) {
-                                                        //โค้ดการทำงาน
-                                                        if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(str) != true) {
-                                                            document.getElementById('div-mail').className = 'form-group has-error';
-                                                            document.getElementById("txt-mail").innerHTML = "ไม่สามารถใช้ E-Mail Address นี้ได้";
-                                                            accuracy_mail = "";
-                                                            return;
-                                                        }
-
-                                                        // alert(this.responseText);
-                                                        if (this.responseText == 'success') {
-                                                            document.getElementById('div-mail').className = 'form-group has-success';
-                                                            document.getElementById("txt-mail").innerHTML = "";
-                                                            accuracy_mail = "success";
-                                                            return;
-                                                        } else if (this.responseText == 'error') {
-                                                            document.getElementById('div-mail').className = 'form-group has-error';
-                                                            document.getElementById("txt-mail").innerHTML = "ไม่สามารถใช้ E-Mail Address นี้ได้";
-                                                            accuracy_mail = "";
-                                                            return;
-                                                        }
-
-                                                    }
-                                                }
-                                                xmlhttp.open("GET", "./controller/check_register.php?email=" + str, true);
-                                                xmlhttp.send(null);
+                                                
                                                 // return;
                                             }
                                         }
