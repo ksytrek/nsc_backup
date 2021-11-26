@@ -139,10 +139,10 @@ include_once("./sidebar_ad.php")
                                                                 }
 
 
-                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] +"'>" + room_id_code;
+                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] + "'>" + room_id_code;
                                                                 var col4 = '<div class="text-center">' +
                                                                     '<a class ="click_edit_search" href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>' +
-                                                                    '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id='+ val['id_room'] +'"><i class="ti-search"></i></a>' +
+                                                                    '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id=' + val['id_room'] + '"><i class="ti-search"></i></a>' +
                                                                     '</div>'
                                                                 // tb_mg_room.clear();
                                                                 tb_mg_room.row.add([
@@ -281,7 +281,7 @@ include_once("./sidebar_ad.php")
 
                                                         $('#btn_edit_room').click(function() {
                                                             // get Value Edit
-                                                        
+
                                                             var id_room = id_room_edit;
                                                             var room_id_code = $('#edit_input_id_room').val();
                                                             var room_name = $('#edit_input_room_name').val();
@@ -314,6 +314,8 @@ include_once("./sidebar_ad.php")
                                                                             });
                                                                             tb_mg_room();
                                                                             $('#edit_room').modal('hide');
+
+
                                                                             // $('#btn_edit_room').attr('ata-dismiss', 'modal');
                                                                             // $('#btn_create_room').attr('ata-dismiss','modal');
                                                                         } else {
@@ -423,7 +425,7 @@ include_once("./sidebar_ad.php")
                                                                     // alert(random_string(8));
                                                                     $('#id_room').val(random_string(29));
                                                                 });
-                                                                $('.btn-random').click(function(){
+                                                                $('.btn-random').click(function() {
                                                                     $('#id_room').val(random_string(29));
                                                                 });
                                                                 $('#btn_create_room').click(function() {
@@ -452,6 +454,11 @@ include_once("./sidebar_ad.php")
                                                                                         buttons: false,
                                                                                         timer: 1000,
                                                                                     });
+
+                                                                                    $('#room_name').val('');
+                                                                                    $('#room_dclose').val('');
+
+                                                                                    
                                                                                     tb_mg_room();
                                                                                     $('#add_room').modal('hide');
                                                                                     // $('#btn_create_room').attr('ata-dismiss','modal');
@@ -462,6 +469,11 @@ include_once("./sidebar_ad.php")
                                                                                         buttons: false,
                                                                                         timer: 1000,
                                                                                     });
+
+
+                                                                                    // $('#id_room').val('');
+                                                                                    
+
                                                                                     tb_mg_room();
                                                                                     $('#btn_create_room').attr('ata-dismiss', 'modal');
                                                                                 }

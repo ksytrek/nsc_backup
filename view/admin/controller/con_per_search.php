@@ -51,16 +51,18 @@ if(isset($_POST["key"]) && $_POST["key"] == "btn_edit_save_person"){
 }
 
 
+include('../../../config/cl_mg_personal.php');
 if (isset($_POST['key']) && $_POST['key'] == 'delete_person'){
     $id_mem = $_POST['id_mem'];
+
+    $path = '../../../file_image/';
     try {
-        if(Database::query("SET FOREIGN_KEY_CHECKS=0; DELETE FROM `members` WHERE `members`.`id_mem` = '{$id_mem}';")){
-            echo "success";
-        }
+        // ManagementPersonal::deleteDir($path);
+        ManagementPersonal::DeletePerson($path,$id_mem);
     } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+        
     }
-    
+
 
 }
 

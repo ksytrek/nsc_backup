@@ -21,9 +21,17 @@ if (isset($_POST["key"]) && $_POST["key"] == "submit-registers") {
         'position' => $position
     ];
     try{
-        if(Database::insert_data("members",$Inser_Member_data)){
-            echo"success";
+        $sql_id_co = Database::query("SELECT COUNT(*) as 'count' FROM `members` WHERE id_code = '$cid';", PDO::FETCH_ASSOC);
+        $row_count = $sql_id_co->fetch();
+        
+        if($row_count['count'] == 0){
+            if(Database::insert_data("members",$Inser_Member_data)){
+                echo"success";
+            }
+        }else{
+            echo"error";
         }
+        
     }catch(Exception $e){
         echo $e->getMessage();
     }

@@ -405,6 +405,8 @@ include_once("./sidebar_ad.php");
                                                     var phone = $('.add-input-phone').val();
                                                     var position = $('.add-input-position').val();
 
+
+
                                                     if (
                                                         accuracy_id_code == "success" &&
                                                         accuracy_name == "success" &&
@@ -443,7 +445,59 @@ include_once("./sidebar_ad.php");
                                                                         //     buttons: false,
                                                                         //     timer: 2000,
                                                                         // });
-                                                                        timemer();
+                                                                        if (result == 'success') {
+
+                                                                            $('.add-input-id_code').val('');
+                                                                            $('.add-input-name').val('');
+                                                                            $('.add-input-last_name').val('');
+                                                                            $('.add-input-e_mail').val('');
+                                                                            $('.add-input-pass').val('');
+                                                                            $('.add-input-phone').val('');
+                                                                            $('.add-input-position').val('');
+
+                                                                            accuracy_id_code = "";
+                                                                            accuracy_name = "";
+                                                                            accuracy_last_name = "";
+                                                                            accuracy_e_mail = "";
+                                                                            accuracy_pass = "";
+                                                                            accuracy_phone = "";
+                                                                            accuracy_position = "";
+
+                                                                            $('#txt-id').html('');
+                                                                            $('.form-group-id').removeClass('has-success');
+
+                                                                            $('#txt-phone').html('');
+                                                                            $('.form-group-phone').removeClass('has-success');
+
+                                                                            $('#txt-name').html('');
+                                                                            $('.form-group-name').removeClass('has-success');
+
+                                                                            $('#txt-last_name').html('');
+                                                                            $('.form-group-last_name').removeClass('has-success');
+
+                                                                            $('#txt-e_mail').html('');
+                                                                            $('.form-group-e_mail').removeClass('has-success');
+
+                                                                            $('#txt-pass').html('');
+                                                                            $('.form-group-pass').removeClass('has-success');
+
+                                                                            $('#txt-position').html('');
+                                                                            $('.form-group-position').removeClass('has-success');
+
+
+                                                                            // $("#div_btn_add_person").attr('data-dismiss', 'modal');
+
+                                                                            swal("เพิ่มบุคคลากรสำเร็จ", {
+                                                                                icon: "success",
+                                                                                buttons: false,
+                                                                                timer: 1000,
+                                                                            });
+                                                                            show_tb_mg_personal();
+
+                                                                        } else {
+                                                                            swal("", "ตรวจสอบข้อมูลอีกครั้ง!", "info");
+
+                                                                        }
 
 
                                                                     },
@@ -479,7 +533,8 @@ include_once("./sidebar_ad.php");
                                                     // });
                                                     await sleep(1500);
                                                     // history.back(1);
-                                                    location.reload();
+                                                    // location.reload();
+                                                    show_tb_mg_personal();
                                                 }
                                             </script>
                                         </div>

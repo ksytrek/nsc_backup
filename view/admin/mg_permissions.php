@@ -182,7 +182,13 @@ include_once("./sidebar_ad.php");
 
                                     function show_tb_eligibility() {
                                         // alert('Eligibility');
-                                        var tb_eligibility = $("#tb_showeligibility").DataTable();
+                                        var tb_eligibility = $("#tb_showeligibility").DataTable({
+                                            lengthMenu: [
+                                                [5, 10, 25, 50, 60, -1],
+                                                [5, 10, 25, 50, 60, "All"]
+                                            ],
+                                            retrieve: true
+                                        });
                                         tb_eligibility.clear();
 
                                         $.ajax({
@@ -203,7 +209,7 @@ include_once("./sidebar_ad.php");
                                                         var col1 = '<input type="hidden" name="id_mem" value="' + val['id_mem'] + '">' + val['id_code'];
                                                         var col2 = val['name'] + " " + val['last_name'];
                                                         var col3 = '<input type="hidden" name="id_room" value="' + val['id_room'] + '">' + val['room_num'];
-                                                        var col4 = '<div class="text-center"><a href="./personal_search_ad.php?id=' + val['id_mem']+ '"class="click_submit_search_clode"><i class="ti-search"></i></a>' +
+                                                        var col4 = '<div class="text-center"><a href="./personal_search_ad.php?id=' + val['id_mem'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a>' +
                                                             '&nbsp;&nbsp;&nbsp;&nbsp;' +
                                                             '<input class="select_delete" type="checkbox" value=\' ' + val['id_eligibilty'] + '\'> </div>';
                                                         tb_eligibility.row.add([
@@ -447,6 +453,7 @@ include_once("./sidebar_ad.php");
                                                                     buttons: false,
                                                                     timer: 1000,
                                                                 });
+                                                                
                                                                 add_el();
                                                                 show_tb_eligibility();
                                                                 // $('#add_permission').attr("data-dismiss", "modal");
