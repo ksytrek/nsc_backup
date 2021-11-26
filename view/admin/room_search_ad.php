@@ -286,6 +286,7 @@ if (isset($_GET['id'])) {
                                                                             id_room: ID_ROOM
                                                                         },
                                                                         success: function(result, textStatus, jqXHR) {
+                                                                            // alert(result);
                                                                             if (result == 'success') {
                                                                                 history.back(1);
                                                                             } else {
@@ -310,9 +311,6 @@ if (isset($_GET['id'])) {
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูลส่วนตัว</h5>
-                                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="false">&times;</span>
-                                                                    </button> -->
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form>

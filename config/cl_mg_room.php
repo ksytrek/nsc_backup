@@ -1,6 +1,7 @@
 <?php
 include_once('./connectdb.php');
 include_once('./create_file_room.php');
+include_once('./cl_mg_personal.php');
 class ManagementRoom
 {
 
@@ -31,8 +32,21 @@ class ManagementRoom
         }
     }
 
-    public static function DeleteRoom($id_room): bool
+    public static function DeleteRoom($path,$id_room): bool
     {
+
+        $sql_room = Database::query("SELECT room_id_code FROM `rooms` WHERE id_room = '$id_room';", PDO::FETCH_ASSOC)->fetch();
+        $name_room = $sql_room['room_id_code'];
+    
+        // echo $name_room;
+    
+        $dirPathNew = $path.$name_room.'/';
+        try {
+            ManagementPersonal::deleteDir($dirPathNew); 
+            // echo "Deleted";
+        } catch (Exception $e) {
+            // echo 'Error deleting';
+        }
 
         try {
             $sql_eligibility = "DELETE FROM `eligibility` WHERE `eligibility`.`id_room` = '$id_room';";

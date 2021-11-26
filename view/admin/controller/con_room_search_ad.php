@@ -71,14 +71,19 @@ if (isset($_POST['key']) && $_POST['key'] == 'show_tb_room_schedule') {
 
 
 // show_tb_room_schedule
+include('../../../config/cl_mg_personal.php');
 if(isset($_POST['key']) && $_POST['key'] == 'delete-room-id'){
     // echo "Deleting";
-
     $id_room = $_POST['id_room'];
 
     // echo $id_room;
+    
+    $path = '../../../raspberrypi_communication/create_room/';
 
-    if(ManagementRoom::DeleteRoom($id_room)){
+
+
+
+    if(ManagementRoom::DeleteRoom($path ,$id_room)){
         echo "success";
     }else{
         echo "error";

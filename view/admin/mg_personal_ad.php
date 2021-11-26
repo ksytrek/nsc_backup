@@ -65,28 +65,6 @@ include_once("./sidebar_ad.php");
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1339900662225</td>
-                                                    <td>นายสมพล วิลา</td>
-                                                    <td>นักศึกษาฝึกงาน</td>
-                                                    <td class="text-center"><button class="btn badge badge-danger">NO</button></td>
-                                                    <th class="text-center">
-                                                        <a href="#" data-toggle="modal" data-target="#edit_personal"><i class="ti-pencil"></i></a>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <a href="./personal_search_ad.php"><i class="ti-search"></i></a>
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <td>1339906884516</td>
-                                                    <td>นายรักนะ วรรณะ</td>
-                                                    <td>นักศึกษาฝึกงาน</td>
-                                                    <td class="text-center"><button class="btn badge badge-success">yes</button></td>
-                                                    <th class="text-center">
-                                                        <a href="#" data-toggle="modal" data-target="#edit_personal"><i class="ti-pencil"></i></a>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <a href="./personal_search_ad.php"><i class="ti-search"></i></a>
-                                                    </th>
-                                                </tr>
                                             </tbody>
                                         </table>
                                         <script>

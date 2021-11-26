@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['key']) && $_POST['key'] == 'btn-train'){
     // ob_start();
-
+    // !/usr/bin/python3
     // echo "oK";
     $handle = popen('python3 -u ./ts_py.py', 'r');
     while (!feof($handle)) {

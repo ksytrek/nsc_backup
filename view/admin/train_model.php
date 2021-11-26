@@ -88,6 +88,7 @@ include_once("./sidebar_ad.php")
                                                 },
                                                 cache: false,
                                                 beforeSend: function() {
+                                                    console.log(result);
                                                     body.addClass("loading");
                                                 },
                                                 complete: function() {

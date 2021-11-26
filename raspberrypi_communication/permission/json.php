@@ -18,7 +18,7 @@ class update_permission
                 $json_txt =  json_encode($resultArray);
             }
 
-            $Afile = "permission" . time() . ".json";
+            $Afile = "permission" .date("H-i-s-d-m-Y",time())  . ".json";
             $myfile = fopen($path.$Afile, "w") or die("Unable to open file!");
             if (fwrite($myfile, $json_txt)) {
                 echo "json_Permission OK";

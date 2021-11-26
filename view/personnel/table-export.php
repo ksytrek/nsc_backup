@@ -239,7 +239,7 @@
                                     <tbody id="tbb_schedule">
                                         <?php
                                         $tb_schedule_result = "";
-                                        if ($show_tebelig = Database::query("SELECT rm.room_num ,sc.time_stamp FROM `schedule` as sc inner join `rooms` as rm on sc.id_room = rm.id_room  where sc.id_mem = '{$id_mem}' ORDER BY sc.time_stamp  ASC;", PDO::FETCH_ASSOC)) {
+                                        if ($show_tebelig = Database::query("SELECT * FROM `schedule` as sc  where sc.id_mem = '{$id_mem}' ORDER BY sc.time_stamp  ASC;", PDO::FETCH_ASSOC)) {
                                             $i = 0;
                                             foreach ($show_tebelig as $row) {
                                                 $i = $i + 1;
@@ -247,7 +247,7 @@
                                                 $tb_schedule_result = $tb_schedule_result.
                                                 "<tr>
                                                     <td>$i</td>
-                                                    <td>{$row['room_num']}</td>
+                                                    <td>{$row['room_name']}</td>
                                                     <td>{$date}</td>
                                                 </tr>";
                                             }
