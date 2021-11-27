@@ -7,6 +7,3 @@ cd ./public_html/nsc_backup ; git pull
 https://skbright.totddns.com:28000/nsc_backup/git.php
 
 
-zioskdljf
-sdiohjfwe
-fsuhdifjes
