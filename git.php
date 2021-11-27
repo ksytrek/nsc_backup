@@ -15,14 +15,16 @@
     echo "Add อมูลจาก server ให้ปัจจุบัน \" git add -A \"";
     echo "<pre>$output</pre><br/>";
 
-    $output = shell_exec('git pull');
-    echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
-    echo "<pre>$output</pre><br/>";
 
     $output = shell_exec('git push');
     echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
 
+    $output = shell_exec('git pull');
+    echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
+    echo "<pre>$output</pre><br/>";
+
+    
     // scsddsd
 
     // git add -A
