@@ -16,14 +16,14 @@
     // echo "<pre>$output</pre><br/>";
 
 
-    // $output = shell_exec('git add -A;git commit -am "server up to git"');
-    // echo "commit Github ให้ปัจจุบัน";
-    // echo "<pre>$output</pre><br/>";
+    $output = shell_exec('git add -A;git commit -am "server up to git"');
+    echo "commit Github ให้ปัจจุบัน";
+    echo "<pre>$output</pre><br/>";
 
 
-    // $output = shell_exec('git push');
-    // echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
-    // echo "<pre>$output</pre><br/>";
+    $output = shell_exec('git push');
+    echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
+    echo "<pre>$output</pre><br/>";
 
     // git push
     // git commit -am "server up to git"
