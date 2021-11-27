@@ -2,6 +2,7 @@
 
 include_once('../../../config/connectdb.php');
 include_once('../../../config/cl_mg_room.php');
+include_once('../../../raspberrypi_communication/timeout/time.php');
 
 if (isset($_POST['key']) && $_POST['key'] == 'search_room_info') {
 
@@ -31,7 +32,7 @@ if (isset($_POST['key']) && $_POST['key'] == 'search_room_info') {
 if (isset($_POST['key']) && $_POST['key'] == 'show_tb_room_el') {
     $id_room = $_POST['id_room'];
 
-    $sql = "SELECT mm.id_mem, mm.id_code , mm.name , mm.last_name FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem WHERE el.id_room = $id_room;";
+    $sql = "SELECT mm.id_mem, mm.id_code , mm.name , mm.last_name ,el.id_eligibilty FROM `eligibility` as el INNER JOIN members as mm ON el.id_mem = mm.id_mem WHERE el.id_room = $id_room;";
     $resultArray = array();
     try {
         if ($search = Database::query($sql, PDO::FETCH_ASSOC)) {
@@ -102,11 +103,13 @@ if(isset($_POST['key']) && $_POST['key'] == 'ckick_btn_room_door'){
         // echo "ได้เปิดห้องเรียบร้อย";
         if(Database::query("UPDATE `rooms` SET `status_door` = '1' WHERE `rooms`.`id_room` = {$id_room};")){
             echo "ได้เปิดห้องเรียบร้อย";
+            UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
         }
     }else{
         // echo "ได้ปิดห้องเรียบร้อย";
         if(Database::query("UPDATE `rooms` SET `status_door` = '0' WHERE `rooms`.`id_room` = {$id_room};")){
             echo "ได้ปิดไฟเรียบร้อย";
+            UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
         }
     }
     

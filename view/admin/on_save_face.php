@@ -203,7 +203,8 @@ $id_mem = $_GET['id'];
 									console.log('saved: ' + response); 
 									if(response == 20){
 										alert('บันทึกภาพใบหน้าสำเร็จ');
-										location.assign('./mg_personal_ad.php');
+										// location.assign('./mg_personal_ad.php');
+										history.back(1);
 										// alert(response);
 									}
 								});

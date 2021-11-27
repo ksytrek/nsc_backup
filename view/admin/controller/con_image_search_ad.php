@@ -1,6 +1,7 @@
 <?php 
 include("../../../config/connectdb.php");
 include("../../../config/backup.php");
+include("../../../config/cl_mg_personal.php");
 if(isset($_POST['key']) && $_POST['key'] == 'backup_img_person'){
     // echo 'OK';
     $id_mem = $_POST["id_mem"];
@@ -19,6 +20,10 @@ if(isset($_POST['key']) && $_POST['key'] == 'backup_img_person'){
 
 if(isset($_POST['key']) && $_POST['key'] == 'select_delete_image'){
     $id_tbimage = $_POST["id_tbimage"];
+    $id_mem = $_POST['id_mem'];
+
+    
+
     foreach($id_tbimage as $list){
         $sql_tb_image = "SELECT * FROM `tbimage` WHERE id_tbimage= '$list';";
         $data_tb_image = Database::query($sql_tb_image,PDO::FETCH_ASSOC)->fetch();
@@ -43,6 +48,20 @@ if(isset($_POST['key']) && $_POST['key'] == 'select_delete_image'){
         // }
         // echo $data_tb_image['name_image'];
     } 
+
+    $sql_tb_image_count= "SELECT COUNT(*) as `count` FROM `tbimage` WHERE id_mem = '$id_mem';";
+    $row_tb_image_count = Database::query($sql_tb_image_count,PDO::FETCH_ASSOC)->fetch();
+
+    $sql_id_code = Database::query("SELECT mm.id_code FROM `members` as mm WHERE id_mem = $id_mem;", PDO::FETCH_ASSOC)->fetch();
+    $id_code = $sql_id_code['id_code'];
+
+    $dirPath = "../../../file_image/";
+    $dirPathNew = $dirPath.$id_code.'/';
+
+    if($row_tb_image_count['count'] == 0){
+        Database::query("UPDATE `members` SET `stu_face` = '0' WHERE `members`.`id_mem` = '$id_mem';");
+        ManagementPersonal::deleteDir($dirPathNew);
+    }
 }
 
 if(isset($_POST['key']) && $_POST['key'] == 'update_show_image'){
@@ -52,8 +71,15 @@ if(isset($_POST['key']) && $_POST['key'] == 'update_show_image'){
     $sql_tb_image_count= "SELECT COUNT(*) as `count` FROM `tbimage` WHERE id_mem = '$id_mem';";
     $row_tb_image_count = Database::query($sql_tb_image_count,PDO::FETCH_ASSOC)->fetch();
 
+    $sql_id_code = Database::query("SELECT mm.id_code FROM `members` as mm WHERE id_mem = $id_mem;", PDO::FETCH_ASSOC)->fetch();
+    $id_code = $sql_id_code['id_code'];
+
+    $dirPath = "../../../file_image/";
+    $dirPathNew = $dirPath.$id_code.'/';
+
     if($row_tb_image_count['count'] == 0){
         Database::query("UPDATE `members` SET `stu_face` = '0' WHERE `members`.`id_mem` = '$id_mem';");
+        ManagementPersonal::deleteDir($dirPathNew);
     }
 
     $resultArray = array();
@@ -76,7 +102,26 @@ if(isset($_POST['key']) && $_POST['key'] == 'update_show_image'){
 
 }
 
+if(isset($_POST['key']) && $_POST['key'] == 'select_delete_all'){
+    // echo "Select all";
+    $id_mem = $_POST['id_mem'];
+
+    $sql_id_code = Database::query("SELECT mm.id_code FROM `members` as mm WHERE id_mem = $id_mem;", PDO::FETCH_ASSOC)->fetch();
+    $id_code = $sql_id_code['id_code'];
+
+    $dirPath = "../../../file_image/";
+    $dirPathNew = $dirPath.$id_code.'/';
+    try {
+        ManagementPersonal::deleteDir($dirPathNew);
+        $sql_delete_tb_image = "DELETE FROM `tbimage` WHERE `tbimage`.`id_mem` = '$id_mem';";
+        if (Database::query($sql_delete_tb_image)) {
+            Database::query("UPDATE `members` SET `stu_face` = '0' WHERE `members`.`id_mem` = '$id_mem';");
+            echo "File image Delete OK";
+        }
+    } catch (Exception $e) {
+        // no folder
+    }
 
 
-
-?>
+    
+}

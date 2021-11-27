@@ -99,9 +99,6 @@ include_once("./sidebar_ad.php");
 
                                                 });
 
-
-
-
                                                 $("#checkbox_delet_all").click(function() {
                                                     // $('input:checkbox').not(this).prop('checked', this.checked);
                                                     // alert("Check");
@@ -111,7 +108,7 @@ include_once("./sidebar_ad.php");
                                                             select_delete_array.push($(this).val());
                                                         }
                                                     });
-                                                    // alert(select_delete_array.length)
+                                                    // alert(select_delete_array[0]);
 
                                                     swal({
                                                         title: "Are you sure?",

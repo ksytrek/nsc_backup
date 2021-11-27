@@ -489,19 +489,16 @@ if (isset($_GET['id'])) {
 
                                                 });
 
-
-
-
                                                 $("#checkbox_delet_all").click(function() {
                                                     // $('input:checkbox').not(this).prop('checked', this.checked);
                                                     // alert("Check");
                                                     var select_delete_array = [];
-                                                    $('.select_delete').each(function() {
+                                                    $('.select_delete_el').each(function() {
                                                         if ($(this).is(":checked")) {
                                                             select_delete_array.push($(this).val());
                                                         }
                                                     });
-                                                    // alert(select_delete_array.length)
+                                                    // alert(select_delete_array[0]);
 
                                                     swal({
                                                         title: "Are you sure?",
@@ -522,7 +519,13 @@ if (isset($_GET['id'])) {
                                                                     },
                                                                     success: function(result, textStatus, jqXHR) {
                                                                         // alert(result);
-                                                                        timemer();
+                                                                        show_tb_room_el();
+                                                                        // timemer();
+                                                                        swal("ลบ Permission สำเร็จ", {
+                                                                            icon: "success",
+                                                                            buttons: false,
+                                                                            timer: 1000,
+                                                                        });
 
                                                                     },
                                                                     error: function(jqXHR, textStatus, errorThrown) {
@@ -604,25 +607,22 @@ if (isset($_GET['id'])) {
                                                         processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
                                                         //serverSide: true, // ใช้งานในโหมด Server-side processing
                                                         order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
-                                                        ajax: {
-
-                                                        },
 
                                                         buttons: [{
                                                             extend: 'excel',
                                                             text: 'ส่งออก EXCEL',
                                                             messageTop: 'Cybernetics Corp.',
-                                                            filename: function() {
-                                                                // const d = new Date();
-                                                                // // let time = d.getTime();
-                                                                // let hour = d.getHours();
-                                                                // let minutes = d.getMinutes();
-                                                                // let day = d.getDay();
-                                                                // let month = d.getMonth();
-                                                                // let year = d.getFullYear();
-                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง";//+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
-                                                            },
-                                                            // title: 'รายชื่อสิทเข้าห้อง',
+                                                            // filename: function() {
+                                                            //     // const d = new Date();
+                                                            //     // // let time = d.getTime();
+                                                            //     // let hour = d.getHours();
+                                                            //     // let minutes = d.getMinutes();
+                                                            //     // let day = d.getDay();
+                                                            //     // let month = d.getMonth();
+                                                            //     // let year = d.getFullYear();
+                                                            //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                            // },
+                                                            title: 'รายชื่อสิทเข้าห้อง',
                                                             exportOptions: {
                                                                 columns: [0, 1],
                                                                 // คอลัมส์ที่จะส่งออก
@@ -657,15 +657,27 @@ if (isset($_GET['id'])) {
                                                                     var col1 = '<input type="hidden" name="id_mem" value="' + val['id_mem'] + '">' + val['id_code'];
                                                                     var col2 = val['name'] + " " + val['last_name'];
                                                                     // var col3 = '<input type="hidden" name="id_room" value="' + val['id_room'] + '">' + val['room_num'];
-                                                                    var col3 = '<div class="text-center"><a href="./personal_search_ad.php?id=' + val['id_mem'] + '"><i class="ti-search"></i></a>' +
+                                                                    var col3 = '<div class="text-center"><a href="./personal_search_ad.php?id=' + val['id_mem'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a>' +
                                                                         '&nbsp;&nbsp;&nbsp;&nbsp;' +
-                                                                        '<input class="select_delete" type="checkbox" value=\' ' + val['id_eligibilty'] + '\'> </div>';
+                                                                        '<input class="select_delete_el" type="checkbox" value="' + val['id_eligibilty'] + '"> </div>';
                                                                     tb_room_el.row.add([
                                                                         col1,
                                                                         col2,
                                                                         col3
                                                                     ]).draw(true);
 
+                                                                    // var col1 = '<input type="hidden" name="id_mem" value="' + val['id_mem'] + '">' + val['id_code'];
+                                                                    // var col2 = val['name'] + " " + val['last_name'];
+                                                                    // // var col3 = '<input type="hidden" name="id_room" value="' + val['id_room'] + '">' + val['room_num'];
+                                                                    // var col4 = '<div class="text-center"><a href="./personal_search_ad.php?id=' + val['id_mem'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a>' +
+                                                                    //     '&nbsp;&nbsp;&nbsp;&nbsp;' +
+                                                                    //     '<input class="select_delete" type="checkbox" value=\' ' + val['id_eligibilty'] + '\'> </div>';
+                                                                    // tb_room_el.row.add([
+                                                                    //     col1,
+                                                                    //     col2,
+                                                                    //     // col3,
+                                                                    //     col4
+                                                                    // ]).draw(true);
                                                                     // class="click_submit_search"
 
                                                                 });
@@ -708,9 +720,6 @@ if (isset($_GET['id'])) {
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลห้อง</h5>
-                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="false">&times;</span>
-                                                                    </button> -->
                                 </div>
                                 <div class="modal-body">
                                     <form>
@@ -966,7 +975,7 @@ if (isset($_GET['id'])) {
                                                         //serverSide: true, // ใช้งานในโหมด Server-side processing
                                                         order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
                                                         // ajax: function(){
-                                                            
+
                                                         // },
 
                                                         buttons: [{
@@ -981,7 +990,7 @@ if (isset($_GET['id'])) {
                                                                 // let day = d.getDay();
                                                                 // let month = d.getMonth();
                                                                 // let year = d.getFullYear();
-                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง";//+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
                                                             },
                                                             // title: 'รายชื่อสิทเข้าห้อง',
                                                             exportOptions: {

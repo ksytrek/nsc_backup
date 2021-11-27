@@ -1,6 +1,7 @@
 <?php 
 include("../../../config/connectdb.php");
 include_once("../../../raspberrypi_communication/permission/json.php");
+include_once("../../../raspberrypi_communication/timeout/time.php");
 
 
 if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
@@ -34,11 +35,13 @@ if(isset($_POST['key']) && $_POST['key'] == 'ckick_btn_room_fstatus'){
         // echo "ได้เปิดห้องเรียบร้อย";
         if(Database::query("UPDATE `rooms` SET `room_fstatus` = '1' WHERE `rooms`.`id_room` = {$id_room};")){
             echo "ได้เปิดไฟห้องเรียบร้อย";
+            UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
         }
     }else{
         // echo "ได้ปิดห้องเรียบร้อย";
         if(Database::query("UPDATE `rooms` SET `room_fstatus` = '0' WHERE `rooms`.`id_room` = {$id_room};")){
             echo "ได้ปิดไฟห้องเรียบร้อย";
+            UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
         }
     }
 }
@@ -203,8 +206,11 @@ if(isset($_POST['key']) && $_POST['key'] == "add_permission"){
 if(isset($_POST['key']) && $_POST['key'] == "select_delete_el"){
     // echo "Select";
     $id_eligibilty = $_POST["id_eligibilty"];
+
+
+    // echo $id_eligibilty;
     foreach($id_eligibilty as $list){  
-        // echo $list." ".$id_room. " ";
+        echo $list;
         $sql = "DELETE FROM `eligibility` WHERE `eligibility`.`id_eligibilty` = '{$list}';";
         if(Database::query($sql)){
             update_permission::update('../../../raspberrypi_communication/permission/');
