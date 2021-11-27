@@ -85,7 +85,7 @@ $id_mem = $_GET['id'];
                                                             var col1 = val['id_code'];
                                                             var col2 = val['name'] + " " + val['last_name'];
                                                             var col3 = val['position'];
-                                                            var col4 = '<div class="text-center"><a href="./on_save_face.php?id='+ val['id_mem'] +'  "><span class="badge badge-danger">Upload</span></a></div>';
+                                                            var col4 = "<div class='text-center'><button type='button' onclick='click_save_face("+ val['id_mem']   +")' class='btn badge badge-danger'>UPLOAD</button></div>";
                                                             dataTable_no_face.row.add([
                                                                 col1, col2, col3, col4
                                                             ]).draw(true);
@@ -100,6 +100,16 @@ $id_mem = $_GET['id'];
 
 
                                             }
+
+                                            function click_save_face(id_mem){
+                                                // alert(id_mem);
+                                                if(confirm("Are you sure you want to save")){
+                                                    location.assign('./on_save_face.php?id='+id_mem);
+                                                }
+
+                                            }
+
+                                    
                                         </script>
                                     </div>
                                 </div>

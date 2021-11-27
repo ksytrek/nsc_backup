@@ -3,7 +3,7 @@
 <?php
 include_once("./sidebar_ad.php");
 
-$id_mem = $_GET["id"];
+$id_mem = $_GET['id'];
 ?>
 
 <head>
@@ -12,11 +12,23 @@ $id_mem = $_GET["id"];
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Face Admin Dashboard</title>
 
-	<script async src="../../script/assets/js/lib/opencv/opencv.js" onload="openCvReady()"></script>
+	<script src="../../script/assets/js/lib/opencv/opencv.js"></script>
 	<script src="../../script/assets/js/lib/opencv/utils.js"></script>
+	<!-- <script src="../../script/assets/js/lib/opencv/jquery-1.11.0.min.js"></script> -->
+
+
+	<!-- <link href="../../script/assets/js/lib/opencv/bootstrap.min.css" rel="stylesheet" media="all"> -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
+
+
 </head>
+
+<script>
+	window.onload = function() {
+		openCvReady();
+	}
+</script>
 
 <body>
 	<div class="content-wrap">
@@ -83,7 +95,8 @@ $id_mem = $_GET["id"];
 	</div>
 
 	<script type="text/JavaScript">
-		function openCvReady() {     
+		function openCvReady() {
+		                
 		let count = 0;
 		let MAX_COUNT = 20;
 
@@ -154,7 +167,7 @@ $id_mem = $_GET["id"];
 						cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
 						
 					}
-				if(count < MAX_COUNT){
+				// if(count < MAX_COUNT){
 					if(faces.size() > 0){
 						if((Date.now() - start_time) >= 1500){
 							start_time = Date.now();
@@ -188,6 +201,11 @@ $id_mem = $_GET["id"];
 										}
 								}).done(function(response) {
 									console.log('saved: ' + response); 
+									if(response == 20){
+										alert('บันทึกภาพใบหน้าสำเร็จ');
+										location.assign('./mg_personal_ad.php');
+										// alert(response);
+									}
 								});
 
 								count = count + 1;
@@ -196,9 +214,12 @@ $id_mem = $_GET["id"];
 							}
 						}
 					}
-				}else{
-					
-				}
+				// }else{
+				// 	// location.href = './mg_personal_ad.php';
+				// 	location.assign('mg_personal_ad.php');
+
+				// 	// location.reload();
+				// }
 
 				// schedule next one.
 				let delay = 1000/FPS - (Date.now() - begin);

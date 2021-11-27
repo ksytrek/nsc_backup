@@ -9,11 +9,10 @@ if (isset($_POST['key']) && $_POST['key'] == "uploadface") {
 	$count = "";
 
 	if (isset($_POST['imgBase64']) && isset($_POST['count'])) {
-
 		//import Value
 		$id_mem = $_POST['id_mem'];
 		$imgBase64 = $_POST['imgBase64'];
-		$count = $_POST['count'] + 1;
+		$count = $_POST['count']+1;
 
 
 		// qurey 
@@ -57,7 +56,7 @@ if (isset($_POST['key']) && $_POST['key'] == "uploadface") {
 					];
 
 					if (Database::insert_data("tbimage", $insert_data_image)) {
-						echo "success";
+						echo $count;
 					}
 				} catch (Exception $e) {
 					echo "error";

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once("./sidebar.php")
+include_once("./sidebar.php");
 ?>
 
 <head>
