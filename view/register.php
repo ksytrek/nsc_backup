@@ -149,16 +149,38 @@ include('../config/connectdb.php');
                                     <p id="txt-mail">กรุณาระบุ E-Mail Address</p>
                                     <script>
                                         function check_email(str) {
-                                            if (str.length == 0) {
-                                                document.getElementById("txt-mail").innerHTML = "กรุณาระบุ E-Mail Address ";
-                                                document.getElementById('div-mail').className = 'form-group';
+                                            if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(str) != true || str.length == 0) {
+                                                $('#txt-mail').html('ไม่สามารถใช้ E-Mail Address นี้ได้');
+                                                $('#div-mail').addClass('has-error');
                                                 accuracy_mail = "";
                                                 return;
+
                                             } else {
-                                                
-                                                // return;
+
+                                                var xmlhttp = new XMLHttpRequest();
+
+                                                xmlhttp.onreadystatechange = function() {
+                                                    if (this.readyState == 4 && this.status == 200) {
+                                                        // alert(this.responseText);
+                                                        if (this.responseText == 'success') {
+                                                            $('#txt-mail').html('สามารถใช้ชื่อนี้ได้');
+                                                            $('#div-mail').removeClass('has-error').addClass('has-success');
+                                                            accuracy_mail = "success";
+                                                            return;
+                                                        } else if (this.responseText == 'error') {
+                                                            $('#txt-mail').html('ไม่สามารถใช้ E-Mail Address นี้ได้');
+                                                            $('#div-mail').addClass('has-error');
+                                                            accuracy_mail = "";
+                                                            return;
+                                                        }
+
+                                                    }
+                                                }
+                                                xmlhttp.open("GET", "controller/check_register.php?email=" + str, true);
+                                                xmlhttp.send(null);
                                             }
                                         }
+                                        
                                     </script>
                                 </div>
                                 <div id="div-phone" class="form-group">
@@ -289,15 +311,15 @@ include('../config/connectdb.php');
                                             accuracy_pass == "success" && accuracy_phone == "success" &&
                                             accuracy_position == "success") {
                                             // if (true) {
-                                                swal({
-                                                    title: "Are you sure?",
-                                                    text: "Once deleted, you will not be able to recover this imaginary file!",
-                                                    icon: "warning",
-                                                    buttons: true,
-                                                    dangerMode: true,
+                                            swal({
+                                                title: "Are you sure?",
+                                                text: "Once deleted, you will not be able to recover this imaginary file!",
+                                                icon: "warning",
+                                                buttons: true,
+                                                dangerMode: true,
 
-                                                }).then((willDelete) => {
-                                                    if (willDelete) {
+                                            }).then((willDelete) => {
+                                                if (willDelete) {
                                                     $.ajax({
                                                         type: "POST",
                                                         data: {

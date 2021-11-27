@@ -21,6 +21,7 @@
     // echo "<pre>$output</pre><br/>";
 
 
+// git push https://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@github.com/ksytrek/nsc_backup.git
     // $output = shell_exec('git push');
     // echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
     // echo "<pre>$output</pre><br/>";

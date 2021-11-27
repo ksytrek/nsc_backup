@@ -17,7 +17,7 @@ class ManagementRoom
         try {
             $sql_insert_room = "INSERT INTO `rooms` (`id_room`, `room_id_code`, `room_num`, `room_fstatus`, `room_dclose`, `status_door`) VALUES (NULL, '$room_id_code', '$room_num', '0', '$room_dclose', '0');";
             if (Database::query($sql_insert_room)) {
-
+                
                 // Create File ROOM
                 if (CreateFileRoom::create_room($path, $room_id_code, $json_encode)) {
                     return true;
@@ -45,7 +45,7 @@ class ManagementRoom
         } catch (Exception $e) {
             // echo 'Error deleting';
         }
-
+        
         try {
             
             $sql_eligibility = "DELETE FROM `eligibility` WHERE `eligibility`.`id_room` = '$id_room';";
