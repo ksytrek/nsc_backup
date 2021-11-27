@@ -23,6 +23,8 @@
     echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
 
+    // scsddsd
+
     // git add -A
     // git commit -am "server up to git"
     // git commit -a
