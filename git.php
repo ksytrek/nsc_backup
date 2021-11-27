@@ -11,20 +11,28 @@
 <body>
     <?php
 
-    $output = shell_exec('git add -A');
-    echo "Add อมูลจาก server ให้ปัจจุบัน \" git add -A \"";
+    // $output = shell_exec('git add -A');
+    // echo "Add อมูลจาก server ให้ปัจจุบัน \" git add -A \"";
+    // echo "<pre>$output</pre><br/>";
+
+
+    $output = shell_exec('git commit -am "server up to git"');
+    echo "commit Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
 
 
-    $output = shell_exec('git push');
+    $output = shell_exec('git push"');
     echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
+
+    // git push
+    // git commit -am "server up to git"
 
     $output = shell_exec('git pull');
     echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
 
-    
+
     // scsddsd
 
     // git add -A
