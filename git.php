@@ -13,6 +13,9 @@
     echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
     echo "<pre>$output</pre>";
 
+    $output = shell_exec('git push');
+    echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
+    echo "<pre>$output</pre>";
 
     ?>
 </body>

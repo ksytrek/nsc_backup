@@ -151,7 +151,25 @@ try {
                                             }
 
                                             function tb_showroom() {
-                                                var tb_showroom = $('#tb_showroom').DataTable();
+                                                var tb_showroom = $('#tb_showroom').DataTable({
+                                                    language: {
+                                                        sProcessing: "กำลังดำเนินการ...",
+                                                        sLengthMenu: "แสดง_MENU_ แถว",
+                                                        sZeroRecords: "ไม่พบข้อมูล",
+                                                        sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                        sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                        sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                        sInfoPostFix: "",
+                                                        sSearch: "ค้นหา:",
+                                                        sUrl: "",
+                                                        oPaginate: {
+                                                            "sFirst": "เริ่มต้น",
+                                                            "sPrevious": "ก่อนหน้า",
+                                                            "sNext": "ถัดไป",
+                                                            "sLast": "สุดท้าย"
+                                                        }
+                                                    }
+                                                });
                                                 tb_showroom.clear();
 
                                                 $.ajax({
@@ -192,7 +210,7 @@ try {
                                                                     btn_door = "<button type='button' onclick='ckick_btn_room_door(" + val['id_room'] + ',' + status_door + ")' class='btn badge badge-danger'>Off</button>";
                                                                 } else {
                                                                     // alert(status);
-                                                                    btn_door = "<button type='button' onclick='ckick_btn_room_door(" + val['id_room']  + ',' + status_door + ")'  class='btn badge badge-success'>On</button>";
+                                                                    btn_door = "<button type='button' onclick='ckick_btn_room_door(" + val['id_room'] + ',' + status_door + ")'  class='btn badge badge-success'>On</button>";
                                                                 }
 
                                                                 tb_showroom.row.add([
@@ -240,7 +258,7 @@ try {
 
                                                             tb_showroom.row.add([
                                                                 "",
-                                                                "","",
+                                                                "", "",
                                                                 "ไม่มีข้อมูลห้อง"
                                                             ]).draw(true);
                                                             // $("#tbb_showroom").empty();
@@ -325,6 +343,25 @@ try {
 
                                     <script>
                                         function show_rqroom() {
+                                            // $('#tb_showrqroom').DataTable({
+                                            //     language: {
+                                            //         sProcessing: "กำลังดำเนินการ...",
+                                            //         sLengthMenu: "แสดง_MENU_ แถว",
+                                            //         sZeroRecords: "ไม่พบข้อมูล",
+                                            //         sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                            //         sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                            //         sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                            //         sInfoPostFix: "",
+                                            //         sSearch: "ค้นหา:",
+                                            //         sUrl: "",
+                                            //         oPaginate: {
+                                            //             "sFirst": "เริ่มต้น",
+                                            //             "sPrevious": "ก่อนหน้า",
+                                            //             "sNext": "ถัดไป",
+                                            //             "sLast": "สุดท้าย"
+                                            //         }
+                                            //     }
+                                            // });
                                             $.ajax({
                                                 url: "./controller/con_admin.php",
                                                 type: "POST",
@@ -546,7 +583,25 @@ try {
 
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+            $('#dataTable').DataTable({
+                language: {
+                    sProcessing: "กำลังดำเนินการ...",
+                    sLengthMenu: "แสดง_MENU_ แถว",
+                    sZeroRecords: "ไม่พบข้อมูล",
+                    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                    sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                    sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    sInfoPostFix: "",
+                    sSearch: "ค้นหา:",
+                    sUrl: "",
+                    oPaginate: {
+                        "sFirst": "เริ่มต้น",
+                        "sPrevious": "ก่อนหน้า",
+                        "sNext": "ถัดไป",
+                        "sLast": "สุดท้าย"
+                    }
+                }
+            });
         });
     </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
