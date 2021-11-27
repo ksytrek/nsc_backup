@@ -7,10 +7,12 @@
     $permission_dir = 'permission/';
     $time_out_dir = 'timeout/';
 
+    include_once('../config/connectdb.php');
+
     //recieve log
     if(isset($_POST["id_mem"]) && isset($_POST["id_room"]))
     {
-        include_once('../config/connectdb.php');
+        
         $data = [
             'id_mem' => $_POST["id_mem"],
             'id_room' => $_POST["id_room"] 
@@ -20,6 +22,10 @@
             echo "OK!";
         }
     }
+
+
+
+
 
     //recieve file zip of img
     if(isset($_FILES["file"]))
@@ -101,7 +107,7 @@
     
     //checking lastest model from a txt file
     if(isset($_POST['check_latest_model']))
-    {        
+    {    
         if (file_exists($model_dir."namemodel.txt")) {
             $myfile = fopen($model_dir."namemodel.txt", "r") or die("Unable to open file!");
             echo fread($myfile,filesize($model_dir."namemodel.txt"));
@@ -135,6 +141,29 @@
         } else {
             echo 0;
         }
+    }   
+
+
+
+
+    if(isset($_POST['key']) && $_POST['key'] == 'insert_sc') {
+
+        $id_code = $_POST['id_code'];
+        $id_mem = $_POST["id_mem"];
+
+        // 
+
+
+
+
+
+
+
     }
+
+
+
+
+
     
 ?>

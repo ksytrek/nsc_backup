@@ -168,7 +168,7 @@ try {
                                                             "sNext": "ถัดไป",
                                                             "sLast": "สุดท้าย"
                                                         }
-                                                    }
+                                                    },retrieve: true
                                                 });
                                                 tb_showroom.clear();
 

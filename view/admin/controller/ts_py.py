@@ -6,6 +6,6 @@ while True:
     print(count)
     count = count + 1
     time.sleep(0.3)
-    if count == 100:
+    if count == 20:
         break
 
