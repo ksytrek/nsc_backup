@@ -31,8 +31,6 @@
     $output = shell_exec('git pull');
     echo "อัพเดตข้อมูลจาก Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
-
-
     // scsddsd
 
     // git add -A
