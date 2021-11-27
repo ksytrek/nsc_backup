@@ -16,7 +16,7 @@
     // echo "<pre>$output</pre><br/>";
 
 
-    $output = shell_exec('git commit -am "server up to git"');
+    $output = shell_exec('git add -A;git commit -am "server up to git"');
     echo "commit Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
 
