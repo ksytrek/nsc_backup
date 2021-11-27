@@ -21,7 +21,7 @@
     echo "<pre>$output</pre><br/>";
 
 
-    $output = shell_exec('git push"');
+    $output = shell_exec('git push');
     echo "อัพเดตข้อมูลไปยัง Github ให้ปัจจุบัน";
     echo "<pre>$output</pre><br/>";
 
