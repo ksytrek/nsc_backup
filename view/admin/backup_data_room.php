@@ -10,6 +10,8 @@ include_once("./sidebar_ad.php")
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Focus Admin: Creative Admin Dashboard</title>
     <!-- <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+    <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -48,7 +50,7 @@ include_once("./sidebar_ad.php")
                             </div>
                             <button type="button" class="btn btn-info btn-flat btn-addon btn-md m-b-10 m-l-5"><i class="ti-cloud-down"></i>สำรองข้อมูลห้อง + ประวัติการใช้งาน</button>
                             <div class="row">
-                                
+
                                 <div class="col-lg-3">
                                     <div class="card">
                                         <div class="stat-widget-four">
@@ -64,7 +66,7 @@ include_once("./sidebar_ad.php")
                                         </div>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-lg-3">
                                     <div class="card">
                                         <div class="stat-widget-four">
@@ -87,7 +89,7 @@ include_once("./sidebar_ad.php")
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered table-hover">
+                                    <table id="tb_room_list" class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>CID</th>
@@ -118,7 +120,15 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <td>1339900662224</td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -138,7 +148,15 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <td>1339900662224</td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -158,7 +176,15 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <td>1339900662224</td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -178,27 +204,8 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
-                                                <td>1339900662224</td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
                                             </tr>
                                             <tr>
-                                                <td>1339900662224</td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1339900662224</td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -220,8 +227,70 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                             </tr>
                                         </tbody>
-                                       
                                     </table>
+                                    <script>
+                                        $(document).ready(function() {
+                                            tb_room_list();
+                                        });
+
+                                        function tb_room_list() {
+                                            var tb_schedule_back = $('#tb_room_list').DataTable({
+                                                dom: 'lBfrtip',
+                                                lengthMenu: [
+                                                    [5, 10, 25, 50, 60, -1],
+                                                    [5, 10, 25, 50, 60, "All"]
+                                                ],
+                                                language: {
+                                                    sProcessing: "กำลังดำเนินการ...",
+                                                    sLengthMenu: "แสดง_MENU_ แถว",
+                                                    sZeroRecords: "ไม่พบข้อมูล",
+                                                    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                    sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                    sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                    sInfoPostFix: "",
+                                                    sSearch: "ค้นหา:",
+                                                    sUrl: "",
+                                                    oPaginate: {
+                                                        "sFirst": "เริ่มต้น",
+                                                        "sPrevious": "ก่อนหน้า",
+                                                        "sNext": "ถัดไป",
+                                                        "sLast": "สุดท้าย"
+                                                    }
+                                                },
+
+                                                // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                                processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+
+                                                buttons: [{
+                                                    extend: 'excel',
+                                                    text: 'ส่งออก EXCEL',
+                                                    messageTop: 'Cybernetics Corp.',
+                                                    // filename: function() {
+                                                    //     // const d = new Date();
+                                                    //     // // let time = d.getTime();
+                                                    //     // let hour = d.getHours();
+                                                    //     // let minutes = d.getMinutes();
+                                                    //     // let day = d.getDay();
+                                                    //     // let month = d.getMonth();
+                                                    //     // let year = d.getFullYear();
+                                                    //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                    // },
+                                                    title: 'รายชื่อสิทเข้าห้อง',
+                                                    exportOptions: {
+                                                        // columns: [0, 1],
+                                                        // คอลัมส์ที่จะส่งออก
+                                                        // modifier: {
+                                                        //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                        // },
+                                                        // stripHtml: true
+                                                    }
+                                                }],
+                                                retrieve: true,
+                                            });
+                                        }
+                                    </script>
                                 </div>
                             </div>
 
@@ -240,7 +309,7 @@ include_once("./sidebar_ad.php")
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="bootstrap-data-table-export-back" class="table table-striped table-bordered table-hover">
+                                    <table id="tb_schedule_back" class="table  table-hover">
                                         <thead>
                                             <tr>
                                                 <th>CID</th>
@@ -271,7 +340,15 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <td>1339900662224</td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -291,7 +368,15 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <td>1339900662224</td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -311,7 +396,15 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <td>1339900662224</td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                                <td>วิทยาการ 304</td>
+                                                <td>09:25 น. 18/10/64 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -331,27 +424,8 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
-                                                <td>1339900662224</td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
                                             </tr>
                                             <tr>
-                                                <td>1339900662224</td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1339900662224</td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                                <td>วิทยาการ 304</td>
-                                                <td>09:25 น. 18/10/64 </td>
-                                            </tr><tr>
                                                 <td>1339900662224</td>
                                                 <td>วิทยาการ 304</td>
                                                 <td>09:25 น. 18/10/64 </td>
@@ -373,8 +447,71 @@ include_once("./sidebar_ad.php")
                                                 <td>09:25 น. 18/10/64 </td>
                                             </tr>
                                         </tbody>
-                                    
+
                                     </table>
+                                    <script>
+                                        $(document).ready(function() {
+                                            tb_schedule_back();
+                                        });
+
+                                        function tb_schedule_back() {
+                                            var tb_schedule_back = $('#tb_schedule_back').DataTable({
+                                                dom: 'lBfrtip',
+                                                lengthMenu: [
+                                                    [5, 10, 25, 50, 60, -1],
+                                                    [5, 10, 25, 50, 60, "All"]
+                                                ],
+                                                language: {
+                                                    sProcessing: "กำลังดำเนินการ...",
+                                                    sLengthMenu: "แสดง_MENU_ แถว",
+                                                    sZeroRecords: "ไม่พบข้อมูล",
+                                                    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                    sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                    sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                    sInfoPostFix: "",
+                                                    sSearch: "ค้นหา:",
+                                                    sUrl: "",
+                                                    oPaginate: {
+                                                        "sFirst": "เริ่มต้น",
+                                                        "sPrevious": "ก่อนหน้า",
+                                                        "sNext": "ถัดไป",
+                                                        "sLast": "สุดท้าย"
+                                                    }
+                                                },
+
+                                                // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                                processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+
+                                                buttons: [{
+                                                    extend: 'excel',
+                                                    text: 'ส่งออก EXCEL',
+                                                    messageTop: 'Cybernetics Corp.',
+                                                    // filename: function() {
+                                                    //     // const d = new Date();
+                                                    //     // // let time = d.getTime();
+                                                    //     // let hour = d.getHours();
+                                                    //     // let minutes = d.getMinutes();
+                                                    //     // let day = d.getDay();
+                                                    //     // let month = d.getMonth();
+                                                    //     // let year = d.getFullYear();
+                                                    //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                    // },
+                                                    title: 'รายชื่อสิทเข้าห้อง',
+                                                    exportOptions: {
+                                                        // columns: [0, 1],
+                                                        // คอลัมส์ที่จะส่งออก
+                                                        // modifier: {
+                                                        //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                        // },
+                                                        // stripHtml: true
+                                                    }
+                                                }],
+                                                retrieve: true,
+                                            });
+                                        }
+                                    </script>
                                 </div>
                             </div>
 
@@ -396,7 +533,7 @@ include_once("./sidebar_ad.php")
     <!-- <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script> -->
 
-    <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
+    <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
@@ -415,7 +552,22 @@ include_once("./sidebar_ad.php")
     <script src="../../script/assets/js/lib/data-table-back/vfs_fonts.js"></script>
     <script src="../../script/assets/js/lib/data-table-back/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table-back/buttons.print.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table-back/datatables-init.js"></script>
+    <script src="../../script/assets/js/lib/data-table-back/datatables-init.js"></script> -->
+
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <!-- <script src="../../script/vfs_fonts.js"></script> -->
+    <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
+
+
+
 
 </body>
 
