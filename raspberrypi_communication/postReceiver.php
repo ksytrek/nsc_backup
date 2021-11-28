@@ -70,7 +70,7 @@
 
         
     // zip files for admin to download
-    if(isset($_POST['zip_files']))
+    if(isset($_POST['key']) && $_POST['key'] == 'zip_files')
     {
         if(!is_dir($face_dir)){
             mkdir($face_dir);
@@ -106,7 +106,7 @@
     }
     
     //checking lastest model from a txt file
-    if(isset($_POST['check_latest_model']))
+    if(isset($_POST['key']) && $_POST['key'] == 'check_latest_model')
     {    
         if (file_exists($model_dir."namemodel.txt")) {
             $myfile = fopen($model_dir."namemodel.txt", "r") or die("Unable to open file!");
@@ -118,7 +118,7 @@
     }
 
     //checking lastest permission from a txt file
-    if(isset($_POST['check_latest_permission']))
+    if(isset($_POST['key']) && $_POST['key'] == 'check_latest_permission')
     {
 
         if (file_exists($permission_dir."name_permission.txt")) {
