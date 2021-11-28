@@ -10,9 +10,9 @@
     include_once('../config/connectdb.php');
 
     //recieve log
-    if(isset($_POST["key"]) && $_POST["key"] == "log")
+    if(isset($_POST['key']) && $_POST['key'] == 'log')
     {
-        
+        echo "log";
         $data = [
             'id_mem' => $_POST["id_mem"],
             'full_name' => $_POST["full_name"] 
