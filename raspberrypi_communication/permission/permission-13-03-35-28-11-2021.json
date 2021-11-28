@@ -5,6 +5,7 @@
         "id_room": "34",
         "id_code": "1339900662224",
         "full_name": "SOMPHOL  WILA",
+        "room_id_code": "PxCSdgeGqxD6RM9emCJtpdpZYKDek",
         "room_name": "\u0e2b\u0e19\u0e49\u0e32\u0e1a\u0e49\u0e32\u0e19"
     },
     {
@@ -13,6 +14,7 @@
         "id_room": "39",
         "id_code": "1339900662224",
         "full_name": "SOMPHOL  WILA",
+        "room_id_code": "dJ3Cwn24ERgkEdRbGmeaJS5TdRS6F",
         "room_name": "\u0e2b\u0e19\u0e49\u0e32\u0e1a\u0e49\u0e32\u0e19"
     },
     {
@@ -21,6 +23,16 @@
         "id_room": "34",
         "id_code": "1223344332225",
         "full_name": "\u0e2a\u0e21\u0e14\u0e35  \u0e14\u0e35\u0e40\u0e01\u0e34\u0e19",
+        "room_id_code": "PxCSdgeGqxD6RM9emCJtpdpZYKDek",
+        "room_name": "\u0e2b\u0e19\u0e49\u0e32\u0e1a\u0e49\u0e32\u0e19"
+    },
+    {
+        "id_eligibilty": "62",
+        "id_mem": "17",
+        "id_room": "39",
+        "id_code": "1223344332225",
+        "full_name": "\u0e2a\u0e21\u0e14\u0e35  \u0e14\u0e35\u0e40\u0e01\u0e34\u0e19",
+        "room_id_code": "dJ3Cwn24ERgkEdRbGmeaJS5TdRS6F",
         "room_name": "\u0e2b\u0e19\u0e49\u0e32\u0e1a\u0e49\u0e32\u0e19"
     }
 ]
