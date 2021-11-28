@@ -101,7 +101,7 @@ include_once("./sidebar_ad.php")
 
                                             </tbody>
                                             <style>
-                                                .id_room_codefile:hover{
+                                                .id_room_codefile:hover {
                                                     cursor: pointer;
                                                     color: green;
                                                 }
@@ -145,7 +145,7 @@ include_once("./sidebar_ad.php")
                                                                 }
 
 
-                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] + "'>" + '<p class="id_room_codefile">'+room_id_code+'</p>';
+                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] + "'>" + '<p class="id_room_codefile">' + room_id_code + '</p>';
                                                                 var col4 = '<div class="text-center">' +
                                                                     '<a class ="click_edit_search" href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>' +
                                                                     '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id=' + val['id_room'] + '"><i class="ti-search"></i></a>' +
@@ -175,13 +175,15 @@ include_once("./sidebar_ad.php")
                                                     var id_room_txt = currentRow.find("td:eq(0) input[type='hidden']").val();
 
 
-                                                    alert(id_room_txt);
-                                                    // send_post_get("./room_search_ad.php", {
-                                                    //     id: id_room_txt
-                                                    // }, 'GET');
+                                                    send_post_get('./controller/con_mg_room.php', {
+                                                        key: "download_file_room",
+                                                        id_room: id_room_txt,
+                                                    }, 'POST');
+
+
                                                 });
 
-                                                
+
                                                 $("#tb_mg_room").on('click', '#seach_room_link', function() {
                                                     // get the current row
                                                     var currentRow = $(this).closest("tr");
@@ -477,7 +479,7 @@ include_once("./sidebar_ad.php")
                                                                                     $('#room_name').val('');
                                                                                     $('#room_dclose').val('');
 
-                                                                                    
+
                                                                                     tb_mg_room();
                                                                                     $('#add_room').modal('hide');
                                                                                     // $('#btn_create_room').attr('ata-dismiss','modal');
@@ -491,7 +493,7 @@ include_once("./sidebar_ad.php")
 
 
                                                                                     // $('#id_room').val('');
-                                                                                    
+
 
                                                                                     tb_mg_room();
                                                                                     $('#btn_create_room').attr('ata-dismiss', 'modal');

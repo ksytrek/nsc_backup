@@ -2,6 +2,8 @@
 include("../../../config/connectdb.php");
 include("../../../config/backup.php");
 include("../../../config/cl_mg_personal.php");
+
+
 if(isset($_POST['key']) && $_POST['key'] == 'backup_img_person'){
     // echo 'OK';
     $id_mem = $_POST["id_mem"];
