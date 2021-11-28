@@ -47,7 +47,7 @@ class Database {
             return $insert->execute($value_array);
         }
         if($table == "schedule"){
-            $insert = self::getLink()->prepare(" INSERT INTO `schedule` (`id_ schedule`, `id_mem`, `id_room`, `time_stamp`) VALUES (NULL, :id_mem, :id_room, current_timestamp());");
+            $insert = self::getLink()->prepare(" INSERT INTO `schedule` (`id_ schedule`, `id_mem`, `full_name`, `id_room`, `room_name`,`time_stamp`) VALUES (NULL, :id_mem, :full_name ,:id_room, :room_name, current_timestamp());");
             return $insert->execute($value_array);
         }
         return false;
