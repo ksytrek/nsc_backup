@@ -79,6 +79,23 @@ include_once("./sidebar_ad.php");
                                                         [10, 25, 50, 60, -1],
                                                         [10, 25, 50, 60, "All"]
                                                     ],
+                                                    language: {
+                                                        sProcessing: "กำลังดำเนินการ...",
+                                                        sLengthMenu: "แสดง_MENU_ แถว",
+                                                        sZeroRecords: "ไม่พบข้อมูล",
+                                                        sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                        sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                        sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                        sInfoPostFix: "",
+                                                        sSearch: "ค้นหา:",
+                                                        sUrl: "",
+                                                        oPaginate: {
+                                                            "sFirst": "เริ่มต้น",
+                                                            "sPrevious": "ก่อนหน้า",
+                                                            "sNext": "ถัดไป",
+                                                            "sLast": "สุดท้าย"
+                                                        }
+                                                    },
                                                     // buttons: ['copy', 'csv', 'excel', 'print'],
                                                     retrieve: true,
                                                 });

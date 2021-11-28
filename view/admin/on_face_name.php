@@ -68,16 +68,36 @@ $id_mem = $_GET['id'];
                                             $(document).ready(function() {
                                                 DataTable_on_face();
                                             });
+
                                             function DataTable_on_face() {
-                                                var dataTable_no_face = $('#dataTable_no_face').DataTable();
+                                                var dataTable_no_face = $('#dataTable_no_face').DataTable({
+                                                    language: {
+                                                        sProcessing: "กำลังดำเนินการ...",
+                                                        sLengthMenu: "แสดง_MENU_ แถว",
+                                                        sZeroRecords: "ไม่พบข้อมูล",
+                                                        sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                        sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                        sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                        sInfoPostFix: "",
+                                                        sSearch: "ค้นหา:",
+                                                        sUrl: "",
+                                                        oPaginate: {
+                                                            "sFirst": "เริ่มต้น",
+                                                            "sPrevious": "ก่อนหน้า",
+                                                            "sNext": "ถัดไป",
+                                                            "sLast": "สุดท้าย"
+                                                        }
+                                                    },
+                                                });
                                                 dataTable_no_face.clear();
 
                                                 $.ajax({
-                                                    url : './controller/con_on_face_name.php',
-                                                    type : 'POST',
-                                                    data:{
-                                                        key : 'DataTable_on_face'
-                                                    },success: function(result, textStatus, jqXHR) {
+                                                    url: './controller/con_on_face_name.php',
+                                                    type: 'POST',
+                                                    data: {
+                                                        key: 'DataTable_on_face'
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
                                                         // alert(result);
                                                         var json = JSON.parse(result);
                                                         $.each(json, function(key, val) {
@@ -85,13 +105,14 @@ $id_mem = $_GET['id'];
                                                             var col1 = val['id_code'];
                                                             var col2 = val['name'] + " " + val['last_name'];
                                                             var col3 = val['position'];
-                                                            var col4 = "<div class='text-center'><button type='button' onclick='click_save_face("+ val['id_mem']   +")' class='btn badge badge-danger'>UPLOAD</button></div>";
+                                                            var col4 = "<div class='text-center'><button type='button' onclick='click_save_face(" + val['id_mem'] + ")' class='btn badge badge-danger'>UPLOAD</button></div>";
                                                             dataTable_no_face.row.add([
                                                                 col1, col2, col3, col4
                                                             ]).draw(true);
                                                         });
 
-                                                    },error: function(result, textStatus, jqXHR){
+                                                    },
+                                                    error: function(result, textStatus, jqXHR) {
 
                                                     }
                                                 });
@@ -101,15 +122,13 @@ $id_mem = $_GET['id'];
 
                                             }
 
-                                            function click_save_face(id_mem){
+                                            function click_save_face(id_mem) {
                                                 // alert(id_mem);
-                                                if(confirm("Are you sure you want to save")){
-                                                    location.assign('./on_save_face.php?id='+id_mem);
+                                                if (confirm("Are you sure you want to save")) {
+                                                    location.assign('./on_save_face.php?id=' + id_mem);
                                                 }
 
                                             }
-
-                                    
                                         </script>
                                     </div>
                                 </div>
