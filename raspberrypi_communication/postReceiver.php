@@ -10,12 +10,14 @@
     include_once('../config/connectdb.php');
 
     //recieve log
-    if(isset($_POST["id_mem"]) && isset($_POST["id_room"]))
+    if(isset($_POST['key']) && $_POST['key'] == 'log')
     {
-        
+        echo "log";
         $data = [
             'id_mem' => $_POST["id_mem"],
-            'id_room' => $_POST["id_room"] 
+            'full_name' => $_POST["full_name"],
+            'id_room' => $_POST["id_room"], 
+            'room_name' => $_POST["room_name"]
         ];
     
         if(Database::insert_data('schedule',$data)){
@@ -70,7 +72,7 @@
 
         
     // zip files for admin to download
-    if(isset($_POST['zip_files']))
+    if(isset($_POST['key']) && $_POST['key'] == 'zip_files')
     {
         if(!is_dir($face_dir)){
             mkdir($face_dir);
@@ -106,7 +108,7 @@
     }
     
     //checking lastest model from a txt file
-    if(isset($_POST['check_latest_model']))
+    if(isset($_POST['key']) && $_POST['key'] == 'check_latest_model')
     {    
         if (file_exists($model_dir."namemodel.txt")) {
             $myfile = fopen($model_dir."namemodel.txt", "r") or die("Unable to open file!");
@@ -118,7 +120,7 @@
     }
 
     //checking lastest permission from a txt file
-    if(isset($_POST['check_latest_permission']))
+    if(isset($_POST['key']) && $_POST['key'] == 'check_latest_permission')
     {
 
         if (file_exists($permission_dir."name_permission.txt")) {
@@ -131,7 +133,7 @@
     }  
 
     //checkinng lastest time_out from a txt file
-    if(isset($_POST['check_latest_time']))
+    if(isset($_POST['key']) && $_POST['key'] == 'check_latest_time')
     {
 
         if (file_exists($time_out_dir."time.txt")) {
