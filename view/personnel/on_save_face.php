@@ -52,7 +52,7 @@ include_once("./sidebar.php");
 						<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title">
-									<h4>กำลังบันทึก</h4>	
+									<h4>กำลังบันทึก</h4>
 									<video autoplay id="cam_input" height="440" width="440"></video>
 								</div>
 							</div>
@@ -74,7 +74,7 @@ include_once("./sidebar.php");
 										<h4>ค่าสถานะ</h4>
 									</div>
 									<!-- <div class="progress m-t-20"> -->
-										<span id="progressBar" class="progress-bar bg-success" style="width: 100%; height:15px;" role="progressbar"><span id="status"></span></span>
+									<span id="progressBar" class="progress-bar bg-success" style="width: 100%; height:15px;" role="progressbar"><span id="status"></span></span>
 									<!-- </div> -->
 								</div>
 							</div>
@@ -131,7 +131,7 @@ include_once("./sidebar.php");
 				classifier.load(faceCascadeFile); // in the callback, load the cascade from file 
 			});
 
-			const FPS = 24;
+			const FPS = 30;
 			
 			let start_time = Date.now();
 
@@ -159,7 +159,7 @@ include_once("./sidebar.php");
 						cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
 						
 					}
-				if(count < MAX_COUNT){
+				// if(count < MAX_COUNT){
 					if(faces.size() > 0){
 						if((Date.now() - start_time) >= 1500){
 							start_time = Date.now();
@@ -193,6 +193,13 @@ include_once("./sidebar.php");
 										}
 								}).done(function(response) {
 									console.log('saved: ' + response); 
+									if(response == 20){
+										alert('บันทึกภาพใบหน้าสำเร็จ');
+										// location.assign('./mg_personal_ad.php');
+										// history.back(1);
+										location.assign('./image_search.php');
+										// alert(response);
+									}
 								});
 
 								count = count + 1;
@@ -201,9 +208,9 @@ include_once("./sidebar.php");
 							}
 						}
 					}
-				}else{
+				// }else{
 					
-				}
+				// }
 
 				// schedule next one.
 				let delay = 1000/FPS - (Date.now() - begin);

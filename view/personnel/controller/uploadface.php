@@ -57,7 +57,8 @@ if (isset($_POST['key']) && $_POST['key'] == "uploadface") {
 					];
 
 					if (Database::insert_data("tbimage", $insert_data_image)) {
-						echo "success";
+						// echo "success";
+						echo $count;
 					}
 				} catch (Exception $e) {
 					echo "error";
