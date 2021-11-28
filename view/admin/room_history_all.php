@@ -60,25 +60,25 @@ include_once("./sidebar_ad.php");
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php 
+                                                <?php
                                                 $sql = "SELECT * FROM `schedule` as sc ORDER BY time_stamp DESC ;";
                                                 $search = Database::query($sql, PDO::FETCH_ASSOC);
-                                                foreach($search as $row):
+                                                foreach ($search as $row) :
                                                 ?>
-                                                <tr>
-                                                    <td><?php echo $row['id_code']?></td>
-                                                    <td><?php echo $row['full_name']?></td>
-                                                    <td><?php echo $row['room_name']?></td>
-                                                    <td class="color-primary text-center" ><?php echo date("H:i  d/m/Y", strtotime($row['time_stamp']))?></td>
-                                                    <td class="text-center">
-                                                        <a href="./personal_search_ad.php?id=<?php echo $row['id_mem'] ?>"><i class="ti-search"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <?php 
-                                                    endforeach;
+                                                    <tr>
+                                                        <td><?php echo $row['id_code'] ?></td>
+                                                        <td><?php echo $row['full_name'] ?></td>
+                                                        <td><?php echo $row['room_name'] ?></td>
+                                                        <td class="color-primary text-center"><?php echo date("H:i  d/m/Y", strtotime($row['time_stamp'])) ?></td>
+                                                        <td class="text-center">
+                                                            <a href="./personal_search_ad.php?id=<?php echo $row['id_mem'] ?>"><i class="ti-search"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                endforeach;
                                                 ?>
                                             </tbody>
-                                
+
                                         </table>
                                     </div>
                                 </div>
@@ -102,32 +102,49 @@ include_once("./sidebar_ad.php");
         </div>
     </div>
     <!-- scripit init-->
-    
-    <script>
-            $(document).ready(function() {
-                // $('#bootstrap-data-table-export').DataTable();
-                $('#bootstrap-data-table-export').DataTable({
-                    dom: 'lBfrtip',
-                    lengthMenu: [
-                        [10, 25, 50, -1],
-                        [10, 25, 50, "All"]
-                    ],
-                    buttons: [
-                        'copy', 'csv', 'excel', 'print'
-                    ]
-                });
-            });
-        </script>
-        <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
-        <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
 
-        <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-        <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
-        <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
-        <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
-        <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
-        <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
-        <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // $('#bootstrap-data-table-export').DataTable();
+            $('#bootstrap-data-table-export').DataTable({
+                dom: 'lBfrtip',
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                buttons: [
+                     'excel'
+                ],
+                language: {
+                    sProcessing: "กำลังดำเนินการ...",
+                    sLengthMenu: "แสดง_MENU_ แถว",
+                    sZeroRecords: "ไม่พบข้อมูล",
+                    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                    sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                    sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    sInfoPostFix: "",
+                    sSearch: "ค้นหา:",
+                    sUrl: "",
+                    oPaginate: {
+                        "sFirst": "เริ่มต้น",
+                        "sPrevious": "ก่อนหน้า",
+                        "sNext": "ถัดไป",
+                        "sLast": "สุดท้าย"
+                    }
+                },
+            });
+        });
+    </script>
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
 </body>
 
 </html>
