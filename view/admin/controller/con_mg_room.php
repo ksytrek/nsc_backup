@@ -3,6 +3,8 @@
 include_once("../../../config/connectdb.php");
 include_once("../../../config/create_file_room.php");
 include("../../../config/backup.php");
+include("../../../config/cl_mg_room.php");
+
 if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     // echo "NMalkjdfljeo ";
     $resultArray = array();
@@ -24,7 +26,7 @@ if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     }
 }
 
-include("../../../config/cl_mg_room.php");
+
 if (isset($_POST['key']) && $_POST['key'] == 'btn_create_room') {
 
 
