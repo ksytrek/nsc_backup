@@ -90,6 +90,7 @@ CREATE TABLE `rqroom` (
 CREATE TABLE `schedule` (
   `id_ schedule` int NOT NULL COMMENT 'ไอดีประวัติเข้าใช้ห้อง',
   `id_mem` int NOT NULL COMMENT 'ไอดีผู้ใช้ที่ใช้ห้อง',
+  `id_code` varchar(15) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'รหัสบัตรประจำตัว',
   `full_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ชื่อผู้ที่เข้าห้อง',
   `id_room` int NOT NULL COMMENT 'ไอดีห้องที่ใช้งาน',
   `room_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ห้องผู้ใช้เข้า',

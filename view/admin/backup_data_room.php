@@ -521,10 +521,10 @@ include_once("./sidebar_ad.php")
 
 
                                             $.ajax({
-                                                url : 'tb_schedule_back',
+                                                url : '',
                                                 type : 'POST',
                                                 data: {
-
+                                                    key :'tb_schedule_back'
                                                 },success: function(result, textStatus, jqXHR) {
 
 

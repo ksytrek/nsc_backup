@@ -215,6 +215,42 @@ include_once("./sidebar_ad.php")
                                                     }],
                                                     retrieve: true,
                                                 });
+
+                                                
+                                                $.ajax({
+                                                url : '',
+                                                type : 'POST',
+                                                data: {
+                                                    key :'show_personal_backup'
+                                                },success: function(result, textStatus, jqXHR) {
+
+
+                                                    var count = 1;
+                                                    var json = jQuery.parseJSON(result);
+                                                    $.each(json, function(key, value) {
+
+                                                        var col1 = count ;
+                                                        var col2 = '';
+                                                        var col3 = '';
+                                                        var col4 = '';
+                                                        var col5 = '';
+
+                                                        tb_room_list.row.add([
+                                                            col1,col2,col3,col4,col5
+                                                        ]).draw(true);
+                                                        count++;
+                                                    });
+
+
+
+                                                    
+                                                },error: function(result, textStatus, jqXHR){
+
+                                                }
+                                            });
+
+
+
                                             }
                                         </script>
                                     </table>
