@@ -103,7 +103,7 @@ include_once("./sidebar_ad.php")
                                             <style>
                                                 .id_room_codefile:hover{
                                                     cursor: pointer;
-                                                    color: gray;
+                                                    color: green;
                                                 }
                                             </style>
                                             <script>
@@ -169,6 +169,19 @@ include_once("./sidebar_ad.php")
                                                     });
                                                 }
 
+                                                $("#tb_mg_room").on('click', '.id_room_codefile', function() {
+                                                    // get the current row
+                                                    var currentRow = $(this).closest("tr");
+                                                    var id_room_txt = currentRow.find("td:eq(0) input[type='hidden']").val();
+
+
+                                                    alert(id_room_txt);
+                                                    // send_post_get("./room_search_ad.php", {
+                                                    //     id: id_room_txt
+                                                    // }, 'GET');
+                                                });
+
+                                                
                                                 $("#tb_mg_room").on('click', '#seach_room_link', function() {
                                                     // get the current row
                                                     var currentRow = $(this).closest("tr");
