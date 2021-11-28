@@ -92,11 +92,11 @@ include_once("./sidebar_ad.php")
                                     <table id="tb_room_list" class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>CID</th>
-                                                <th>Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>position</th>
+                                                <th>ลำดับ</th>
+                                                <th>รหัสประจำเครื่อง</th>
+                                                <th>ชื่อห้อง</th>
+                                                <th>จำนวนครั้งที่เข้า</th>
+                                                <th>จำนวนบุคลากรมีสิทธิ์เข้า</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -234,8 +234,8 @@ include_once("./sidebar_ad.php")
                                         });
 
                                         function tb_room_list() {
-                                            var tb_schedule_back = $('#tb_room_list').DataTable({
-                                                dom: 'lBfrtip',
+                                            var tb_room_list = $('#tb_room_list').DataTable({
+                                                // dom: 'lBfrtip',
                                                 lengthMenu: [
                                                     [5, 10, 25, 50, 60, -1],
                                                     [5, 10, 25, 50, 60, "All"]
@@ -259,36 +259,44 @@ include_once("./sidebar_ad.php")
                                                 },
 
                                                 // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
-                                                processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
-                                                //serverSide: true, // ใช้งานในโหมด Server-side processing
-                                                order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
-
-                                                buttons: [{
-                                                    extend: 'excel',
-                                                    text: 'ส่งออก EXCEL',
-                                                    messageTop: 'Cybernetics Corp.',
-                                                    // filename: function() {
-                                                    //     // const d = new Date();
-                                                    //     // // let time = d.getTime();
-                                                    //     // let hour = d.getHours();
-                                                    //     // let minutes = d.getMinutes();
-                                                    //     // let day = d.getDay();
-                                                    //     // let month = d.getMonth();
-                                                    //     // let year = d.getFullYear();
-                                                    //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
-                                                    // },
-                                                    title: 'รายชื่อสิทเข้าห้อง',
-                                                    exportOptions: {
-                                                        // columns: [0, 1],
-                                                        // คอลัมส์ที่จะส่งออก
-                                                        // modifier: {
-                                                        //     page: 'all' // หน้าที่จะส่งออก all / current
-                                                        // },
-                                                        // stripHtml: true
-                                                    }
-                                                }],
-                                                retrieve: true,
+                                                // processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                // //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                // order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+                                                // retrieve: true,
                                             });
+
+                                            tb_room_list.clear();
+
+                                            $.ajax({
+                                                url : "",
+                                                type : "POST",
+                                                data: {
+                                                    key : 'tb_room_list'
+                                                },success : function(result, textStatus, jqXHR) {
+
+                                                    var count = 1;
+                                                    var json = jQuery.parseJSON(result);
+                                                    $.each(json, function(key, value) {
+
+                                                        var col1 = count ;
+                                                        var col2 = '';
+                                                        var col3 = '';
+                                                        var col4 = '';
+                                                        var col5 = '';
+
+                                                        tb_room_list.row.add([
+                                                            col1,col2,col3,col4,col5
+                                                        ]).draw(true);
+                                                        count++;
+                                                    });
+
+
+                                                },error : function(result, textStatus, jqXHR){
+
+                                                }
+                                            });
+
+
                                         }
                                     </script>
                                 </div>
@@ -312,11 +320,11 @@ include_once("./sidebar_ad.php")
                                     <table id="tb_schedule_back" class="table  table-hover">
                                         <thead>
                                             <tr>
-                                                <th>CID</th>
-                                                <th>Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>position</th>
+                                                <th>รหัสประจำตัว</th>
+                                                <th>ชื่อ - สกุล</th>
+                                                <th>เบอร์ติดต่อ</th>
+                                                <th>ห้องใช้งาน</th>
+                                                <th>เวลาเข้า</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -478,12 +486,9 @@ include_once("./sidebar_ad.php")
                                                         "sLast": "สุดท้าย"
                                                     }
                                                 },
-
-                                                // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
                                                 processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
-                                                //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                serverSide: false, // ใช้งานในโหมด Server-side processing
                                                 order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
-
                                                 buttons: [{
                                                     extend: 'excel',
                                                     text: 'ส่งออก EXCEL',
@@ -500,7 +505,7 @@ include_once("./sidebar_ad.php")
                                                     // },
                                                     title: 'รายชื่อสิทเข้าห้อง',
                                                     exportOptions: {
-                                                        // columns: [0, 1],
+                                                        columns: [0, 4],
                                                         // คอลัมส์ที่จะส่งออก
                                                         // modifier: {
                                                         //     page: 'all' // หน้าที่จะส่งออก all / current
@@ -509,6 +514,42 @@ include_once("./sidebar_ad.php")
                                                     }
                                                 }],
                                                 retrieve: true,
+                                            });
+
+
+                                            tb_schedule_back.clear();
+
+
+                                            $.ajax({
+                                                url : 'tb_schedule_back',
+                                                type : 'POST',
+                                                data: {
+
+                                                },success: function(result, textStatus, jqXHR) {
+
+
+                                                    var count = 1;
+                                                    var json = jQuery.parseJSON(result);
+                                                    $.each(json, function(key, value) {
+
+                                                        var col1 = count ;
+                                                        var col2 = '';
+                                                        var col3 = '';
+                                                        var col4 = '';
+                                                        var col5 = '';
+
+                                                        tb_room_list.row.add([
+                                                            col1,col2,col3,col4,col5
+                                                        ]).draw(true);
+                                                        count++;
+                                                    });
+
+
+
+                                                    
+                                                },error: function(result, textStatus, jqXHR){
+
+                                                }
                                             });
                                         }
                                     </script>
