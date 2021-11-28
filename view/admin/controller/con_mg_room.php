@@ -2,12 +2,8 @@
 
 include_once("../../../config/connectdb.php");
 include_once("../../../config/create_file_room.php");
-<<<<<<< HEAD
 include("../../../config/backup.php");
 include("../../../config/cl_mg_room.php");
-
-=======
->>>>>>> 66c8062922b944051db64b1dc83b7bb28a5440dc
 if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     // echo "NMalkjdfljeo ";
     $resultArray = array();
@@ -28,7 +24,6 @@ if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
         echo json_encode($resultArray);
     }
 }
-
 
 if (isset($_POST['key']) && $_POST['key'] == 'btn_create_room') {
 
