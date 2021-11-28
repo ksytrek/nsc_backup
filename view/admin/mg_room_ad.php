@@ -100,6 +100,12 @@ include_once("./sidebar_ad.php")
                                             <tbody id='tbb_mg_room'>
 
                                             </tbody>
+                                            <style>
+                                                .id_room_codefile:hover{
+                                                    cursor: pointer;
+                                                    color: gray;
+                                                }
+                                            </style>
                                             <script>
                                                 // tb_mg_room() 
                                                 function tb_mg_room() {
@@ -139,7 +145,7 @@ include_once("./sidebar_ad.php")
                                                                 }
 
 
-                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] + "'>" + room_id_code;
+                                                                var col1 = "<input type='hidden' name='' value='" + val['id_room'] + "'>" + '<p class="id_room_codefile">'+room_id_code+'</p>';
                                                                 var col4 = '<div class="text-center">' +
                                                                     '<a class ="click_edit_search" href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>' +
                                                                     '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id=' + val['id_room'] + '"><i class="ti-search"></i></a>' +
