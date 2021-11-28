@@ -131,7 +131,7 @@
     }  
 
     //checkinng lastest time_out from a txt file
-    if(isset($_POST['check_latest_time']))
+    if(isset($_POST['key']) && $_POST['key'] == 'check_latest_time')
     {
 
         if (file_exists($time_out_dir."time.txt")) {
