@@ -2,9 +2,12 @@
 
 include_once("../../../config/connectdb.php");
 include_once("../../../config/create_file_room.php");
+<<<<<<< HEAD
 include("../../../config/backup.php");
 include("../../../config/cl_mg_room.php");
 
+=======
+>>>>>>> 66c8062922b944051db64b1dc83b7bb28a5440dc
 if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     // echo "NMalkjdfljeo ";
     $resultArray = array();
@@ -86,21 +89,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'btn_edit_room'){
 }
 
 
-if(isset($_POST['key']) && $_POST['key'] == 'download_file_room'){
-
-    $id_room = $_POST["id_room"];
-
-    $row = Database::query("SELECT `room_id_code` FROM `rooms` WHERE `id_room` = '$id_room'", PDO::FETCH_ASSOC)->fetch();
-    $id_room = $row['room_id_code'];
-    // echo $id_code;
-
-    $name = $id_room;
-    $path = "../../../raspberrypi_communication/create_room/";
-    $filename =  $path . $name;
-    BackUpFileImage::createZip($path, $name);
-    BackUpFileImage::download_images($path,$name,".zip");
-
-    // echo "Success";
+if(isset($_POST['key']) && $_POST['key'] == ''){
 
 }
 
