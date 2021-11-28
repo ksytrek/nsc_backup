@@ -7,3 +7,30 @@ cd ./public_html/nsc_backup ; git pull
 https://skbright.totddns.com:28000/nsc_backup/git.php
 
 
+nsc@ksytrek:~/public_html/nsc_backup$ pip install opencv-python
+Collecting opencv-python
+  Downloading opencv_python-4.5.4.60-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (60.3 MB)
+     |████████████████████████████████| 60.3 MB 12.4 MB/s 
+Collecting numpy>=1.17.3
+  Downloading numpy-1.21.4-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (15.7 MB)
+     |████████████████████████████████| 15.7 MB 10.7 MB/s 
+Installing collected packages: numpy, opencv-python
+  WARNING: The scripts f2py, f2py3 and f2py3.8 are installed in '/home/nsc/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed numpy-1.21.4 opencv-python-4.5.4.60
+
+
+nsc@ksytrek:~/public_html/nsc_backup$ pip install pandas
+Collecting pandas
+  Downloading pandas-1.3.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.5 MB)
+     |████████████████████████████████| 11.5 MB 10.8 MB/s 
+Requirement already satisfied: numpy>=1.17.3; platform_machine != "aarch64" and platform_machine != "arm64" and python_version < "3.10" in /home/nsc/.local/lib/python3.8/site-packages (from pandas) (1.21.4)
+Requirement already satisfied: python-dateutil>=2.7.3 in /usr/lib/python3/dist-packages (from pandas) (2.7.3)
+Requirement already satisfied: pytz>=2017.3 in /usr/lib/python3/dist-packages (from pandas) (2019.3)
+Installing collected packages: pandas
+Successfully installed pandas-1.3.4
+
+
+
+nsc@ksytrek:~/public_html/nsc_backup$  pip install joblib
+nsc@ksytrek:~/public_html/nsc_backup$ pip install face_recognition
