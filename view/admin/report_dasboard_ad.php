@@ -108,10 +108,12 @@ try {
                                         <script>
                                             window.onload = function() {
                                                 tb_showroom();
+                                               
                                                 show_rqroom();
 
                                             };
-                                            $(document).ready(function() {});
+                                            $(document).ready(function() {
+                                            });
 
 
                                             setInterval(function() {
@@ -132,12 +134,13 @@ try {
                                                         },
                                                         success: function(result, textStatus, jqXHR) {
                                                             // alert(result)
+                                                            tb_showroom();
                                                             swal(result, {
                                                                 icon: "success",
                                                                 buttons: false,
                                                                 timer: 1000,
                                                             });
-                                                            tb_showroom();
+                                                            
                                                             // search_room_info();
 
                                                         },
@@ -168,7 +171,8 @@ try {
                                                             "sNext": "ถัดไป",
                                                             "sLast": "สุดท้าย"
                                                         }
-                                                    },retrieve: true
+                                                    },
+                                                    retrieve: true
                                                 });
                                                 tb_showroom.clear();
 
@@ -219,48 +223,14 @@ try {
                                                                     btn_door,
                                                                     check_count
                                                                 ]).draw(true);
-
-                                                                // var row = "";
-                                                                // var tr = "<tr>";
-                                                                // var _tr = "</tr>";
-                                                                // var td = "<td>";
-                                                                // var _td = "</td>";
-                                                                // // var date = new Date(val["time_stamp"]).toLocaleString('th-TH', {
-                                                                // //     timeZone: 'Asia/Bangkok'
-                                                                // // });
-                                                                // // console.log(date);
-
-                                                                // // el_sum(val['id_room']) ;
-
-                                                                // var status = val["room_fstatus"];
-                                                                // var btn_status;
-                                                                // if (status == '0') {
-                                                                //     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
-                                                                // } else {
-                                                                //     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
-                                                                // }
-                                                                // // el_sum(val['id_room']);
-
-                                                                // // alert("ข้อความ " + sta);
-
-                                                                // // alert("ข้อความ ");
-                                                                // var count = val['count'];
-                                                                // var check_count = count == "0" ? 'ว่าง' : count
-                                                                // row += tr;
-                                                                // row += td + val["room_num"] + _td;
-                                                                // row += td + btn_status + _td;
-                                                                // row += td + check_count + _td;
-                                                                // row += _tr;
-
-                                                                // $('#tb_showroom > tbody:last').append(row);
                                                             });
                                                         } else {
 
-                                                            tb_showroom.row.add([
-                                                                "",
-                                                                "", "",
-                                                                "ไม่มีข้อมูลห้อง"
-                                                            ]).draw(true);
+                                                            // tb_showroom.row.add([
+                                                            //     "",
+                                                            //     "", "",
+                                                            //     "ไม่มีข้อมูลห้อง"
+                                                            // ]).draw(true);
                                                             // $("#tbb_showroom").empty();
                                                             // var row = "";
                                                             // var tr = "<tr>";
