@@ -2,9 +2,17 @@
 <html lang="en">
 <?php
     date_default_timezone_set('Asia/Bangkok');
+
     session_start();
     include("../../config/connectdb.php");
     $id_admin = $_SESSION['id_admin'];
+
+
+    if(isset($_SESSION["key_login"]) && $_SESSION["key_login"] == "admin"){
+        $id_admin = $_SESSION['id_admin'];
+    }else{
+        header("Location:"."../controller/check_logout.php");
+    }
 ?>
 <head>
     <meta charset="utf-8">
@@ -70,7 +78,7 @@
                     <!-- <li><a href="./report.php"><i class="ti-bar-chart-alt"></i>สรุปรายงาน </a></li> -->
                     <li><a href="./train_model.php"><i class="ti-headphone-alt"></i>ฝึกโมเดล</a></li>
                     <li><a href="./mg_admin.php"><i class="ti-key"></i>ผู้ดูแลระบบ</a></li>
-                    <li><a href="../login.php"><i class="ti-close"></i> Logout</a></li>
+                    <li><a href="../controller/check_logout.php"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -104,7 +112,7 @@
                                                 <li>
                                                     <a href="#"><i class="ti-lock"></i> <span> Lock Screen</span></a>
                                                 </li>
-                                                <li><a href="../login.php"><i class="ti-close"></i> <span>
+                                                <li><a href="../controller/check_logout.php"><i class="ti-close"></i> <span>
                                                             Logout</span></a></li>
                                             </ul>
                                         </div>
