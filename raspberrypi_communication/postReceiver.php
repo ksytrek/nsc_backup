@@ -10,12 +10,14 @@
     include_once('../config/connectdb.php');
 
     //recieve log
-    if(isset($_POST["id_mem"]) && isset($_POST["id_room"]))
+    if(isset($_POST["key"]) && $_POST["key"] == "log")
     {
         
         $data = [
             'id_mem' => $_POST["id_mem"],
+            'full_name' => $_POST["full_name"] 
             'id_room' => $_POST["id_room"] 
+            'room_name' => $_POST["room_name"]
         ];
     
         if(Database::insert_data('schedule',$data)){
