@@ -515,7 +515,7 @@ include_once("./sidebar.php")
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered table table-hover ">
+                                <table id="person_sc" class="table table-hover ">
                                     <thead>
                                         <tr class="text-center">
                                             <th>ลำดับ</th>
@@ -546,6 +546,67 @@ include_once("./sidebar.php")
                                     </tbody>
                                 </table>
                             </div>
+                            <script>
+                                $(document).ready(function() {
+                                    person_sc();
+                                });
+
+                                function person_sc() {
+                                    var person_sc = $('#person_sc').DataTable({
+                                        dom: 'lBfrtip',
+                                        lengthMenu: [
+                                            [5, 10, 25, 50, 60, -1],
+                                            [5, 10, 25, 50, 60, "All"]
+                                        ],
+                                        language: {
+                                            sProcessing: "กำลังดำเนินการ...",
+                                            sLengthMenu: "แสดง_MENU_ แถว",
+                                            sZeroRecords: "ไม่พบข้อมูล",
+                                            sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                            sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                            sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                            sInfoPostFix: "",
+                                            sSearch: "ค้นหา:",
+                                            sUrl: "",
+                                            oPaginate: {
+                                                "sFirst": "เริ่มต้น",
+                                                "sPrevious": "ก่อนหน้า",
+                                                "sNext": "ถัดไป",
+                                                "sLast": "สุดท้าย"
+                                            }
+                                        }, // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                        processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                        //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                        order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+
+                                        buttons: [{
+                                            extend: 'excel',
+                                            text: 'ส่งออก EXCEL',
+                                            messageTop: 'Cybernetics Corp.',
+                                            // filename: function() {
+                                            //     // const d = new Date();
+                                            //     // // let time = d.getTime();
+                                            //     // let hour = d.getHours();
+                                            //     // let minutes = d.getMinutes();
+                                            //     // let day = d.getDay();
+                                            //     // let month = d.getMonth();
+                                            //     // let year = d.getFullYear();
+                                            //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                            // },
+                                            title: 'รายชื่อสิทเข้าห้อง',
+                                            exportOptions: {
+                                                columns: [0, 1],
+                                                // คอลัมส์ที่จะส่งออก
+                                                // modifier: {
+                                                //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                // },
+                                                // stripHtml: true
+                                            }
+                                        }],
+                                        retrieve: true,
+                                    });
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -565,118 +626,31 @@ include_once("./sidebar.php")
 
 
 
-    <script src="../../script/assets/js/lib/sweetalert/sweetalert.min.js"></script>
+    <!-- <script src="../../script/assets/js/lib/sweetalert/sweetalert.min.js"></script> -->
     <!-- <script src="../../script/assets/js/lib/sweetalert/sweetalert.init.js"></script> -->
-
-    <script>
-        document.querySelector('.sweet-wrong').onclick = function() {
-            sweetAlert("Oops...", "Something went wrong !!", "error");
-        };
-        document.querySelector('.sweet-message').onclick = function() {
-            swal("Hey, Here's a message !!")
-        };
-        document.querySelector('.sweet-text').onclick = function() {
-            swal("Hey, Here's a message !!", "It's pretty, isn't it?")
-        };
-        document.querySelector('.sweet-success').onclick = function() {
-            swal("Hey, Good job !!", "You clicked the button !!", "success")
-        };
-        document.querySelector('.sweet-confirm').onclick = function() {
-            swal({
-                    title: "Are you sure to delete ?",
-                    text: "You will not be able to recover this imaginary file !!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it !!",
-                    closeOnConfirm: false
-                },
-                function() {
-                    swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success");
-                });
-        };
-        document.querySelector('.sweet-success-cancel').onclick = function() {
-            swal({
-                    title: "Are you sure to delete ?",
-                    text: "You will not be able to recover this imaginary file !!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it !!",
-                    cancelButtonText: "No, cancel it !!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm) {
-                    if (isConfirm) {
-                        swal("Deleted !!", "Hey, your imaginary file has been deleted !!", "success");
-                    } else {
-                        swal("Cancelled !!", "Hey, your imaginary file is safe !!", "error");
-                    }
-                });
-        };
-        document.querySelector('.sweet-image-message').onclick = function() {
-            swal({
-                title: "Sweet !!",
-                text: "Hey, Here's a custom image !!",
-                imageUrl: "assets/images/hand.jpg"
-            });
-        };
-        document.querySelector('.sweet-html').onclick = function() {
-            swal({
-                title: "Sweet !!",
-                text: "<span style='color:#ff0000'>Hey, you are using HTML !!<span>",
-                html: true
-            });
-        };
-        document.querySelector('.sweet-auto').onclick = function() {
-            swal({
-                title: "Sweet auto close alert !!",
-                text: "Hey, i will close in 2 seconds !!",
-                timer: 2000,
-                showConfirmButton: false
-            });
-        };
-        document.querySelector('.sweet-prompt').onclick = function() {
-            swal({
-                    title: "Enter an input !!",
-                    text: "Write something interesting !!",
-                    type: "input",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    animation: "slide-from-top",
-                    inputPlaceholder: "Write something"
-                },
-                function(inputValue) {
-                    if (inputValue === false) return false;
-                    if (inputValue === "") {
-                        swal.showInputError("You need to write something!");
-                        return false
-                    }
-                    swal("Hey !!", "You wrote: " + inputValue, "success");
-                });
-        };
-        document.querySelector('.sweet-ajax').onclick = function() {
-            swal({
-                    title: "Sweet ajax request !!",
-                    text: "Submit to run ajax request !!",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true,
-                },
-                function() {
-                    setTimeout(function() {
-                        swal("Hey, your ajax request finished !!");
-                    }, 2000);
-                });
-        };
-    </script>
 
 
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+            $('#dataTable').DataTable({
+                language: {
+                    sProcessing: "กำลังดำเนินการ...",
+                    sLengthMenu: "แสดง_MENU_ แถว",
+                    sZeroRecords: "ไม่พบข้อมูล",
+                    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                    sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                    sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    sInfoPostFix: "",
+                    sSearch: "ค้นหา:",
+                    sUrl: "",
+                    oPaginate: {
+                        "sFirst": "เริ่มต้น",
+                        "sPrevious": "ก่อนหน้า",
+                        "sNext": "ถัดไป",
+                        "sLast": "สุดท้าย"
+                    }
+                },
+            });
         });
     </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
@@ -688,7 +662,7 @@ include_once("./sidebar.php")
     <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
+    <!-- <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script> -->
 
 </body>
 

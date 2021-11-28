@@ -62,7 +62,10 @@ $id_men = "38";
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $rq_room = Database::query("SELECT * FROM `rooms`   ORDER BY room_num ASC ", PDO::FETCH_ASSOC);
+                                                // $rq_room = Database::query("SELECT * FROM `rooms`   ORDER BY room_num ASC ", PDO::FETCH_ASSOC);
+                                                $rq_room = Database::query("SELECT * FROM members as mm LEFT JOIN rooms as rm ON rm.id_room is NOT null WHERE rm.id_room NOT IN (SELECT rq.id_room FROM rqroom as rq WHERE rq.id_room = rm.id_room AND rq.id_mem = mm.id_mem) AND rm.id_room NOT IN (SELECT el.id_room FROM eligibility as el WHERE el.id_room = rm.id_room AND el.id_mem = mm.id_mem) AND mm.id_mem = $id_mem", PDO::FETCH_ASSOC);
+                                                // SELECT * FROM members as mm LEFT JOIN rooms as rm ON rm.id_room is NOT null WHERE rm.id_room NOT IN (SELECT rq.id_room FROM rqroom as rq WHERE rq.id_room = rm.id_room AND rq.id_mem = mm.id_mem) AND id_code LIKE '1339900662224'
+                                                // SELECT * FROM members as mm LEFT JOIN rooms as rm ON rm.id_room is NOT null WHERE rm.id_room NOT IN (SELECT rq.id_room FROM rqroom as rq WHERE rq.id_room = rm.id_room AND rq.id_mem = mm.id_mem) AND rm.id_room NOT IN (SELECT el.id_room FROM eligibility as el WHERE el.id_room = rm.id_room AND el.id_mem = mm.id_mem) AND mm.id_mem = 16
                                                 $i = 0;
                                                 // while ($row = $rq_room->fetch(PDO::FETCH_ASSOC)) {
                                                 foreach ($rq_room  as $row) {
@@ -96,20 +99,20 @@ $id_men = "38";
                                                                         },
                                                                         url: "./controller/con_per.php",
                                                                         success: function(result, textStatus, jqXHR) {
-                                                                            if(result == "success") {
+                                                                            if (result == "success") {
                                                                                 // alert(result);
-                                                                                swal("ข้อใช้ห้องสำเร็จ","กรุณารอผู้ดูแลระบบยืนยัน!!", "success");
-                                                                            }else if (result == "er_1") {
+                                                                                swal("ข้อใช้ห้องสำเร็จ", "กรุณารอผู้ดูแลระบบยืนยัน!!", "success");
+                                                                            } else if (result == "er_1") {
                                                                                 // "ไม่สามารถร้องขอใช้ห้องได้ เพราะมีสิทธิ์เข้าห้องแล้ว"
-                                                                                swal("ไม่สามารถร้องขอใช้ห้องได้","เพราะมีสิทธิ์เข้าห้องแล้ว!!", "error");
-                                                                            }else if (result == "er_2") {
+                                                                                swal("ไม่สามารถร้องขอใช้ห้องได้", "เพราะมีสิทธิ์เข้าห้องแล้ว!!", "error");
+                                                                            } else if (result == "er_2") {
                                                                                 // "ไม่สามารถร้องขอใช้ห้องได้ เพราะกำลังอยู่ในช่วงพิจารณา";
-                                                                                swal("ไม่สามารถร้องขอใช้ห้องได้"," เพราะกำลังอยู่ในช่วงพิจารณา!!", "error");
+                                                                                swal("ไม่สามารถร้องขอใช้ห้องได้", " เพราะกำลังอยู่ในช่วงพิจารณา!!", "error");
                                                                                 // swal("Good job!", "You clicked the button!", "error");
-                                                                            }else if (result == "er_3") {
+                                                                            } else if (result == "er_3") {
                                                                                 // alert("เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ!");
                                                                                 swal("เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ!!", "error");
-                                                                            }else{
+                                                                            } else {
                                                                                 swal("เกิดข้อผิดพลาดรายแรง!!", "error");
                                                                                 // alert("เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ!");
                                                                             }
@@ -148,7 +151,25 @@ $id_men = "38";
 
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+            $('#dataTable').DataTable({
+                language: {
+                    sProcessing: "กำลังดำเนินการ...",
+                    sLengthMenu: "แสดง_MENU_ แถว",
+                    sZeroRecords: "ไม่พบข้อมูล",
+                    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                    sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                    sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    sInfoPostFix: "",
+                    sSearch: "ค้นหา:",
+                    sUrl: "",
+                    oPaginate: {
+                        "sFirst": "เริ่มต้น",
+                        "sPrevious": "ก่อนหน้า",
+                        "sNext": "ถัดไป",
+                        "sLast": "สุดท้าย"
+                    }
+                },
+            });
         });
     </script>
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>

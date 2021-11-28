@@ -17,7 +17,6 @@
             <div class="container-fluid">
                 <!-- /# row sdfadf  -->
                 <script>
-                   
                     window.onload = function() {
                         tb_eligibility();
                         tb_rqroom();
@@ -70,7 +69,7 @@
 
                                     $('#tb-eligibility > tbody:last').append(row);
                                 }
-                                
+
                             }
                         }).error(function(xhr, status, error) {
                             alert(xhr.statusText + status + error + ': ' + xhr.responseText);
@@ -222,7 +221,7 @@
                         </div>
                         <div class="bootstrap-data-table-panel">
                             <div class="table-responsive">
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <table id="tb_schedule_room_personal" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>ลำดับ</th>
@@ -240,8 +239,8 @@
                                             foreach ($show_tebelig as $row) {
                                                 $i = $i + 1;
                                                 $date = date("H:i d/m/Y", strtotime($row['time_stamp']));
-                                                $tb_schedule_result = $tb_schedule_result.
-                                                "<tr>
+                                                $tb_schedule_result = $tb_schedule_result .
+                                                    "<tr>
                                                     <td>$i</td>
                                                     <td>{$row['room_name']}</td>
                                                     <td>{$date}</td>
@@ -254,6 +253,70 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <script>
+                                $(document).ready(function() {
+                                    tb_schedule_room_personal();
+                                });
+
+                                function tb_schedule_room_personal() {
+                                    var tb_schedule_room_personal = $('#tb_schedule_room_personal').DataTable({
+                                        dom: 'lBfrtip',
+                                        lengthMenu: [
+                                            [5, 10, 25, 50, 60, -1],
+                                            [5, 10, 25, 50, 60, "All"]
+                                        ],
+                                        language: {
+                                            sProcessing: "กำลังดำเนินการ...",
+                                            sLengthMenu: "แสดง_MENU_ แถว",
+                                            sZeroRecords: "ไม่พบข้อมูล",
+                                            sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                            sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                            sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                            sInfoPostFix: "",
+                                            sSearch: "ค้นหา:",
+                                            sUrl: "",
+                                            oPaginate: {
+                                                "sFirst": "เริ่มต้น",
+                                                "sPrevious": "ก่อนหน้า",
+                                                "sNext": "ถัดไป",
+                                                "sLast": "สุดท้าย"
+                                            }
+                                        },
+
+                                        // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                        processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                        //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                        order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+
+                                        buttons: [{
+                                            extend: 'excel',
+                                            text: 'ส่งออก EXCEL',
+                                            messageTop: 'Cybernetics Corp.',
+                                            // filename: function() {
+                                            //     // const d = new Date();
+                                            //     // // let time = d.getTime();
+                                            //     // let hour = d.getHours();
+                                            //     // let minutes = d.getMinutes();
+                                            //     // let day = d.getDay();
+                                            //     // let month = d.getMonth();
+                                            //     // let year = d.getFullYear();
+                                            //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                            // },
+                                            title: 'รายชื่อสิทเข้าห้อง',
+                                            exportOptions: {
+                                                columns: [0, 1],
+                                                // คอลัมส์ที่จะส่งออก
+                                                // modifier: {
+                                                //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                // },
+                                                // stripHtml: true
+                                            }
+                                        }],
+                                        retrieve: true,
+                                    });
+                                }
+                            </script>
                         </div>
                     </div>
                     <!-- /# card -->
@@ -274,18 +337,24 @@
     </div>
     </div>
 
+
     <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
     <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+    <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script src="../../script/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/jszip.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/pdfmake.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <!-- <script src="../../script/vfs_fonts.js"></script> -->
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="../../script/assets/js/lib/data-table/datatables-init.js"></script>
-    <script src="../../script/assets/js/lib/jquery.min.js"></script>
 
+    
 </body>
 
 </html>
