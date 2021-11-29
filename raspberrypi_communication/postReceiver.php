@@ -15,6 +15,7 @@
         echo "log";
         $data = [
             'id_mem' => $_POST["id_mem"],
+            'id_code' => $_POST["id_code"],
             'full_name' => $_POST["full_name"],
             'id_room' => $_POST["id_room"], 
             'room_name' => $_POST["room_name"]
@@ -24,8 +25,6 @@
             echo "OK!";
         }
     }
-
-
 
 
 
@@ -110,9 +109,10 @@
     //checking lastest model from a txt file
     if(isset($_POST['key']) && $_POST['key'] == 'check_latest_model')
     {    
-        if (file_exists($model_dir."namemodel.txt")) {
-            $myfile = fopen($model_dir."namemodel.txt", "r") or die("Unable to open file!");
-            echo fread($myfile,filesize($model_dir."namemodel.txt"));
+        $file_txt = "namemodel.txt";
+        if (file_exists($model_dir.$file_txt)) {
+            $myfile = fopen($model_dir.$file_txt, "r") or die("Unable to open file!");
+            echo fread($myfile,filesize($model_dir.$file_txt));
             fclose($myfile);
         } else {
             echo 0;
@@ -122,10 +122,10 @@
     //checking lastest permission from a txt file
     if(isset($_POST['key']) && $_POST['key'] == 'check_latest_permission')
     {
-
-        if (file_exists($permission_dir."name_permission.txt")) {
-            $myfile = fopen($permission_dir."name_permission.txt", "r") or die("Unable to open file!");
-            echo fread($myfile,filesize($permission_dir."name_permission.txt"));
+        $file_txt = "name_permission.txt";
+        if (file_exists($permission_dir.$file_txt)) {
+            $myfile = fopen($permission_dir.$file_txt, "r") or die("Unable to open file!");
+            echo fread($myfile,filesize($permission_dir.$file_txt));
             fclose($myfile);
         } else {
             echo 0;
@@ -135,10 +135,10 @@
     //checkinng lastest time_out from a txt file
     if(isset($_POST['key']) && $_POST['key'] == 'check_latest_time')
     {
-
-        if (file_exists($time_out_dir."time.txt")) {
-            $myfile = fopen($time_out_dir."time.txt", "r") or die("Unable to open file!");
-            echo fread($myfile,filesize($time_out_dir."time.txt"));
+        $file_txt = "name_roomstatus.txt";
+        if (file_exists($time_out_dir.$file_txt)) {
+            $myfile = fopen($time_out_dir.$file_txt, "r") or die("Unable to open file!");
+            echo fread($myfile,filesize($time_out_dir.$file_txt));
             fclose($myfile);
         } else {
             echo 0;
