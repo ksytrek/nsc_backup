@@ -65,7 +65,7 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
                                     <script>
                                         function save_face(os) {
                                             if (os == 'iOS') {
-                                                alert('ระบบไม่รองรับ IOS');
+                                                alert('IOS ไม่สามรถใช้งานฟังก์ชั่นนี้ได้');
                                             } else {
                                                 if (confirm("คุณสามารถบันทึกได้เพียงครั้งเดี่ยว")) {
                                                     location.assign("./on_save_face.php");
