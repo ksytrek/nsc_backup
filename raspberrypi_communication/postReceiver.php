@@ -15,6 +15,7 @@
         echo "log";
         $data = [
             'id_mem' => $_POST["id_mem"],
+            'id_code' => $_POST["id_code"],
             'full_name' => $_POST["full_name"],
             'id_room' => $_POST["id_room"], 
             'room_name' => $_POST["room_name"]
