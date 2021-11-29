@@ -51,7 +51,7 @@ include('../config/connectdb.php');
                                     <script>
                                         function check_id(str) {
 
-                                            if (str.length > 13 && str.length != 0) {
+                                            if (str.length > 13 && str.length != 0 || str.length < 12) {
                                                 document.getElementById("txt-id").innerHTML = "กรุณากรอกรหัสประจำตัวให้ครบ 13 หลัก";
                                                 document.getElementById('div-id').className = 'form-group has-error';
                                                 accuracy_id = "";

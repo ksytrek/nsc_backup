@@ -1,7 +1,12 @@
 <?php
 
 
+// include __DIR__.'/config/connectdb.php';   // ใช้ได้เฉพาะ Linux
 include_once(dirname(dirname(dirname(dirname(__FILE__))))."/config/connectdb.php"); // ใช้ได้เฉพาะ Linux
+// include_once('../../../config/connectdb.php');   // ใช้ได้ทั่วไป
+
+
+
 
 if(isset($_POST['key']) && $_POST['key'] == 'show_tb_mg_personal'){
     // echo "success";
