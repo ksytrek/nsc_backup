@@ -93,11 +93,14 @@ include_once("./sidebar.php")
 
 
                     // แสดงปุ๋มสถานะการอัพโหลดภาพใบหน้า ?
-                    if (json[0].stu_face == "0") {
+                    if (json[0].stu_face == "0" && OS_PLATFORM == "iOS") {
+                        btn_save_image.style = "display:none";
+                    }else if(json[0].stu_face == "0" ){
                         btn_save_image.style = "display:block";
                     } else {
                         btn_search_image.style = "display:block";
                     }
+
                 } else {
                     alert("แจ้งเตือนข้อผิดพลาดไม่สามารถแสดงข้อมูลได้")
                 }
