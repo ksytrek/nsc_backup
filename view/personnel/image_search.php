@@ -54,23 +54,31 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
 
                         </div>
                         <div class="col-lg-6 ">
+                            <p id="show_not_image">
+
+                            </p>
                             <div class="user-send-message">
                                 <?php if ($row_members['stu_face'] == '0') : ?>
                                     <div class="card-title float-right">
-                                        <button type="button" class="btn  btn-warning btn-rounded btn-sm" onclick="save_face()">ยังไม่ได้บันทึกภาพใบหน้า</button>
+                                        <button type="button" class="btn  btn-warning btn-rounded btn-sm" onclick="save_face(OS_PLATFORM)">ยังไม่ได้บันทึกภาพใบหน้า</button>
                                     </div>
                                     <script>
-                                        function save_face() {
-                                            if (confirm("คุณสามารถบันทึกได้เพียงครั้งเดี่ยว")) {
-                                                location.assign("./on_save_face.php");
+                                        function save_face(os) {
+                                            if (os == 'iOS') {
+                                                alert('ระบบไม่รองรับ IOS');
                                             } else {
-                                                // alert("cancel");
+                                                if (confirm("คุณสามารถบันทึกได้เพียงครั้งเดี่ยว")) {
+                                                    location.assign("./on_save_face.php");
+                                                } else {
+                                                    // alert("cancel");
+                                                }
                                             }
+
                                         }
                                     </script>
-                                <?php 
-                                endif; 
-                                if ($row_members['stu_face'] == '1') : 
+                                <?php
+                                endif;
+                                if ($row_members['stu_face'] == '1') :
                                 ?>
                                     <!-- <div class="card-title float-right">
                                         <button type="button" class="btn  btn-danger btn-rounded btn-sm" onclick="window.confirm('ลบข้อมูลรูปภาพอย่างถาวร จะไม่สารถกู้คืนได้ !!!')">ลบข้อมูลรูปภาพ</button>
