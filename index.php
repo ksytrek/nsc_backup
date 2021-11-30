@@ -14,7 +14,4 @@
 
 
 	exit;
-	// sdfsdf
-	// sdf
-
 ?>
