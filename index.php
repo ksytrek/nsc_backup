@@ -16,6 +16,5 @@
 	exit;
 	// sdfsdf
 	// sdf
-	// hdsjfiesjf
 
 ?>
