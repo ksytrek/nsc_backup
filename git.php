@@ -18,7 +18,7 @@
 
     // $output = shell_exec('git add -A;git commit -am "server up to git"');
     // echo "commit Github ให้ปัจจุบัน";
-    // echo "<pre>$output</pre><br/>";
+    // echo "<pre>$output</pre><br/>";sdfsd
 
 
 // git push https://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@github.com/ksytrek/nsc_backup.git
