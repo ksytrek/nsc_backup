@@ -2,14 +2,14 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 25, 2021 at 09:08 PM
--- Server version: 8.0.27-0ubuntu0.20.04.1
--- PHP Version: 7.4.3
+-- Host: 127.0.0.1
+-- Generation Time: Dec 29, 2021 at 02:46 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+07:00";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,10 +28,10 @@ SET time_zone = "+07:00";
 --
 
 CREATE TABLE `eligibility` (
-  `id_eligibilty` int NOT NULL COMMENT 'รหัสสิทธิ์เข้าห้อง',
-  `id_mem` int NOT NULL COMMENT 'ไอดีผู้ที่ต้องการเข้าห้อง',
-  `id_room` int NOT NULL COMMENT 'ไอดีที่ผู้ใช้เข้าห้องได้'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_eligibilty` int(11) NOT NULL COMMENT 'รหัสสิทธิ์เข้าห้อง',
+  `id_mem` int(11) NOT NULL COMMENT 'ไอดีผู้ที่ต้องการเข้าห้อง',
+  `id_room` int(11) NOT NULL COMMENT 'ไอดีที่ผู้ใช้เข้าห้องได้'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -40,16 +40,16 @@ CREATE TABLE `eligibility` (
 --
 
 CREATE TABLE `members` (
-  `id_mem` int NOT NULL COMMENT 'ไอดีผู้ใช้',
-  `id_code` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'รหัสบัตรประชาชน',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ชื่อผู้ใช้',
-  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'นามสกุลผู้ใช้',
-  `e_mail` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'อีเมลผู้ใช้',
-  `pass` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'รหัสผ่านเข้าระบบ',
-  `phone` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'เบอร์ติดต่อ',
-  `position` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ตำเเหน่ง',
-  `stu_face` int DEFAULT '0' COMMENT 'สถานะอัพโหลดภาพ 0 = ยังไม่อัพ 1 = อัพโหลดแล้ว'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_mem` int(11) NOT NULL COMMENT 'ไอดีผู้ใช้',
+  `id_code` varchar(13) NOT NULL COMMENT 'รหัสบัตรประชาชน',
+  `name` varchar(50) NOT NULL COMMENT 'ชื่อผู้ใช้',
+  `last_name` varchar(50) NOT NULL COMMENT 'นามสกุลผู้ใช้',
+  `e_mail` varchar(100) NOT NULL COMMENT 'อีเมลผู้ใช้',
+  `pass` varchar(25) NOT NULL COMMENT 'รหัสผ่านเข้าระบบ',
+  `phone` varchar(10) NOT NULL COMMENT 'เบอร์ติดต่อ',
+  `position` varchar(60) NOT NULL COMMENT 'ตำเเหน่ง',
+  `stu_face` int(11) DEFAULT 0 COMMENT 'สถานะอัพโหลดภาพ 0 = ยังไม่อัพ 1 = อัพโหลดแล้ว'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -58,13 +58,14 @@ CREATE TABLE `members` (
 --
 
 CREATE TABLE `rooms` (
-  `id_room` int NOT NULL COMMENT 'ไอดีห้อง',
-  `room_id_code` varchar(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'รหัสประจำเครื่อ',
-  `room_num` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ชื่อห้อง',
-  `room_fstatus` int NOT NULL DEFAULT '0' COMMENT 'สถานะเปิด-ปิดไฟ 0=ปิด 1=เปิด',
-  `room_dclose` time NOT NULL DEFAULT '00:00:00' COMMENT 'เวลาเปิด-ปิดไฟ',
-  `status_door` int NOT NULL DEFAULT '0' COMMENT 'สถานะเปิด-ปิดประตู 0 = ปิด 1= เปิด'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_room` int(11) NOT NULL COMMENT 'ไอดีห้อง',
+  `room_id_code` varchar(30) NOT NULL COMMENT 'รหัสประจำเครื่อ',
+  `room_num` varchar(20) NOT NULL COMMENT 'ชื่อห้อง',
+  `room_fstatus` int(11) NOT NULL DEFAULT 0 COMMENT 'สถานะเปิด-ปิดไฟ 0=ปิด 1=เปิด',
+  `room_open` time NOT NULL DEFAULT '00:00:00' COMMENT 'เวลาเปิดไฟห้อง',
+  `room_dclose` time NOT NULL DEFAULT '00:00:00' COMMENT 'เวลาปิดไฟ',
+  `status_door` int(11) NOT NULL DEFAULT 0 COMMENT 'สถานะเปิด-ปิดประตู 0 = ปิด 1= เปิด'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -73,11 +74,11 @@ CREATE TABLE `rooms` (
 --
 
 CREATE TABLE `rqroom` (
-  `rq_id` int NOT NULL COMMENT 'ไอดีขอใช้ห้อง',
-  `id_mem` int NOT NULL COMMENT 'ไอดีผู้ขอใช้ห้อง',
-  `id_room` int NOT NULL COMMENT 'ไอดีห้องที่ต้องการใช้',
-  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'เวลาขอใช้ห้อง'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `rq_id` int(11) NOT NULL COMMENT 'ไอดีขอใช้ห้อง',
+  `id_mem` int(11) NOT NULL COMMENT 'ไอดีผู้ขอใช้ห้อง',
+  `id_room` int(11) NOT NULL COMMENT 'ไอดีห้องที่ต้องการใช้',
+  `time_stamp` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'เวลาขอใช้ห้อง'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -86,14 +87,14 @@ CREATE TABLE `rqroom` (
 --
 
 CREATE TABLE `schedule` (
-  `id_ schedule` int NOT NULL COMMENT 'ไอดีประวัติเข้าใช้ห้อง',
-  `id_mem` int NOT NULL COMMENT 'ไอดีผู้ใช้ที่ใช้ห้อง',
-  `id_code` varchar(15) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'รหัสบัตรประจำตัว',
-  `full_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ชื่อผู้ที่เข้าห้อง',
-  `id_room` int NOT NULL COMMENT 'ไอดีห้องที่ใช้งาน',
-  `room_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ห้องผู้ใช้เข้า',
-  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'เวลาใช้งานห้อง'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_ schedule` int(11) NOT NULL COMMENT 'ไอดีประวัติเข้าใช้ห้อง',
+  `id_mem` int(11) NOT NULL COMMENT 'ไอดีผู้ใช้ที่ใช้ห้อง',
+  `id_code` varchar(15) NOT NULL COMMENT 'รหัสบัตรประจำตัว',
+  `full_name` varchar(50) NOT NULL COMMENT 'ชื่อผู้ที่เข้าห้อง',
+  `id_room` int(11) NOT NULL COMMENT 'ไอดีห้องที่ใช้งาน',
+  `room_name` varchar(50) NOT NULL COMMENT 'ห้องผู้ใช้เข้า',
+  `time_stamp` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'เวลาใช้งานห้อง'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -102,11 +103,11 @@ CREATE TABLE `schedule` (
 --
 
 CREATE TABLE `tbadmin` (
-  `id_admin` int NOT NULL COMMENT 'ไอดีลำดับผู้ดูแลระบบ',
-  `name_ad` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ชื่อเรียกผู้ดูแลระบบ',
-  `pass_ad` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'รหัสผ่านเข้าใช้งาน',
-  `e_emil_ad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'อีเมลผู้ดูแลระบบ'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_admin` int(11) NOT NULL COMMENT 'ไอดีลำดับผู้ดูแลระบบ',
+  `name_ad` varchar(50) NOT NULL COMMENT 'ชื่อเรียกผู้ดูแลระบบ',
+  `pass_ad` varchar(20) NOT NULL COMMENT 'รหัสผ่านเข้าใช้งาน',
+  `e_emil_ad` varchar(100) NOT NULL COMMENT 'อีเมลผู้ดูแลระบบ'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -115,11 +116,11 @@ CREATE TABLE `tbadmin` (
 --
 
 CREATE TABLE `tbimage` (
-  `id_tbimage` int NOT NULL COMMENT 'ไอดีตารางภาพ',
-  `id_mem` int NOT NULL COMMENT 'ไอดีผู้ใช้',
-  `path_image` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ที่อยู่ภาพ',
-  `name_image` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ชื่อรูปภาพ'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_tbimage` int(11) NOT NULL COMMENT 'ไอดีตารางภาพ',
+  `id_mem` int(11) NOT NULL COMMENT 'ไอดีผู้ใช้',
+  `path_image` varchar(100) NOT NULL COMMENT 'ที่อยู่ภาพ',
+  `name_image` varchar(30) NOT NULL COMMENT 'ชื่อรูปภาพ'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -182,45 +183,43 @@ ALTER TABLE `tbimage`
 -- AUTO_INCREMENT for table `eligibility`
 --
 ALTER TABLE `eligibility`
-  MODIFY `id_eligibilty` int NOT NULL AUTO_INCREMENT COMMENT 'รหัสสิทธิ์เข้าห้อง';
-
-
---
--- AUTO_INCREMENT for table `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `id_room` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีห้อง';
-
+  MODIFY `id_eligibilty` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสสิทธิ์เข้าห้อง';
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id_mem` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้';
+  MODIFY `id_mem` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้';
+
+--
+-- AUTO_INCREMENT for table `rooms`
+--
+ALTER TABLE `rooms`
+  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีห้อง';
 
 --
 -- AUTO_INCREMENT for table `rqroom`
 --
 ALTER TABLE `rqroom`
-  MODIFY `rq_id` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีขอใช้ห้อง';
+  MODIFY `rq_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีขอใช้ห้อง';
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id_ schedule` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีประวัติเข้าใช้ห้อง';
+  MODIFY `id_ schedule` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีประวัติเข้าใช้ห้อง';
 
 --
 -- AUTO_INCREMENT for table `tbadmin`
 --
 ALTER TABLE `tbadmin`
-  MODIFY `id_admin` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีลำดับผู้ดูแลระบบ';
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีลำดับผู้ดูแลระบบ';
 
 --
 -- AUTO_INCREMENT for table `tbimage`
 --
 ALTER TABLE `tbimage`
-  MODIFY `id_tbimage` int NOT NULL AUTO_INCREMENT COMMENT 'ไอดีตารางภาพ';
+  MODIFY `id_tbimage` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีตารางภาพ';
 
 --
 -- Constraints for dumped tables
