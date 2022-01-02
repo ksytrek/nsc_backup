@@ -1,7 +1,7 @@
 <?php 
 
 
-include_once("./connectdb.php");
+// include_once("./connectdb.php");
 
 
 class ManagementPersonal

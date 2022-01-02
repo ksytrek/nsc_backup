@@ -155,6 +155,7 @@ if (isset($_GET['id'])) {
                 $('.info_id_room').html(json[0].room_id_code);
                 $('.info_room_num').html(json[0].room_num);
                 $('.info_room_dclose').html(json[0].room_dclose.substr(0, 5));
+                $('.info_room_open').html(json[0].room_open.substr(0, 5));
                 $('.info_room_fstatus').html(btn_status);
                 $('.info_room_door').html(btn_door);
 
@@ -162,6 +163,7 @@ if (isset($_GET['id'])) {
                 $('#edit_input_id_room').val(json[0].room_id_code);
                 $('#edit_input_room_name').val(json[0].room_num);
                 $('#edit_input_room_dclose').val(json[0].room_dclose.substr(0, 5))
+                $('#edit_input_room_open').val(json[0].room_open.substr(0, 5))
 
 
 
@@ -246,6 +248,10 @@ if (isset($_GET['id'])) {
                                                                 <div class="email-content">
                                                                     <span class="contact-title">เวลาปิด:</span>
                                                                     <span class="contact-email info_room_dclose"></span>
+                                                                </div>
+                                                                <div class="email-content">
+                                                                    <span class="contact-title">เวลาเปิด:</span>
+                                                                    <span class="contact-email info_room_open"></span>
                                                                 </div>
                                                                 <div class="email-content">
                                                                     <span class="contact-title">สถานะไฟ:</span>
@@ -338,7 +344,10 @@ if (isset($_GET['id'])) {
                                                                             <label>ตั้งเวลา ปิด</label>
                                                                             <input id="edit_input_room_dclose" type="time" value="" class="form-control">
                                                                         </div>
-
+                                                                        <div class="form-group">
+                                                                            <label>ตั้งเวลา เปิด</label>
+                                                                            <input id="edit_input_room_open" type="time" value="" class="form-control">
+                                                                        </div>
 
                                                                         <div class="checkbox">
                                                                             <label>
@@ -373,13 +382,14 @@ if (isset($_GET['id'])) {
                                                                         var room_id_code = $('#edit_input_id_room').val();
                                                                         var room_name = $('#edit_input_room_name').val();
                                                                         var room_dclose = $('#edit_input_room_dclose').val();
+                                                                        var room_open = $('#edit_input_room_open').val();
 
                                                                         // alert(id_room + " " + room_name + " " + room_id_code + " " + room_dclose);
 
 
                                                                         // alert(id_room + ' ' + room_name + ' ' + room_dclose);
 
-                                                                        if (room_id_code != '' && room_name != '' && room_dclose != '') {
+                                                                        if (room_id_code != '' && room_name != '' && room_dclose != '' && room_open != '') {
                                                                             $.ajax({
                                                                                 url: './controller/con_mg_room.php',
                                                                                 type: 'POST',
@@ -388,7 +398,8 @@ if (isset($_GET['id'])) {
                                                                                     id_room: ID_ROOM,
                                                                                     room_id_code: room_id_code,
                                                                                     room_name: room_name,
-                                                                                    room_dclose: room_dclose
+                                                                                    room_dclose: room_dclose,
+                                                                                    room_open: room_open
 
                                                                                 },
                                                                                 success: function(result, textStatus, jqXHR) {

@@ -69,14 +69,14 @@
                         </ul>
                     </li>
                     <li><a href="./mg_permissions.php"><i class="ti-filter"></i> จัดการสิทธิ์ใช้ห้อง </a></li>
-                    <li class="label">Back up</li>
-                    <li><a href="./backup_data_personal.php"><i class="ti-check-box"></i> สำรองข้อมูลบุคลากร </a></li>
-                    <!-- <li><a href="./backup_data_imageface.php"><i class="ti-gallery"></i> สำรองข้อมูลรูปภาพใบหน้า </a></li> -->
+                    <!-- <li class="label">Back up</li>
                     <li><a href="./backup_data_room.php"><i class="ti-folder"></i> สำรองข้อมูลห้อง </a></li>
+                    <li><a href="./backup_data_personal.php"><i class="ti-check-box"></i> สำรองข้อมูลบุคลากร </a></li> -->
+                    <!-- <li><a href="./backup_data_imageface.php"><i class="ti-gallery"></i> สำรองข้อมูลรูปภาพใบหน้า </a></li> -->
 
                     <li class="label">อื่น ๆ</li>
                     <!-- <li><a href="./report.php"><i class="ti-bar-chart-alt"></i>สรุปรายงาน </a></li> -->
-                    <li><a href="./train_model.php"><i class="ti-headphone-alt"></i>ฝึกโมเดล</a></li>
+                    <!-- <li><a href="./train_model.php"><i class="ti-headphone-alt"></i>ฝึกโมเดล</a></li> -->
                     <li><a href="./mg_admin.php"><i class="ti-key"></i>ผู้ดูแลระบบ</a></li>
                     <li><a href="../controller/check_logout.php"><i class="ti-close"></i> Logout</a></li>
                 </ul>

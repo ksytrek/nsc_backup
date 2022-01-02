@@ -1,5 +1,5 @@
 <?php
-include_once('../../config/connectdb.php');
+// include_once('../../config/connectdb.php');
 class update_permission
 {
     public static function update($path): void

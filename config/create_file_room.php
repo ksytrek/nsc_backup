@@ -4,7 +4,7 @@ class CreateFileRoom
     public static function create_room($path, $id_room, $json_encode): bool
     {
         $new_path = $path . '/' . $id_room;
-        mkdir($new_path, 0777, true);
+        @mkdir($new_path, 0777, true);
 
         $path_file = $new_path . '/';
         $file_name = $id_room . ".json";

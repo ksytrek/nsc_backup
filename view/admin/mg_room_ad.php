@@ -88,6 +88,7 @@ include_once("./sidebar_ad.php")
                                                     <th>รหัสประจำเครื่อง</th>
                                                     <th>ชื่อห้อง</th>
                                                     <th>เวลา ปิด ไฟ</th>
+                                                    <th>เวลา เปิด ไฟ</th>
                                                     <th class="text-center">สถานะไฟ</th>
                                                     <th class="text-center">
                                                         <a href="#" data-toggle="modal" data-target="#add_room" data-whatever="@mdo"><i class="ti-plus add_room">&nbsp;เพิ่มห้อง</i></a>
@@ -113,6 +114,7 @@ include_once("./sidebar_ad.php")
                                                     // $('#tb_mg_room').find('tbody').detach();
                                                     // $('#tb_mg_room').append($('<tbody>'));  
                                                     var tb_mg_room = $('#tb_mg_room').DataTable({
+                                                        retrieve: true,
                                                         language: {
                                                             sProcessing: "กำลังดำเนินการ...",
                                                             sLengthMenu: "แสดง_MENU_ แถว",
@@ -129,7 +131,7 @@ include_once("./sidebar_ad.php")
                                                                 "sNext": "ถัดไป",
                                                                 "sLast": "สุดท้าย"
                                                             }
-                                                        },
+                                                        }
                                                     });
                                                     // $("#tb_mg_room-table-id").empty();
                                                     tb_mg_room.clear();
@@ -144,6 +146,7 @@ include_once("./sidebar_ad.php")
                                                         },
                                                         success: function(result, textStatus, jqXHR) {
                                                             // alert(result);
+                                                            console.log(result)
                                                             var json = JSON.parse(result);
                                                             // tb_mg_room.delete();
                                                             $.each(json, function(key, val) {
@@ -152,6 +155,7 @@ include_once("./sidebar_ad.php")
                                                                 var room_id_code = val['room_id_code'];
                                                                 var room_num = val['room_num'];
                                                                 var room_dclose = val['room_dclose'].substr(0, 5);
+                                                                var room_open = val['room_open'].substr(0, 5);
                                                                 var status = val["room_fstatus"];
 
 
@@ -167,12 +171,16 @@ include_once("./sidebar_ad.php")
                                                                 var col4 = '<div class="text-center">' +
                                                                     '<a class ="click_edit_search" href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>' +
                                                                     '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id=' + val['id_room'] + '"><i class="ti-search"></i></a>' +
-                                                                    '</div>'
+                                                                    '</div>';
+
+
+
                                                                 // tb_mg_room.clear();
                                                                 tb_mg_room.row.add([
                                                                     col1,
                                                                     room_num,
                                                                     room_dclose,
+                                                                    room_open,
                                                                     btn_status,
                                                                     col4
                                                                 ]).draw(true);
@@ -273,6 +281,10 @@ include_once("./sidebar_ad.php")
                                                                 <label>ตั้งเวลา ปิด</label>
                                                                 <input id="edit_input_room_dclose" type="time" value="" class="form-control">
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label>ตั้งเวลา เปิด</label>
+                                                                <input id="edit_input_room_open" type="time" value="" class="form-control">
+                                                            </div>
 
 
                                                             <div class="checkbox">
@@ -309,6 +321,7 @@ include_once("./sidebar_ad.php")
                                                             var id_room_txt = currentRow.find("td:eq(0)").text();
                                                             var room_name_txt = currentRow.find("td:eq(1)").text();
                                                             var room_dclose_tex = currentRow.find("td:eq(2)").text();
+                                                            var room_open_tex = currentRow.find("td:eq(3)").text();
 
 
 
@@ -316,6 +329,7 @@ include_once("./sidebar_ad.php")
                                                             $('#edit_input_id_room').val(id_room_txt);
                                                             $('#edit_input_room_name').val(room_name_txt);
                                                             $('#edit_input_room_dclose').val(room_dclose_tex);
+                                                            $('#edit_input_room_open').val(room_open_tex);
                                                         });
 
                                                         $('#btn_edit_room').click(function() {
@@ -325,6 +339,7 @@ include_once("./sidebar_ad.php")
                                                             var room_id_code = $('#edit_input_id_room').val();
                                                             var room_name = $('#edit_input_room_name').val();
                                                             var room_dclose = $('#edit_input_room_dclose').val();
+                                                            var room_open = $('#edit_input_room_open').val();
 
                                                             // alert(id_room + " " + room_name + " " + room_id_code + " " + room_dclose);
 
@@ -340,11 +355,12 @@ include_once("./sidebar_ad.php")
                                                                         id_room: id_room,
                                                                         room_id_code: room_id_code,
                                                                         room_name: room_name,
-                                                                        room_dclose: room_dclose
+                                                                        room_dclose: room_dclose,
+                                                                        room_open: room_open
 
                                                                     },
                                                                     success: function(result, textStatus, jqXHR) {
-                                                                        // alert(result);
+                                                                        console.log(result);
                                                                         if (result == "success") {
                                                                             swal('แกไขห้องสำเร็จ', {
                                                                                 icon: "success",
@@ -422,6 +438,10 @@ include_once("./sidebar_ad.php")
                                                                 <label>ตั้งเวลา ปิด</label>
                                                                 <input id='room_dclose' type="time" class="form-control">
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label>ตั้งเวลา เปิด</label>
+                                                                <input id='room_open' type="time" class="form-control">
+                                                            </div>
 
 
                                                             <div class="checkbox">
@@ -472,9 +492,10 @@ include_once("./sidebar_ad.php")
                                                                     var room_id_code = $('#id_room').val();
                                                                     var room_name = $('#room_name').val();
                                                                     var room_dclose = $('#room_dclose').val();
+                                                                    var room_open = $('#room_open').val();
                                                                     // alert(room_dclose);
 
-                                                                    if (room_id_code != '' && room_name != '' && room_dclose != '') {
+                                                                    if (room_id_code != '' && room_name != '' && room_dclose != '' && room_open != '') {
                                                                         $.ajax({
                                                                             url: './controller/con_mg_room.php',
                                                                             type: 'POST',
@@ -482,7 +503,8 @@ include_once("./sidebar_ad.php")
                                                                                 key: 'btn_create_room',
                                                                                 room_id_code: room_id_code,
                                                                                 room_name: room_name,
-                                                                                room_dclose: room_dclose
+                                                                                room_dclose: room_dclose,
+                                                                                room_open: room_open
 
                                                                             },
                                                                             success: function(result, textStatus, jqXHR) {

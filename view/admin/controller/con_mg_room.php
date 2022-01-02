@@ -2,9 +2,9 @@
 
 include_once("../../../config/connectdb.php");
 include_once("../../../config/create_file_room.php");
-include("../../../config/backup.php");
-include("../../../config/cl_mg_room.php");
-
+include_once("../../../config/backup.php");
+include_once("../../../config/cl_mg_room.php");
+include_once('../../../config/cl_mg_personal.php');
 
 
 if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
@@ -34,10 +34,11 @@ if (isset($_POST['key']) && $_POST['key'] == 'btn_create_room') {
     $room_id_code = $_POST['room_id_code'];
     $room_name = $_POST['room_name'];
     $room_dclose = $_POST['room_dclose'];
+    $room_open = $_POST['room_open'];
 
     $pathForder = '../../../raspberrypi_communication/create_room/';
 
-    if(ManagementRoom::Create_room($pathForder,$room_id_code,$room_name,$room_dclose)){
+    if(ManagementRoom::Create_room($pathForder,$room_id_code,$room_name,$room_dclose,$room_open)){
         echo "success";
     }else{
         echo "error: ";
@@ -53,6 +54,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'btn_edit_room'){
     $room_id_code = $_POST['room_id_code'];
     $room_name = $_POST['room_name'];
     $room_dclose = $_POST['room_dclose'];
+    $room_open = $_POST['room_open'];
 
     $src = Database::query("SELECT * FROM rooms WHERE id_room = '$id_room';", PDO::FETCH_ASSOC);
     $row = $src->fetch();
@@ -66,6 +68,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'btn_edit_room'){
         'room_id_code' => $room_id_code,
         'room_name' => $room_name,
         'room_dclose' => $room_dclose,
+        'room_open' => $room_open,
         'room_fstatus' => $room_fstatus 
     ];
 
@@ -73,7 +76,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'btn_edit_room'){
     $path = '../../../raspberrypi_communication/create_room/';
 
     try {
-        $sql_update_room = "UPDATE `rooms` SET `room_id_code` = '$room_id_code', `room_num` = '$room_name', `room_fstatus` = '$room_fstatus', `room_dclose` = '$room_dclose', `status_door` = '1' WHERE `rooms`.`id_room` = '$id_room';";
+        $sql_update_room = "UPDATE `rooms` SET `room_id_code` = '$room_id_code', `room_num` = '$room_name', `room_fstatus` = '$room_fstatus', `room_dclose` = '$room_dclose', `room_open` = '$room_open', `status_door` = '1' WHERE `rooms`.`id_room` = '$id_room';";
         if (Database::query($sql_update_room)) {
             CreateFileRoom::create_room($path,$room_id_code, $json_encode);
             echo "success";

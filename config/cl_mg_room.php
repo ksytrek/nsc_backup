@@ -1,11 +1,13 @@
 <?php
-include_once('./connectdb.php');
-include_once('./create_file_room.php');
-include_once('./cl_mg_personal.php');
+// include_once('./connectdb.php');
+// include_once('./create_file_room.php');
+// include_once('./cl_mg_personal.php');
+// include_once('./cl_mg_personal.php');
+
 class ManagementRoom
 {
 
-    public static function Create_room($path, $room_id_code, $room_num, $room_dclose): bool
+    public static function Create_room($path, $room_id_code, $room_num, $room_dclose,$room_open): bool
     {
         $json_arr = [
             'room_id_code' => $room_id_code,
@@ -15,7 +17,7 @@ class ManagementRoom
 
 
         try {
-            $sql_insert_room = "INSERT INTO `rooms` (`id_room`, `room_id_code`, `room_num`, `room_fstatus`, `room_dclose`, `status_door`) VALUES (NULL, '$room_id_code', '$room_num', '0', '$room_dclose', '0');";
+            $sql_insert_room = "INSERT INTO `rooms` (`id_room`, `room_id_code`, `room_num`, `room_fstatus`,`room_open`, `room_dclose`, `status_door`) VALUES (NULL, '$room_id_code', '$room_num', '0','$room_open', '$room_dclose', '0');";
             if (Database::query($sql_insert_room)) {
                 
                 // Create File ROOM

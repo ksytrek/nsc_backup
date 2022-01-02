@@ -2,7 +2,7 @@
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<?php
+<?php 
 // include_once('../../config/connectdb.php');
 try {
     $row_rom = Database::query("SELECT COUNT(*) as total FROM `rooms`;", PDO::FETCH_ASSOC)->fetch();
