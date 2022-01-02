@@ -105,13 +105,13 @@
                                     <div class="drop-down   dropdown-menu">
                                         <div class="dropdown-content-body">
                                             <ul>
-                                                <li>
+                                                <!-- <li>
                                                     <a href="./personal_search_ad.php"><i class="ti-user"></i> <span>
                                                             Profile</span></a>
-                                                </li>
-                                                <li>
+                                                </li> -->
+                                                <!-- <li>
                                                     <a href="#"><i class="ti-lock"></i> <span> Lock Screen</span></a>
-                                                </li>
+                                                </li> -->
                                                 <li><a href="../controller/check_logout.php"><i class="ti-close"></i> <span>
                                                             Logout</span></a></li>
                                             </ul>

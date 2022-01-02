@@ -3,7 +3,7 @@
 <?php
 include_once("./sidebar_ad.php");
 
-$id_mem = $_GET['id'];
+// $id_mem = $_GET['id'];
 
 ?>
 
