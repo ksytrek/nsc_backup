@@ -9,6 +9,13 @@
 
     include_once('../config/connectdb.php');
 
+    //get list for capture
+    if(isset($_POST['key']) && $_POST['key'] == 'list_capture')
+    {
+        $search = Database::query("SELECT * FROM `members` WHERE `stu_face` = 0;", PDO::FETCH_ASSOC)->fetchAll();
+        echo json_encode($search);
+    }
+
     //recieve log
     if(isset($_POST['key']) && $_POST['key'] == 'log')
     {
