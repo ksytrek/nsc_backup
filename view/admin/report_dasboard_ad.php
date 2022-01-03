@@ -532,7 +532,8 @@ try {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer">
-                            <p>2022 © Admin Board. - <a href="#">example.com</a></p>
+                            <p>2022 © ITT Software.</p>
+                            <!-- <a href="#">example.com</a> -->
                         </div>
                     </div>
                 </div>

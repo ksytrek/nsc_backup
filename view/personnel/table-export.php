@@ -328,7 +328,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer">
-                        <p>2018 © Admin Board. - <a href="#">example.com</a></p>
+                        <p>2022 © ITT Software.</p>
                     </div>
                 </div>
             </div>
@@ -354,7 +354,7 @@
     <script src="../../script/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../../script/assets/js/lib/data-table/buttons.print.min.js"></script>
 
-    
+
 </body>
 
 </html>

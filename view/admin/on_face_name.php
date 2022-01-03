@@ -11,7 +11,7 @@ include_once("./sidebar_ad.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Face Admin Dashboard</title>
+    <title>บันทึกภาพใบหน้า</title>
 
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
@@ -34,8 +34,8 @@ include_once("./sidebar_ad.php");
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="./on_face_name.php">Management</a></li>
-                                    <li class="breadcrumb-item active">Save Face</li>
+                                    <li class="breadcrumb-item"><a href="./on_face_name.php">จัดการบุคลากร</a></li>
+                                    <li class="breadcrumb-item active">บันทึกภาพใบหน้า</li>
                                 </ol>
                             </div>
                         </div>
@@ -138,7 +138,13 @@ include_once("./sidebar_ad.php");
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
-
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>2022 © ITT Software.</p>
+                            </div>
+                        </div>
+                    </div>
 
                     <?php
                     // include_once("./report_dasboard_ad.php")

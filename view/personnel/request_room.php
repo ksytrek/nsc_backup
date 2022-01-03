@@ -9,7 +9,7 @@ $id_men = "38";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Face Admin Dashboard</title>
+    <title>ขอใช้ห้อง</title>
 
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
@@ -137,7 +137,13 @@ $id_men = "38";
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
-
+                    <div class="row">
+                            <div class="col-lg-12">
+                                <div class="footer">
+                                    <p>2022 © ITT Software.</p>
+                                </div>
+                            </div>
+                        </div>
 
                     <?php
                     // include_once("./report_dasboard_ad.php")

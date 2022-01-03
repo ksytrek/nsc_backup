@@ -12,7 +12,7 @@ include_once("./sidebar_ad.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Focus Admin: Creative Admin Dashboard</title>
+    <title>จัดการผู้ดูแลระบบ</title>
 
 </head>
 <script>
@@ -50,6 +50,7 @@ include_once("./sidebar_ad.php");
                 $('.input-name-ad').val(json[0].name_ad);
                 $('.input-email-ad').val(json[0].e_emil_ad);
                 $('.input-new-pass-ad').val(json[0].pass_ad);
+                $('.input-confrime-pass-ad').val('');
 
             },
             error: function(result, textStatus, jqX) {
@@ -67,7 +68,7 @@ include_once("./sidebar_ad.php");
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -76,8 +77,8 @@ include_once("./sidebar_ad.php");
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">หน้าหลัก</li>
+                                    <li class="breadcrumb-item"><a href="./dashboard_ad.php">หน้าหลัก</a></li>
+                                    <li class="breadcrumb-item active">จัดการผู้ดูแลระบบ</li>
                                 </ol>
                             </div>
                         </div>
@@ -128,11 +129,12 @@ include_once("./sidebar_ad.php");
                                                     <div class="user-send-message">
                                                         <button class="btn btn-sm btn-warning btn-rounded edit-admin-btn" type="button" data-toggle="modal" data-target="#edit">
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
-                                                            <script>
+                                                        <script>
                                                             //     $('.edit-admin-btn').click(function(){
                                                             //         confrime("slkdfjsdf");
                                                             //     });
-                                                            // </script>
+                                                            // 
+                                                        </script>
                                                     </div>
 
                                                     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -147,24 +149,24 @@ include_once("./sidebar_ad.php");
                                                                 <div class="modal-body">
                                                                     <form>
                                                                         <div class="form-group">
-                                                                            <label>Name Admin</label>
-                                                                            <input type="text" class="form-control input-name-ad" placeholder="Name Admin">
+                                                                            <label>ชื่อผู้ดูแลระบบ</label>
+                                                                            <input type="text" class="form-control input-name-ad" placeholder="ชื่อผู้ดูแลระบบ">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label>Email address</label>
+                                                                            <label>อีเมล</label>
                                                                             <input type="email" class="form-control input-email-ad" placeholder="Email">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label>New Password </label>
+                                                                            <label>รหัสผ่านใหม่</label>
                                                                             <input type="password" class="form-control input-new-pass-ad" placeholder="New Password">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label>Current Password</label>
+                                                                            <label>รหัสผ่านปัจจุบัน</label>
                                                                             <input type="password" class="form-control input-confrime-pass-ad" placeholder="Password">
                                                                         </div>
                                                                         <div class="checkbox">
                                                                             <label>
-                                                                                <input class="input-checkbox" type="checkbox"> Agree the terms and policy
+                                                                                <input class="input-checkbox" type="checkbox"> ยอมรับการเปลี่ยนแปลงโปรดจำรหัสผ่าน
                                                                             </label>
                                                                             <script>
                                                                                 $(document).ready(function() {
@@ -188,7 +190,7 @@ include_once("./sidebar_ad.php");
                                                                     <script>
                                                                         $('#btn-edit-save').click(function() {
                                                                             // alert('ckick');
-                                                                            if (confirm('Are you sure you want to Edit?')){
+                                                                            if (confirm('คุณแน่ใจหรือว่าต้องการแก้ไข?')) {
                                                                                 // alert($('.input-confrime-pass-ad').val() + ' ' + str_pass);
                                                                                 if ($('.input-confrime-pass-ad').val() == str_pass) {
                                                                                     $.ajax({
@@ -207,8 +209,12 @@ include_once("./sidebar_ad.php");
                                                                                                 button: false,
                                                                                                 timer: 1000
                                                                                             });
+
                                                                                             show_admin_info();
+
+
                                                                                             // alert(result);
+                                                                                            // $("#edit").hide();
                                                                                         },
                                                                                         error: function(jqxhr, textStatus, errorThrown) {
 
@@ -220,18 +226,14 @@ include_once("./sidebar_ad.php");
                                                                                         timer: 1000
                                                                                     });
                                                                                 }
-
                                                                             }
-
 
                                                                         });
                                                                     </script>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +247,7 @@ include_once("./sidebar_ad.php");
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer">
-                        <p>2022 © Admin Board. - <a href="#">example.com</a></p>
+                        <p>2022 © ITT Software.</p>
                     </div>
                 </div>
             </div>

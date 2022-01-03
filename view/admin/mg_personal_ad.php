@@ -150,44 +150,44 @@ include_once("./sidebar_ad.php");
 
                                                     </div>
                                                     <div class="form-group form-group-name">
-                                                        <label>User Name</label>
-                                                        <input type="text" class="form-control add-input-name" placeholder="User Name">
+                                                        <label>ชื่อ</label>
+                                                        <input type="text" class="form-control add-input-name" placeholder="ชื่อ">
                                                         <p id="txt-name">กรุณากรอกชื่อตามความจริง</p>
 
                                                     </div>
                                                     <div class="form-group form-group-last_name">
-                                                        <label>Last Name</label>
-                                                        <input type="email" class="form-control add-input-last_name" placeholder="Last Name">
+                                                        <label>นามสกุล</label>
+                                                        <input type="email" class="form-control add-input-last_name" placeholder="นามสกุล">
                                                         <p id="txt-last_name">กรุณากรอกนามสกุลตามความจริง</p>
 
                                                     </div>
 
                                                     <div class="form-group form-group-e_mail">
-                                                        <label>Email address</label>
-                                                        <input type="email" class="form-control add-input-e_mail" placeholder="Email">
+                                                        <label>อีเมล</label>
+                                                        <input type="email" class="form-control add-input-e_mail" placeholder="อีเมล">
                                                         <p id="txt-mail">กรุณาระบุ E-Mail Address</p>
 
                                                     </div>
                                                     <div class="form-group form-group-phone">
-                                                        <label>Phone Number</label>
-                                                        <input type="email" class="form-control add-input-phone" placeholder="Phone Number">
+                                                        <label>เบอร์ติดต่อ 10 หลัก</label>
+                                                        <input type="email" class="form-control add-input-phone" placeholder="เบอร์ติดต่อ">
                                                         <p id="txt-phone">กรุณาระบุ Phone Number</p>
                                                     </div>
                                                     <div class="form-group form-group-pass">
-                                                        <label>Password</label>
-                                                        <input type="password" class="form-control add-input-pass" placeholder="Password">
+                                                        <label>รหัสผ่าน</label>
+                                                        <input type="password" class="form-control add-input-pass" placeholder="รหัสผ่าน">
                                                         <p id="txt-pass">ต้องผสมด้วย A-Za-z0-9!@#$%^&* จำนวน 6 - 20 ตัว</p>
 
                                                     </div>
                                                     <div class="form-group form-group-position">
-                                                        <label>position</label>
-                                                        <input type="text" class="form-control add-input-position" placeholder="position" name="" id="">
+                                                        <label>ตำแหน่งงาน</label>
+                                                        <input type="text" class="form-control add-input-position" placeholder="ตำแหน่งงาน" name="" id="">
                                                         <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
                                                     </div>
 
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" class="checkbox-add-personal"> Agree the terms and policy
+                                                            <input type="checkbox" class="checkbox-add-personal"> ยืนยันการเพิ่มข้อมูลบุคลากรเข้าสู่ระบบ
                                                         </label>
                                                     </div>
                                                     <script>
@@ -412,8 +412,8 @@ include_once("./sidebar_ad.php");
                                                         accuracy_position == "success"
                                                     ) {
                                                         swal({
-                                                            title: "Are you sure?",
-                                                            text: "Once deleted, you will not be able to recover this imaginary file!",
+                                                            title: "คุณแน่ใจไหม?",
+                                                            text: "",
                                                             icon: "warning",
                                                             buttons: true,
                                                             dangerMode: true,
@@ -544,7 +544,7 @@ include_once("./sidebar_ad.php");
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer">
-                            <p>2018 © Admin Board. - <a href="#">example.com</a></p>
+                            <p>2022 © ITT Software.</p>
                         </div>
                     </div>
                 </div>

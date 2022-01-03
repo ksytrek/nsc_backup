@@ -8,7 +8,7 @@ include_once("./sidebar_ad.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Management Rooms Admin Dashboard</title>
+    <title>ประวัติการเข้าห้อง</title>
     <!-- <link href="assets/css/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" /> -->
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -31,7 +31,7 @@ include_once("./sidebar_ad.php");
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="./room_history_all.php">Management Room</a></li>
+                                    <li class="breadcrumb-item"><a href="./room_history_all.php">จัดการห้อง</a></li>
                                     <li class="breadcrumb-item active">ประวัติเข้าห้อง</li>
                                 </ol>
                             </div>
@@ -92,7 +92,7 @@ include_once("./sidebar_ad.php");
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="footer">
-                                <p>2018 © Admin Board. - <a href="#">example.com</a></p>
+                                <p>2022 © ITT Software.</p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ include_once("./sidebar_ad.php");
                     [10, 25, 50, "All"]
                 ],
                 buttons: [
-                     'excel'
+                    'excel'
                 ],
                 language: {
                     sProcessing: "กำลังดำเนินการ...",

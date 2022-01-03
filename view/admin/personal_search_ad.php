@@ -14,7 +14,7 @@ if (isset($_GET['id'])) :
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Focus Admin: Creative Admin Dashboard</title>
+        <title class="name"></title>
         <!-- Styles -->
         <!-- <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet"> -->
 
@@ -160,7 +160,7 @@ if (isset($_GET['id'])) :
                                 <div class="page-title">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="./mg_personal_ad.php">Management</a></li>
-                                        <li class="breadcrumb-item active">จัดการตารางบุคลากร</li>
+                                        <li class="breadcrumb-item active">บุคลากร</li>
 
                                     </ol>
                                 </div>
@@ -323,8 +323,8 @@ if (isset($_GET['id'])) :
                                                                     <div class="modal-body">
                                                                         <form>
                                                                             <div class="form-group">
-                                                                                <label>User Name</label>
-                                                                                <input type="text" class="form-control input-name" placeholder="User Name">
+                                                                                <label>ชื่อ</label>
+                                                                                <input type="text" class="form-control input-name" placeholder="ชื่อ">
                                                                                 <p id="txt-name"></p>
                                                                                 <script>
                                                                                     $(".input-name").on("keyup", function() {
@@ -351,8 +351,8 @@ if (isset($_GET['id'])) :
                                                                                 </script>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label>Last Name</label>
-                                                                                <input type="email" class="form-control input-last_name" placeholder="Last Name">
+                                                                                <label>นามสกุล</label>
+                                                                                <input type="email" class="form-control input-last_name" placeholder="นามสกุล">
                                                                                 <p id="txt-lastname"></p>
                                                                                 <script>
                                                                                     $(".input-last_name").on("keyup", function() {
@@ -379,8 +379,8 @@ if (isset($_GET['id'])) :
                                                                                 </script>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label>Email address</label>
-                                                                                <input type="email" class="form-control input-e_mail" placeholder="Email">
+                                                                                <label>อีเมล</label>
+                                                                                <input type="email" class="form-control input-e_mail" placeholder="อีเมล">
                                                                                 <p id="txt-mail"></p>
                                                                                 <script>
                                                                                     $(".input-e_mail").on("keyup", function() {
@@ -409,8 +409,8 @@ if (isset($_GET['id'])) :
                                                                                 </script>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label>Phone Number</label>
-                                                                                <input type="text" class="form-control input-phone" placeholder="Phone">
+                                                                                <label>เบอร์ติดต่อ</label>
+                                                                                <input type="text" class="form-control input-phone" placeholder="เบอร์ติดต่อ">
                                                                                 <p id="txt-phone"></p>
                                                                                 <script>
                                                                                     $(".input-phone").on("keyup", function() {
@@ -441,8 +441,8 @@ if (isset($_GET['id'])) :
                                                                                 </script>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label>Password</label>
-                                                                                <input type="text" class="form-control input-pass" placeholder="Password">
+                                                                                <label>รหัสผ่าน</label>
+                                                                                <input type="text" class="form-control input-pass" placeholder="รหัสผ่าน">
                                                                                 <p id="txt-pass"></p>
                                                                                 <script>
                                                                                     $(".input-pass").on("keyup", function() {
@@ -469,8 +469,8 @@ if (isset($_GET['id'])) :
                                                                                 </script>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label>position</label>
-                                                                                <input type="text" class="form-control input-position" placeholder="Position">
+                                                                                <label>ตำแหน่งงาน</label>
+                                                                                <input type="text" class="form-control input-position" placeholder="ตำแหน่งงาน">
                                                                                 <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
                                                                                 <script>
                                                                                     $(".input-position").on("keyup", function() {
@@ -490,7 +490,7 @@ if (isset($_GET['id'])) :
                                                                             </div>
                                                                             <div class="checkbox">
                                                                                 <label>
-                                                                                    <input id="check-box_ok" type="checkbox"> Agree the terms and policy
+                                                                                    <input id="check-box_ok" type="checkbox"> ยืนการแก้ไขข้อมูล
                                                                                 </label>
                                                                                 <script>
                                                                                     $(document).ready(function() {
@@ -535,7 +535,7 @@ if (isset($_GET['id'])) :
                                                                                     accuracy_position == "success"
                                                                                 ) {
 
-                                                                                    if (confirm("Are you sure you want")) {
+                                                                                    if (confirm("คุณต้องการแก้ไขข้อมูลบุคลากร?")) {
                                                                                         $.ajax({
                                                                                             type: "POST",
                                                                                             url: "./controller/con_per_search.php",
@@ -784,7 +784,7 @@ if (isset($_GET['id'])) :
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="footer">
-                                    <p>2022 © Admin Board. - <a href="#">example.com</a></p>
+                                    <p>2022 © ITT Software.</p>
                                 </div>
                             </div>
                         </div>

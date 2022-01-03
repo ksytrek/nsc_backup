@@ -1061,7 +1061,7 @@ if (isset($_GET['id'])) {
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="footer">
-                                    <p>2022 © Admin Board. - <a href="#">example.com</a></p>
+                                    <p>2022 © ITT Software.</p>
                                 </div>
                             </div>
                         </div>

@@ -69,7 +69,7 @@ if(isset($_SESSION["key_login"]) && $_SESSION["key_login"] == "personal"){
             <div class="nano-content">
                 <ul>
                     <div class="logo"><a href="./dashboard.php">
-                    <img src="../../script/assets/images/logo.png" width="50px" height="50px" alt="" /><span>LOGO</span>
+                    <img src="../../script/assets/images/logo.png" width="50px" height="50px" alt="" /><span>ITT Software</span>
                         </a></div>
                     <li class="label">หน้าหลัก</li>
                     <li><a href="./dashboard.php"><i class="ti-home"></i> Dashboard   </a> </li>

@@ -9,7 +9,7 @@ include_once("./sidebar_ad.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Management Rooms Admin Dashboard</title>
+    <title>จัดการสิทธิ์บุคลากร</title>
 
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -52,7 +52,7 @@ include_once("./sidebar_ad.php");
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="./mg_permissions.php">Management Room</a></li>
+                                    <li class="breadcrumb-item"><a href="./mg_permissions.php">Management</a></li>
                                     <li class="breadcrumb-item active">จัดการสิทธิ์บุคลากร</li>
                                 </ol>
                             </div>
@@ -506,8 +506,15 @@ include_once("./sidebar_ad.php");
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>2022 © ITT Software.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-            </section>
         </div>
     </div>
     <!-- <script src="../../script/assets/js/lib/data-table/datatables.min.js"></script>

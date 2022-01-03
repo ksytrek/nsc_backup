@@ -45,7 +45,7 @@
             <div class="nano-content">
                 <ul>
                     <div class="logo"><a href="./dashboard_ad.php">
-                            <img src="../../script/assets/images/logo.png" width="50px" height="50px" alt="" /><span>KSY Trek</span>
+                            <img src="../../script/assets/images/logo.png" width="50px" height="50px" alt="" /><span>ITT Software</span>
                         </a></div>
                     <li class="label">หน้าหลัก</li>
                     <li><a href="./dashboard_ad.php"><i class="ti-home"></i> Dashboard </a> </li>

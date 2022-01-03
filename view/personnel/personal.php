@@ -8,7 +8,7 @@ include_once("./sidebar.php")
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Focus Admin: Creative Admin Dashboard</title>
+    <title>โปรไฟล์</title>
     <!-- Styles -->
     <link href="../../script/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -95,7 +95,7 @@ include_once("./sidebar.php")
                     // แสดงปุ๋มสถานะการอัพโหลดภาพใบหน้า ?
                     if (json[0].stu_face == "0" && OS_PLATFORM == "iOS") {
                         btn_save_image.style = "display:none";
-                    }else if(json[0].stu_face == "0" ){
+                    } else if (json[0].stu_face == "0") {
                         btn_save_image.style = "display:block";
                     } else {
                         btn_search_image.style = "display:block";
@@ -618,7 +618,7 @@ include_once("./sidebar.php")
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer">
-                        <p>2022 © Admin Board. - <a href="#">example.com</a></p>
+                        <p>2022 © ITT Software.</p>
                     </div>
                 </div>
             </div>

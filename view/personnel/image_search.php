@@ -12,7 +12,7 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Face Admin Dashboard</title>
+    <title>รูปภาพใบหน้า</title>
 
 
 </head>
@@ -131,6 +131,13 @@ $row_members = Database::query("SELECT * FROM members WHERE `id_mem`= {$id_mem};
                         </div>
 
                     </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer">
+                    <p>2022 © ITT Software.</p>
+                </div>
             </div>
         </div>
     </div>
