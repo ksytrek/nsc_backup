@@ -72,7 +72,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'table_el'){
 
     $resultArray_el = array();
     try {
-        $search_el = "SELECT rm.id_room,rm.room_num FROM `eligibility` as el INNER JOIN rooms as rm ON el.id_room = rm.id_room WHERE el.id_mem = '$id_mem';";
+        $search_el = "SELECT * FROM `eligibility` as el INNER JOIN rooms as rm ON el.id_room = rm.id_room WHERE el.id_mem = '$id_mem';";
 
         if ($search_el_ta = Database::query($search_el, PDO::FETCH_ASSOC)) {
             foreach ($search_el_ta  as $row) {

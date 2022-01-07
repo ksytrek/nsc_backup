@@ -29,6 +29,7 @@ if (isset($_GET['id'])) :
             var id_code = '';
             window.onload = function() {
                 information_person_info();
+                schedule_table_export();
             }
 
 
@@ -142,6 +143,8 @@ if (isset($_GET['id'])) :
                     }
                 });
             }
+
+            
         </script>
         <div class="content-wrap">
             <div class="main">
@@ -701,6 +704,7 @@ if (isset($_GET['id'])) :
                                                     });
 
                                                     table_el.clear();
+
                                                     $.ajax({
                                                         url: "./controller/con_per_search.php",
                                                         type: "POST",
@@ -728,7 +732,7 @@ if (isset($_GET['id'])) :
                                                             });
                                                         },
                                                         error: function(jqXHR, textStatus, errorThrown) {
-
+                                                            alert('Error: จากเซิฟเวอร์ ' + errorThrown)
                                                         }
                                                     });
                                                 }
@@ -757,10 +761,12 @@ if (isset($_GET['id'])) :
                                                         <th>เวลา &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="tbb_el">
+                                                <tbody id="tbb_sc">
                                                     <?php
                                                     $co = 1;
                                                     foreach ($src = Database::query("SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';") as $row) :
+                                                        // foreach ($src = Database::query("SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2'") as $row_el) :
+                                                        // SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2';
 
                                                     ?>
                                                         <tr>
@@ -774,6 +780,106 @@ if (isset($_GET['id'])) :
                                                     ?>
                                                 </tbody>
                                             </table>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    table_sc();
+                                                });
+
+                                                function table_sc() {
+                                                    var table_sc = $('#bootstrap-data-table-export').DataTable({
+                                                        dom: 'lBfrtip',
+                                                        lengthMenu: [
+                                                            [5, 10, 25, 50, 60, -1],
+                                                            [5, 10, 25, 50, 60, "All"]
+                                                        ],
+                                                        language: {
+                                                            sProcessing: "กำลังดำเนินการ...",
+                                                            sLengthMenu: "แสดง_MENU_ แถว",
+                                                            sZeroRecords: "ไม่พบข้อมูล",
+                                                            sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                                                            sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                                                            sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                                                            sInfoPostFix: "",
+                                                            sSearch: "ค้นหา:",
+                                                            sUrl: "",
+                                                            oPaginate: {
+                                                                "sFirst": "เริ่มต้น",
+                                                                "sPrevious": "ก่อนหน้า",
+                                                                "sNext": "ถัดไป",
+                                                                "sLast": "สุดท้าย"
+                                                            }
+                                                        },
+
+                                                        // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
+                                                        processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
+                                                        //serverSide: true, // ใช้งานในโหมด Server-side processing
+                                                        order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
+                                                        ajax: {
+
+                                                        },
+
+                                                        buttons: [{
+                                                            extend: 'excel',
+                                                            text: 'ส่งออก EXCEL',
+                                                            messageTop: 'Cybernetics Corp.',
+                                                            filename: function() {
+                                                                // const d = new Date();
+                                                                // // let time = d.getTime();
+                                                                // let hour = d.getHours();
+                                                                // let minutes = d.getMinutes();
+                                                                // let day = d.getDay();
+                                                                // let month = d.getMonth();
+                                                                // let year = d.getFullYear();
+                                                                return "รายชื่อห้องที่มีสิทธิ์เข้าของ" + id_code; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                            },
+                                                            // title: 'รายชื่อสิทเข้าห้อง',
+                                                            exportOptions: {
+                                                                columns: [0, 1],
+                                                                // คอลัมส์ที่จะส่งออก
+                                                                // modifier: {
+                                                                //     page: 'all' // หน้าที่จะส่งออก all / current
+                                                                // },
+                                                                // stripHtml: true
+                                                            }
+                                                        }],
+                                                        retrieve: true,
+
+                                                    });
+
+                                                    table_sc.clear();
+
+                                                    $.ajax({
+                                                        url: "./controller/con_per_search.php",
+                                                        type: "POST",
+                                                        data: {
+                                                            key: 'table_sc',
+                                                            id_mem: ID_MEM
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            // alert(result);
+
+                                                            var json = JSON.parse(result);
+
+                                                            var count = 1;
+                                                            $.each(json, function(key, val) {
+
+                                                                var col1 = count++;
+                                                                var col2 = val['room_num'];
+                                                                var col3 = '<div class="text-center"> <a href="./room_search_ad.php?id=' + val['id_room'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a> </div>';
+
+
+                                                                table_sc.row.add([
+                                                                    col1, col2, col3
+                                                                ]).draw(true);
+
+                                                            });
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown) {
+                                                            alert('Error: จากเซิฟเวอร์ ' + errorThrown)
+                                                        }
+                                                    });
+                                                }
+                                            </script>
 
                                         </div>
                                     </div>
@@ -802,65 +908,7 @@ if (isset($_GET['id'])) :
         <script>
             $(document).ready(function() {
                 // $('#bootstrap-data-table-export').DataTable();
-                $('#bootstrap-data-table-export').DataTable({
-                    dom: 'lBfrtip',
-                    lengthMenu: [
-                        [5, 10, 25, 50, 60, -1],
-                        [5, 10, 25, 50, 60, "All"]
-                    ],
-                    language: {
-                        sProcessing: "กำลังดำเนินการ...",
-                        sLengthMenu: "แสดง_MENU_ แถว",
-                        sZeroRecords: "ไม่พบข้อมูล",
-                        sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
-                        sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
-                        sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
-                        sInfoPostFix: "",
-                        sSearch: "ค้นหา:",
-                        sUrl: "",
-                        oPaginate: {
-                            "sFirst": "เริ่มต้น",
-                            "sPrevious": "ก่อนหน้า",
-                            "sNext": "ถัดไป",
-                            "sLast": "สุดท้าย"
-                        }
-                    },
 
-                    // sInfoEmpty: "แสดง 0 ถึง 0 ของ 0 เร็คคอร์ด",
-                    processing: true, // แสดงข้อความกำลังดำเนินการ กรณีข้อมูลมีมากๆ จะสังเกตเห็นง่าย
-                    //serverSide: true, // ใช้งานในโหมด Server-side processing
-                    order: [], // กำหนดให้ไม่ต้องการส่งการเรียงข้อมูลค่าเริ่มต้น จะใช้ค่าเริ่มต้นตามค่าที่กำหนดในไฟล์ php
-                    ajax: {
-
-                    },
-
-                    buttons: [{
-                        extend: 'excel',
-                        text: 'ส่งออก EXCEL',
-                        messageTop: 'Cybernetics Corp.',
-                        filename: function() {
-                            // const d = new Date();
-                            // // let time = d.getTime();
-                            // let hour = d.getHours();
-                            // let minutes = d.getMinutes();
-                            // let day = d.getDay();
-                            // let month = d.getMonth();
-                            // let year = d.getFullYear();
-                            return "ประวัติการใช้งานห้องของ" + id_code; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
-                        },
-                        // title: 'รายชื่อสิทเข้าห้อง',
-                        exportOptions: {
-                            columns: [0, 1],
-                            // คอลัมส์ที่จะส่งออก
-                            // modifier: {
-                            //     page: 'all' // หน้าที่จะส่งออก all / current
-                            // },
-                            // stripHtml: true
-                        }
-                    }],
-                    retrieve: true,
-
-                });
             });
         </script>
         <script src="../../script/assets/js/lib/datatables/jquery.dataTables.min.js"></script>
