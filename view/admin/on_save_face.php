@@ -10,7 +10,7 @@ $id_mem = $_GET['id'];
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Face Admin Dashboard</title>
+	<title>Save image face to server</title>
 
 	<script src="../../script/assets/js/lib/opencv/opencv.js"></script>
 	<script src="../../script/assets/js/lib/opencv/utils.js"></script>
@@ -98,7 +98,7 @@ $id_mem = $_GET['id'];
 		function openCvReady() {
 		                
 		let count = 0;
-		let MAX_COUNT = 20;
+		let MAX_COUNT = 50;
 
 		cv['onRuntimeInitialized']=()=>{
 			const constraints = {
@@ -201,7 +201,7 @@ $id_mem = $_GET['id'];
 										}
 								}).done(function(response) {
 									console.log('saved: ' + response); 
-									if(response == 20){
+									if(response == 50){
 										alert('บันทึกภาพใบหน้าสำเร็จ');
 										// location.assign('./mg_personal_ad.php');
 										history.back(1);

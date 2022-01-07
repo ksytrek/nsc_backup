@@ -27,7 +27,7 @@ if (isset($_POST['key']) && $_POST['key'] == "uploadface") {
 		// mkdir("./{$folder}", 0755,true);
 
 
-		if ($count == 20) {
+		if ($count == 50) {
 			Database::query("UPDATE `members` SET `stu_face` = '1' WHERE `id_mem`= {$id_mem};");
 		}
 
