@@ -24,7 +24,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'tb_showroom'){
         ];
         echo json_encode($resultArray);
     }
-}
+} 
 
 if(isset($_POST['key']) && $_POST['key'] == 'ckick_btn_room_fstatus'){
     // echo "ckick_btn_room_fstatus";
@@ -37,10 +37,15 @@ if(isset($_POST['key']) && $_POST['key'] == 'ckick_btn_room_fstatus'){
             echo "ได้เปิดไฟห้องเรียบร้อย";
             UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
         }
-    }else{
+    }else if ($status == 1){
         // echo "ได้ปิดห้องเรียบร้อย";
-        if(Database::query("UPDATE `rooms` SET `room_fstatus` = '0' WHERE `rooms`.`id_room` = {$id_room};")){
+        if(Database::query("UPDATE `rooms` SET `room_fstatus` = '2' WHERE `rooms`.`id_room` = {$id_room};")){
             echo "ได้ปิดไฟห้องเรียบร้อย";
+            UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
+        }
+    }else{
+        if(Database::query("UPDATE `rooms` SET `room_fstatus` = '0' WHERE `rooms`.`id_room` = {$id_room};")){
+            echo "ได้เปิดระบบเปิดไฟอัตโนมัติเรียบร้อย";
             UpdateTimeRoom::updateTime('../../../raspberrypi_communication/timeout/');
         }
     }

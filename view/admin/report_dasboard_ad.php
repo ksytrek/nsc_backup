@@ -2,7 +2,7 @@
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<?php 
+<?php
 // include_once('../../config/connectdb.php');
 try {
     $row_rom = Database::query("SELECT COUNT(*) as total FROM `rooms`;", PDO::FETCH_ASSOC)->fetch();
@@ -108,12 +108,11 @@ try {
                                         <script>
                                             window.onload = function() {
                                                 tb_showroom();
-                                               
+
                                                 show_rqroom();
 
                                             };
-                                            $(document).ready(function() {
-                                            });
+                                            $(document).ready(function() {});
 
 
                                             setInterval(function() {
@@ -123,32 +122,32 @@ try {
 
                                             function ckick_btn_room_door(id_room, status) {
 
-                                                if (confirm(status == "0" ? "you want to turn on the Door" : "you want to turn off the Door")) {
-                                                    $.ajax({
-                                                        url: "./controller/con_room_search_ad.php",
-                                                        type: "POST",
-                                                        data: {
-                                                            key: "ckick_btn_room_door",
-                                                            id_room: id_room,
-                                                            status: status
-                                                        },
-                                                        success: function(result, textStatus, jqXHR) {
-                                                            // alert(result)
-                                                            tb_showroom();
-                                                            swal(result, {
-                                                                icon: "success",
-                                                                buttons: false,
-                                                                timer: 1000,
-                                                            });
-                                                            
-                                                            // search_room_info();
+                                                // if (confirm(status == "0" ? "you want to turn on the Door" : "you want to turn off the Door")) {
+                                                $.ajax({
+                                                    url: "./controller/con_room_search_ad.php",
+                                                    type: "POST",
+                                                    data: {
+                                                        key: "ckick_btn_room_door",
+                                                        id_room: id_room,
+                                                        status: status
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
+                                                        // alert(result)
+                                                        tb_showroom();
+                                                        swal(result, {
+                                                            icon: "success",
+                                                            buttons: false,
+                                                            timer: 1000,
+                                                        });
 
-                                                        },
-                                                        error: function(jqXHR, textStatus, errorThrown) {
-                                                            alert(errorThrown);
-                                                        }
-                                                    });
-                                                }
+                                                        // search_room_info();
+
+                                                    },
+                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                        alert(errorThrown);
+                                                    }
+                                                });
+                                                // }
 
 
                                             }
@@ -200,10 +199,13 @@ try {
 
                                                                 var check_count = count == "0" ? 'ว่าง' : count
                                                                 var btn_status;
+                                                                // status = 0
                                                                 if (status == '0') {
-                                                                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
-                                                                } else {
+                                                                    btn_status = "<button type='button'  onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
+                                                                } else if (status == '1') {
                                                                     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-success'>On</button>";
+                                                                } else {
+                                                                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + val['id_room'] + ',' + status + ")'  class='btn badge badge-primary'>Auto</button>";
                                                                 }
 
                                                                 var status_door = val['status_door'];
@@ -253,30 +255,30 @@ try {
                                             }
 
                                             function ckick_btn_room_fstatus(id_room, status) {
-
-                                                if (confirm(status == "0" ? "you want to turn on the light" : "you want to turn off the light")) {
-                                                    $.ajax({
-                                                        url: "./controller/con_admin.php",
-                                                        type: "POST",
-                                                        data: {
-                                                            key: "ckick_btn_room_fstatus",
-                                                            id_room: id_room,
-                                                            status: status
-                                                        },
-                                                        success: function(result, textStatus, jqXHR) {
-                                                            // alert(result)
-                                                            swal(result, {
-                                                                icon: "success",
-                                                                buttons: false,
-                                                                timer: 1000,
-                                                            });
-                                                            tb_showroom();
-                                                        },
-                                                        error: function(jqXHR, textStatus, errorThrown) {
-                                                            alert(errorThrown);
-                                                        }
-                                                    });
-                                                }
+                                                // alert(status)
+                                                // if (confirm(status == "0" ? "you want to turn on the light" : "you want to turn off the light")) {
+                                                $.ajax({
+                                                    url: "./controller/con_admin.php",
+                                                    type: "POST",
+                                                    data: {
+                                                        key: "ckick_btn_room_fstatus",
+                                                        id_room: id_room,
+                                                        status: status
+                                                    },
+                                                    success: function(result, textStatus, jqXHR) {
+                                                        // alert(result)
+                                                        swal(result, {
+                                                            icon: "success",
+                                                            buttons: false,
+                                                            timer: 1000,
+                                                        });
+                                                        tb_showroom();
+                                                    },
+                                                    error: function(jqXHR, textStatus, errorThrown) {
+                                                        alert(errorThrown);
+                                                    }
+                                                });
+                                                // }
 
                                             }
                                         </script>

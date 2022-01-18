@@ -30,31 +30,31 @@ if (isset($_GET['id'])) {
     // ฟังก์ชัน เปิด - ปิด ไฟ
     function ckick_btn_room_fstatus(id_room, status) {
 
-        if (confirm(status == "0" ? "you want to turn on the light" : "you want to turn off the light")) {
-            $.ajax({
-                url: "./controller/con_admin.php",
-                type: "POST",
-                data: {
-                    key: "ckick_btn_room_fstatus",
-                    id_room: id_room,
-                    status: status
-                },
-                success: function(result, textStatus, jqXHR) {
-                    // alert(result)
-                    swal(result, {
-                        icon: "success",
-                        buttons: false,
-                        timer: 1000,
-                    });
+        // if (confirm(status == "0" ? "you want to turn on the light" : "you want to turn off the light")) {
+        $.ajax({
+            url: "./controller/con_admin.php",
+            type: "POST",
+            data: {
+                key: "ckick_btn_room_fstatus",
+                id_room: id_room,
+                status: status
+            },
+            success: function(result, textStatus, jqXHR) {
+                // alert(result)
+                swal(result, {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                });
 
-                    search_room_info();
+                search_room_info();
 
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
-        }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+        // }
 
 
     }
@@ -131,12 +131,20 @@ if (isset($_GET['id'])) {
 
                 var btn_status = '';
                 var status = json[0].room_fstatus;
+                // if (status == '0') {
+                //     // alert(status);
+                //     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + json[0].id_room + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
+                // } else {
+                //     // alert(status);
+                //     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + json[0].id_room + ',' + status + ")'  class='btn badge badge-success'>On</button>";
+                // }
+
                 if (status == '0') {
-                    // alert(status);
-                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + json[0].id_room + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
-                } else {
-                    // alert(status);
+                    btn_status = "<button type='button'  onclick='ckick_btn_room_fstatus(" + json[0].id_room + ',' + status + ")' class='btn badge badge-danger'>Off</button>";
+                } else if (status == '1') {
                     btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + json[0].id_room + ',' + status + ")'  class='btn badge badge-success'>On</button>";
+                } else {
+                    btn_status = "<button type='button' onclick='ckick_btn_room_fstatus(" + json[0].id_room + ',' + status + ")'  class='btn badge badge-primary'>Auto</button>";
                 }
 
                 var btn_door = '';
