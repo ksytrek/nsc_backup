@@ -39,15 +39,15 @@
                                 <div class="tab-content tabcontent-border">
                                     <div class="tab-pane active" id="personnel" role="tabpanel">
                                         <div class="p-20">
-                                            <h3><span>Personnel</span></h3>
+                                            <h3><span>บุคลากร</span></h3>
                                             <!-- action="./personnel/dashboard.php" -->
                                             <form method="post">
                                                 <div class="form-group">
-                                                    <label>Email address</label>
+                                                    <label>อีเมล</label>
                                                     <input id="email_per" type="email" class="form-control" placeholder="Email">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Password</label>
+                                                    <label>รหัสผ่าน</label>
                                                     <input id="password_per" type="password" class="form-control" placeholder="Password">
                                                 </div>
                                                 <div class="checkbox">
@@ -88,7 +88,7 @@
                                                 <button id="submit_per" onclick="send_submit_per('submit_per')" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
 
                                                 <div class="register-link m-t-15 text-center">
-                                                    <p>Don't have account ? <a href="./register.php"> Sign Up Here</a></p>
+                                                    <p>ไม่มีบัญชี ? <a href="./register.php"> Sign Up Here</a></p>
                                                 </div>
 
                                             </form>

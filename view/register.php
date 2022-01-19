@@ -269,7 +269,7 @@ include('../config/connectdb.php');
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input id="check-box" onclick="check_box()" type="checkbox"> Agree the terms and policy
+                                        <input id="check-box" onclick="check_box()" type="checkbox"> ยืนยันการสมัครสมาชิก
                                     </label>
                                     <script>
                                         function check_box() {
@@ -287,7 +287,7 @@ include('../config/connectdb.php');
                                 </div>
 
                                 <!-- onclick="send_data('submit-registers')" -->
-                                <button style="display:none" id="submit-registers" onclick="send_data('submit-registers')" name="submit-registers" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+                                <button style="display:none" id="submit-registers" onclick="send_data('submit-registers')" name="submit-registers" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">สมัครสมาชิก</button>
                                 <script>
                                     function send_data(key) {
                                         var submit = document.getElementById("submit-registers");
@@ -313,7 +313,7 @@ include('../config/connectdb.php');
                                             // if (true) {
                                             swal({
                                                 title: "Are you sure?",
-                                                text: "Once deleted, you will not be able to recover this imaginary file!",
+                                                text: "",
                                                 icon: "warning",
                                                 buttons: true,
                                                 dangerMode: true,
@@ -378,7 +378,7 @@ include('../config/connectdb.php');
                                     }
                                 </script>
                                 <div class="register-link m-t-15 text-center">
-                                    <p>Already have account ? <a href="./login.php"> Sign in</a></p>
+                                    <p>มีบัญชีอยู่แล้ว? <a href="./login.php"> Sign in</a></p>
                                 </div>
                             </form>
                         </div>
