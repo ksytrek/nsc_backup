@@ -89,3 +89,26 @@ if(isset($_POST['key']) && $_POST['key'] == 'table_el'){
         echo json_encode($resultArray_el);
     }
 }
+
+if(isset($_POST['key']) && $_POST['key'] == 'table_sc'){
+    $id_mem = $_POST['id_mem'];
+
+    $resultArray_el = array();
+    try {
+        $search_el = "SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';";
+
+        if ($search_el_ta = Database::query($search_el, PDO::FETCH_ASSOC)) {
+            foreach ($search_el_ta  as $row) {
+                array_push($resultArray_el, $row);
+            }
+            echo json_encode($resultArray_el);
+        }else{
+            echo json_encode($resultArray_el);
+        }
+    } catch (Exception $e) {
+        $resultArray_el = [
+            "error" => $e->getMessage()
+        ];
+        echo json_encode($resultArray_el);
+    }
+}

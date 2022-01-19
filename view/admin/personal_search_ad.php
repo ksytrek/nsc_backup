@@ -515,8 +515,8 @@ if (isset($_GET['id'])) :
                                                                         </form>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <div id="mod_save"><button id="btn_edit_submit" type="button" class="btn btn-primary btn-submit">SAVE</button></div>
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                                        <div id="mod_save"><button id="btn_edit_submit" type="button" class="btn btn-primary btn-submit">บันทึกการแก้ไข</button></div>
                                                                         <script>
                                                                             $('#mod_save').click(function() {
                                                                                 $('.input-name').val();
@@ -758,25 +758,26 @@ if (isset($_GET['id'])) :
                                                     <tr>
                                                         <th>ลำดับ</th>
                                                         <th>ห้อง</th>
-                                                        <th>เวลา &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                        <th>เวลาเข้า </th>
+                                                        <th>ตรวจสอบ</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbb_sc">
                                                     <?php
-                                                    $co = 1;
-                                                    foreach ($src = Database::query("SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';") as $row) :
+                                                    // $co = 1;
+                                                    // foreach ($src = Database::query("SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';") as $row) :
                                                         // foreach ($src = Database::query("SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2'") as $row_el) :
                                                         // SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2';
 
                                                     ?>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td><?php echo $co ?></td>
                                                             <td><?php echo $row['room_name'] ?></td>
                                                             <td><?php echo $row['time_stamp'] ?></td>
-                                                        </tr>
+                                                        </tr> -->
                                                     <?php
-                                                        $co++;
-                                                    endforeach;
+                                                        // $co++;
+                                                    // endforeach;
                                                     ?>
                                                 </tbody>
                                             </table>
@@ -830,11 +831,11 @@ if (isset($_GET['id'])) :
                                                                 // let day = d.getDay();
                                                                 // let month = d.getMonth();
                                                                 // let year = d.getFullYear();
-                                                                return "รายชื่อห้องที่มีสิทธิ์เข้าของ" + id_code; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                                return "ประวัติการใช้งานห้อง" + id_code; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
                                                             },
                                                             // title: 'รายชื่อสิทเข้าห้อง',
                                                             exportOptions: {
-                                                                columns: [0, 1],
+                                                                columns: [0, 2],
                                                                 // คอลัมส์ที่จะส่งออก
                                                                 // modifier: {
                                                                 //     page: 'all' // หน้าที่จะส่งออก all / current
@@ -864,12 +865,13 @@ if (isset($_GET['id'])) :
                                                             $.each(json, function(key, val) {
 
                                                                 var col1 = count++;
-                                                                var col2 = val['room_num'];
-                                                                var col3 = '<div class="text-center"> <a href="./room_search_ad.php?id=' + val['id_room'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a> </div>';
+                                                                var col2 = val['room_name'];
+                                                                var col3 = val['time_stamp']
+                                                                var col4 = '<div class="text-right"> <a href="./room_search_ad.php?id=' + val['id_room'] + '"class="click_submit_search_clode"><i class="ti-search"></i></a> </div>';
 
 
                                                                 table_sc.row.add([
-                                                                    col1, col2, col3
+                                                                    col1, col2, col3,col4
                                                                 ]).draw(true);
 
                                                             });
