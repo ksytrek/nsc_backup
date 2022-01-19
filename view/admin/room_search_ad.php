@@ -280,6 +280,10 @@ if (isset($_GET['id'])) {
                                                             <i class="ti-cloud-down"></i>&nbsp;&nbsp;สำรองข้อมูล</button>
                                                     </div> -->
                                                     <div class="user-send-message">
+                                                        <button id='dowload-room-id' class="btn btn-primary btn-rounded btn-sm " type="button">
+                                                            <i class="ti-download"></i>&nbsp;&nbsp;ดาวน์โหลดไฟล์ห้อง</button>
+                                                    </div>
+                                                    <div class="user-send-message">
                                                         <button class="btn btn-sm btn-warning btn-rounded" type="button" data-toggle="modal" data-target="#edit_room">
                                                             <i class="ti-hummer"></i>&nbsp;&nbsp;แก้ไข</button>
                                                     </div>
@@ -288,6 +292,19 @@ if (isset($_GET['id'])) {
                                                             <i class="ti-alert"></i>&nbsp;&nbsp;ลบห้องนี้</button>
                                                     </div>
                                                     <script>
+                                                        // function download_file_room(id_room) {
+                                                        //     // alert(id_room);
+                                                        //     send_post_get('./controller/con_mg_room.php', {
+                                                        //         key: "download_file_room",
+                                                        //         id_room: ID_ROOM,
+                                                        //     }, 'POST');
+                                                        // }
+                                                        $("#dowload-room-id").click(function() {
+                                                            send_post_get('./controller/con_mg_room.php', {
+                                                                key: "download_file_room",
+                                                                id_room: ID_ROOM,
+                                                            }, 'POST');
+                                                        });
                                                         $('#delete-room-id').click(function() {
                                                             swal({
                                                                 title: "Are you sure?",
