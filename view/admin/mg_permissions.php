@@ -307,7 +307,7 @@ include_once("./sidebar_ad.php");
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลห้อง</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มสิทธิ์เข้าห้อง</h5>
                                             <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="false">&times;</span>
                                                                     </button> -->
@@ -431,8 +431,8 @@ include_once("./sidebar_ad.php");
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button id="btn_cancel_permission" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button id='add_permission' type="button" class="btn btn-primary">ADD Permissions</button>
+                                            <button id="btn_cancel_permission" type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                            <button id='add_permission' type="button" class="btn btn-primary">เพิ่มสิทธิ์เข้าห้อง</button>
                                             <script>
                                                 $('#btn_cancel_permission').on('click', function() {
                                                     // location.reload();

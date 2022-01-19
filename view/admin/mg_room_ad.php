@@ -179,6 +179,7 @@ include_once("./sidebar_ad.php")
                                                                 var col4 = '<div class="text-center">' +
                                                                     '<a class ="click_edit_search" href="#" data-toggle="modal" data-target="#edit_room" data-whatever="@mdo"><i class="ti-pencil"></i></a>' +
                                                                     '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="seach_room_link" href="./room_search_ad.php?id=' + val['id_room'] + '"><i class="ti-search"></i></a>' +
+                                                                    '&nbsp;&nbsp;&nbsp;&nbsp;' + '<a id="" href="javascript:download_file_room(' + val['id_room'] + ')"><i class="ti-download"></i></a>' +
                                                                     '</div>';
 
 
@@ -217,6 +218,14 @@ include_once("./sidebar_ad.php")
 
                                                 });
 
+                                                function download_file_room(id_room) {
+                                                    // alert(id_room);
+                                                    send_post_get('./controller/con_mg_room.php', {
+                                                        key: "download_file_room",
+                                                        id_room: id_room,
+                                                    }, 'POST');
+                                                }
+
 
                                                 $("#tb_mg_room").on('click', '#seach_room_link', function() {
                                                     // get the current row
@@ -232,29 +241,29 @@ include_once("./sidebar_ad.php")
                                                 function ckick_btn_room_fstatus(id_room, status) {
 
                                                     // if (confirm(status == "0" ? "you want to turn on the light" : "you want to turn off the light")) {
-                                                        $.ajax({
-                                                            url: "./controller/con_admin.php",
-                                                            type: "POST",
-                                                            data: {
-                                                                key: "ckick_btn_room_fstatus",
-                                                                id_room: id_room,
-                                                                status: status
-                                                            },
-                                                            success: function(result, textStatus, jqXHR) {
-                                                                // alert(result)
-                                                                swal(result, {
-                                                                    icon: "success",
-                                                                    buttons: false,
-                                                                    timer: 1000,
-                                                                });
+                                                    $.ajax({
+                                                        url: "./controller/con_admin.php",
+                                                        type: "POST",
+                                                        data: {
+                                                            key: "ckick_btn_room_fstatus",
+                                                            id_room: id_room,
+                                                            status: status
+                                                        },
+                                                        success: function(result, textStatus, jqXHR) {
+                                                            // alert(result)
+                                                            swal(result, {
+                                                                icon: "success",
+                                                                buttons: false,
+                                                                timer: 1000,
+                                                            });
 
-                                                                tb_mg_room();
+                                                            tb_mg_room();
 
-                                                            },
-                                                            error: function(jqXHR, textStatus, errorThrown) {
-                                                                alert(errorThrown);
-                                                            }
-                                                        });
+                                                        },
+                                                        error: function(jqXHR, textStatus, errorThrown) {
+                                                            alert(errorThrown);
+                                                        }
+                                                    });
                                                     // }
 
 
@@ -325,7 +334,7 @@ include_once("./sidebar_ad.php")
 
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input id='check_edit_room' type="checkbox"> Agree the terms and policy
+                                                                    <input id='check_edit_room' type="checkbox"> ยืนการแก้ไขข้อมูล
                                                                 </label>
                                                                 <script>
                                                                     // $('#check_show_create').
@@ -344,8 +353,8 @@ include_once("./sidebar_ad.php")
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <div id='div_btn_edit'><button id='btn_edit_room' type="button" class="btn btn-primary">SAVE</button></div>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                        <div id='div_btn_edit'><button id='btn_edit_room' type="button" class="btn btn-primary">บันทึกการแก้ไข</button></div>
                                                     </div>
 
                                                     <script>
@@ -482,7 +491,7 @@ include_once("./sidebar_ad.php")
 
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input id='check_show_create' type="checkbox"> Agree the terms and policy
+                                                                    <input id='check_show_create' type="checkbox"> ยืนยันการเพิ่มห้อง
                                                                 </label>
                                                                 <script>
                                                                     // $('#check_show_create').
@@ -501,9 +510,9 @@ include_once("./sidebar_ad.php")
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button id='close_create_room' type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button id='close_create_room' type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                                                         <div id='div_btn_create'>
-                                                            <button id='btn_create_room' type="button" class="btn btn-primary">SAVE</button>
+                                                            <button id='btn_create_room' type="button" class="btn btn-primary">เพิ่มห้อง</button>
                                                             <script>
                                                                 function random_string(length) {
                                                                     var result = '';

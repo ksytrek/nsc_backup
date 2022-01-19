@@ -185,8 +185,8 @@ include_once("./sidebar_ad.php");
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <div id='div-btn-edit-ad'> <button id='btn-edit-save' type="button" class="btn btn-primary">SAVE</button> </div>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                                    <div id='div-btn-edit-ad'> <button id='btn-edit-save' type="button" class="btn btn-primary">บันทึกการแก้ไข</button> </div>
                                                                     <script>
                                                                         $('#btn-edit-save').click(function() {
                                                                             // alert('ckick');

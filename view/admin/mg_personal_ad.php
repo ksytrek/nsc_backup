@@ -373,8 +373,8 @@ include_once("./sidebar_ad.php");
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <div id="div_btn_add_person"><button type="button" class="btn btn-primary">SAVE</button></div>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <div id="div_btn_add_person"><button type="button" class="btn btn-primary">เพิ่มบุคคลากร</button></div>
                                             </div>
                                             <script>
                                                 $(document).ready(function() {

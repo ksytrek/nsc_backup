@@ -143,8 +143,6 @@ if (isset($_GET['id'])) :
                     }
                 });
             }
-
-            
         </script>
         <div class="content-wrap">
             <div class="main">
@@ -206,9 +204,11 @@ if (isset($_GET['id'])) :
                                                             <script>
                                                                 $('#upload_image').click(function() {
                                                                     // alert('Upload');
-                                                                    send_post_get('./on_save_face.php', {
-                                                                        id: ID_MEM
-                                                                    }, 'get');
+                                                                    if (confirm('ต้องการบันทึกใบหน้าใช่หรือไม่')) {
+                                                                        send_post_get('./on_save_face.php', {
+                                                                            id: ID_MEM
+                                                                        }, 'get');
+                                                                    }
                                                                 });
 
                                                                 // onclick='window.location.assign("./on_save_face.php");'
@@ -766,17 +766,17 @@ if (isset($_GET['id'])) :
                                                     <?php
                                                     // $co = 1;
                                                     // foreach ($src = Database::query("SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';") as $row) :
-                                                        // foreach ($src = Database::query("SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2'") as $row_el) :
-                                                        // SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2';
+                                                    // foreach ($src = Database::query("SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2'") as $row_el) :
+                                                    // SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2';
 
                                                     ?>
-                                                        <!-- <tr>
+                                                    <!-- <tr>
                                                             <td><?php echo $co ?></td>
                                                             <td><?php echo $row['room_name'] ?></td>
                                                             <td><?php echo $row['time_stamp'] ?></td>
                                                         </tr> -->
                                                     <?php
-                                                        // $co++;
+                                                    // $co++;
                                                     // endforeach;
                                                     ?>
                                                 </tbody>
@@ -871,7 +871,7 @@ if (isset($_GET['id'])) :
 
 
                                                                 table_sc.row.add([
-                                                                    col1, col2, col3,col4
+                                                                    col1, col2, col3, col4
                                                                 ]).draw(true);
 
                                                             });

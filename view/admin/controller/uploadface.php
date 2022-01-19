@@ -23,7 +23,7 @@ if (isset($_POST['key']) && $_POST['key'] == "uploadface") {
 		define('PATH_UPLOAD', "../../../file_image/{$folder}/");
 
 		// สร้างโฟลเดอร์เพื่อไว้เก็บรูปภาพ
-		mkdir("../../../file_image/{$folder}", 0755, true);
+		@mkdir("../../../file_image/{$folder}", 0755, true);
 		// mkdir("./{$folder}", 0755,true);
 
 

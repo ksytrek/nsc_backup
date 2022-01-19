@@ -359,7 +359,7 @@ if (isset($_GET['id'])) {
 
                                                                         <div class="checkbox">
                                                                             <label>
-                                                                                <input id='check_edit_room' type="checkbox"> Agree the terms and policy
+                                                                                <input id='check_edit_room' type="checkbox"> ยืนการแก้ไขข้อมูล
                                                                             </label>
                                                                             <script>
                                                                                 // $('#check_show_create').
@@ -378,8 +378,8 @@ if (isset($_GET['id'])) {
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <div id='div_btn_edit'><button id='btn_edit_room' type="button" class="btn btn-primary">SAVE</button></div>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                                    <div id='div_btn_edit'><button id='btn_edit_room' type="button" class="btn btn-primary">แก้ไขข้อมูลห้อง</button></div>
                                                                 </div>
 
                                                                 <script>
@@ -738,7 +738,7 @@ if (isset($_GET['id'])) {
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลห้อง</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มสิทธิ๋เข้าห้อง</h5>
                                 </div>
                                 <div class="modal-body">
                                     <form>
@@ -860,8 +860,8 @@ if (isset($_GET['id'])) {
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button id="btn_cancel_permission" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button id='add_permission' type="button" class="btn btn-primary">ADD Permissions</button>
+                                    <button id="btn_cancel_permission" type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                    <button id='add_permission' type="button" class="btn btn-primary">เพิ่มสิทธิ์เข้าห้อง</button>
                                     <script>
                                         $('#btn_cancel_permission').on('click', function() {
                                             // location.reload();
