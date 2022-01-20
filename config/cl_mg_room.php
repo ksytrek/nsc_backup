@@ -43,7 +43,6 @@ class ManagementRoom
         $dirPathNew = $path.$name_room.'/';
         try {
             ManagementPersonal::deleteDir($dirPathNew); 
-            // echo "Deleted";
         } catch (Exception $e) {
             // echo 'Error deleting';
         }

@@ -309,7 +309,7 @@ if (isset($_GET['id'])) {
                                                         $('#delete-room-id').click(function() {
                                                             swal({
                                                                 title: "Are you sure?",
-                                                                text: "Once deleted, you will not be able to recover this imaginary file!",
+                                                                text: "ต้องการลบห้อง และ ไม่สามารถกู้คืนได้",
                                                                 icon: "warning",
                                                                 buttons: true,
                                                                 dangerMode: true,

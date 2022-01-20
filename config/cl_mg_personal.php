@@ -45,9 +45,9 @@ class ManagementPersonal
             if (is_dir($file)) {
                 self::deleteDir($file);
             } else {
-                unlink($file);
+                @unlink($file);
             }
         }
-        rmdir($dirPath);
+        @rmdir($dirPath);
     }
 }
