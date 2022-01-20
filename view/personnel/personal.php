@@ -539,10 +539,10 @@ include_once("./sidebar.php")
                                                 $date = date("H:i d/m/Y", strtotime($row['time_stamp']));
                                                 $tb_schedule_result = $tb_schedule_result .
                                                     "<tr>
-                                                                <td>$i</td>
-                                                                <td>{$row['room_num']}</td>
-                                                                <td>{$date}</td>
-                                                            </tr>";
+                                                        <td>$i</td>
+                                                        <td>{$row['room_num']}</td>
+                                                        <td>{$date}</td>
+                                                     </tr>";
                                             }
                                         }
 
