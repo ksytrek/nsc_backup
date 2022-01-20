@@ -82,6 +82,7 @@ if(isset($_POST['key']) && $_POST['key'] == 'delete-room-id'){
     $path = '../../../raspberrypi_communication/create_room/';
 
 
+    // echo ManagementRoom::DeleteRoom($path ,$id_room);
     if(ManagementRoom::DeleteRoom($path ,$id_room)){
         echo "success";
     }else{

@@ -48,18 +48,20 @@ class ManagementRoom
         }
         
         try {
-            
             $sql_eligibility = "DELETE FROM `eligibility` WHERE `eligibility`.`id_room` = '$id_room';";
             $sql_rqroom = "DELETE FROM rqroom WHERE id_room = '$id_room';";
-            $sql_room = "DELETE FROM rooms WHERE id_room = '$id_room';";
+            $sql_room = " SET FOREIGN_KEY_CHECKS =  0 ; DELETE FROM rooms WHERE id_room = '$id_room';";
             
-            if(Database::query($sql_eligibility) && Database::query($sql_rqroom) && Database::query($sql_room)){
+            if(Database::query($sql_eligibility) || Database::query($sql_rqroom) || Database::query($sql_room)){
                 return true;
             }
 
         } catch (Exception $th) {
             return false;
+            
         }
+
+        
     }
 
     public static function UpdateRoom($id_room, $room_num, $room_dclose)
