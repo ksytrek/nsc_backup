@@ -8,7 +8,7 @@ include_once("./sidebar_ad.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Management Personal Dashboard</title>
+    <title>จัดการตารางบุคลากร</title>
 
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 

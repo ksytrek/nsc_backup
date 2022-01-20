@@ -678,7 +678,7 @@ if (isset($_GET['id'])) :
                                                         buttons: [{
                                                             extend: 'excel',
                                                             text: 'ส่งออก EXCEL',
-                                                            messageTop: 'Cybernetics Corp.',
+                                                            messageTop: '',
                                                             filename: function() {
                                                                 // const d = new Date();
                                                                 // // let time = d.getTime();
@@ -763,22 +763,7 @@ if (isset($_GET['id'])) :
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbb_sc">
-                                                    <?php
-                                                    // $co = 1;
-                                                    // foreach ($src = Database::query("SELECT * FROM `schedule` as sc  WHERE sc.id_mem = '$id_mem';") as $row) :
-                                                    // foreach ($src = Database::query("SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2'") as $row_el) :
-                                                    // SELECT * FROM `schedule` as sc WHERE sc.id_mem = '2';
-
-                                                    ?>
-                                                    <!-- <tr>
-                                                            <td><?php echo $co ?></td>
-                                                            <td><?php echo $row['room_name'] ?></td>
-                                                            <td><?php echo $row['time_stamp'] ?></td>
-                                                        </tr> -->
-                                                    <?php
-                                                    // $co++;
-                                                    // endforeach;
-                                                    ?>
+                                                   
                                                 </tbody>
                                             </table>
                                             <script>
@@ -822,7 +807,7 @@ if (isset($_GET['id'])) :
                                                         buttons: [{
                                                             extend: 'excel',
                                                             text: 'ส่งออก EXCEL',
-                                                            messageTop: 'Cybernetics Corp.',
+                                                            messageTop: '',
                                                             filename: function() {
                                                                 // const d = new Date();
                                                                 // // let time = d.getTime();
@@ -835,7 +820,7 @@ if (isset($_GET['id'])) :
                                                             },
                                                             // title: 'รายชื่อสิทเข้าห้อง',
                                                             exportOptions: {
-                                                                columns: [0, 2],
+                                                                columns: [0,1, 2],
                                                                 // คอลัมส์ที่จะส่งออก
                                                                 // modifier: {
                                                                 //     page: 'all' // หน้าที่จะส่งออก all / current

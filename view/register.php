@@ -10,7 +10,7 @@ include('../config/connectdb.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Focus Admin: Widget</title>
+    <title>สมัครสมาชิกสำหรับผู้ใช้งาน</title>
 
     <!-- Styles -->
     <link href="../script/assets/css/lib/font-awesome.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@ include('../config/connectdb.php');
                             <a href="./login.php"><span></span></a>
                         </div>
                         <div class="login-form">
-                            <h4>Register to Personnel</h4>
+                            <h4>สมัครสมาชิกสำหรับผู้ใช้งาน</h4>
                             <form id="register" action="">
                                 <div id="div-id" class="form-group ">
                                     <label>รหัสบัตรประชาชน</label>
@@ -91,8 +91,8 @@ include('../config/connectdb.php');
                                     </script>
                                 </div>
                                 <div id="div-name" class="form-group ">
-                                    <label> Name</label>
-                                    <input id="uname" onkeyup="check_name(this.value)" type="text" class="form-control" placeholder=" Name">
+                                    <label> ชื่อบุคลากร</label>
+                                    <input id="uname" onkeyup="check_name(this.value)" type="text" class="form-control" placeholder="ชื่อบุคลากร">
                                     <p id="txt-name">กรุณากรอกชื่อตามความจริง</p>
                                     <script>
                                         function check_name(str) {
@@ -118,8 +118,8 @@ include('../config/connectdb.php');
                                     </script>
                                 </div>
                                 <div id="div-lastname" class="form-group">
-                                    <label>Last Name</label>
-                                    <input id="lastname" type="text" onkeyup="check_lastname(this.value)" class="form-control" placeholder="Last Name" required>
+                                    <label>นามสกุลคลากร</label>
+                                    <input id="lastname" type="text" onkeyup="check_lastname(this.value)" class="form-control" placeholder="นามสกุลคลากร" required>
                                     <p id="txt-lastname">กรุณากรอกนามสกุลตามความจริง</p>
                                     <script>
                                         function check_lastname(str) {
@@ -144,13 +144,13 @@ include('../config/connectdb.php');
                                     </script>
                                 </div>
                                 <div id="div-mail" class="form-group">
-                                    <label>Email address</label>
-                                    <input id="email" type="email" onkeyup="check_email(this.value)" class="form-control" placeholder="Email" required>
-                                    <p id="txt-mail">กรุณาระบุ E-Mail Address</p>
+                                    <label>ทีอยู่อีเมล</label>
+                                    <input id="email" type="email" onkeyup="check_email(this.value)" class="form-control" placeholder="ทีอยู่อีเมล" required>
+                                    <p id="txt-mail">กรุณาระบุ ทีอยู่อีเมล</p>
                                     <script>
                                         function check_email(str) {
                                             if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(str) != true || str.length == 0) {
-                                                $('#txt-mail').html('ไม่สามารถใช้ E-Mail Address นี้ได้');
+                                                $('#txt-mail').html('ไม่สามารถใช้ ทีอยู่อีเมล นี้ได้');
                                                 $('#div-mail').addClass('has-error');
                                                 accuracy_mail = "";
                                                 return;
@@ -168,7 +168,7 @@ include('../config/connectdb.php');
                                                             accuracy_mail = "success";
                                                             return;
                                                         } else if (this.responseText == 'error') {
-                                                            $('#txt-mail').html('ไม่สามารถใช้ E-Mail Address นี้ได้');
+                                                            $('#txt-mail').html('ไม่สามารถใช้ ทีอยู่อีเมล นี้ได้');
                                                             $('#div-mail').addClass('has-error');
                                                             accuracy_mail = "";
                                                             return;
@@ -184,8 +184,8 @@ include('../config/connectdb.php');
                                     </script>
                                 </div>
                                 <div id="div-phone" class="form-group">
-                                    <label>PHONE</label>
-                                    <input id="phone" onkeyup="check_phone(this.value)" type="text" class="form-control" placeholder="PHONE">
+                                    <label>มือถือ 10 หลัก</label>
+                                    <input id="phone" onkeyup="check_phone(this.value)" type="text" class="form-control" placeholder="มือถือ 10 หลัก">
                                     <p id="txt-phone">กรุณากรอกมือถือที่ติดต่อได้</p>
                                     <script>
                                         function check_phone(str) {
@@ -228,7 +228,7 @@ include('../config/connectdb.php');
                                     <p id="txt-pass">ต้องผสมด้วย A-Za-z0-9!@#$%^&* จำนวน 6 - 20 ตัว</p>
                                     <script>
                                         function check_pass(str) {
-                                            if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/.test(str) != true && str.length != 0) {
+                                            if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,20}$/.test(str) != true && str.length != 0) {
                                                 document.getElementById("txt-pass").innerHTML = "ต้องผสมด้วย A-Za-z0-9!@#$%^&* จำนวน 8 - 12 ตัว";
                                                 document.getElementById('div-pass').className = 'form-group has-error';
                                                 accuracy_pass = "";
@@ -248,8 +248,8 @@ include('../config/connectdb.php');
                                     </script>
                                 </div>
                                 <div id="div-position" class="form-group">
-                                    <label>position</label>
-                                    <input id="position" onkeyup="check_position(this.value)" type="text" class="form-control" placeholder="position">
+                                    <label>ตำแหน่งงานปัจจุบัน</label>
+                                    <input id="position" onkeyup="check_position(this.value)" type="text" class="form-control" placeholder="ตำแหน่งงานปัจจุบัน">
                                     <p id="txt-position">ตำแหน่งงานปัจจุบัน</p>
                                     <script>
                                         function check_position(str) {
@@ -378,7 +378,7 @@ include('../config/connectdb.php');
                                     }
                                 </script>
                                 <div class="register-link m-t-15 text-center">
-                                    <p>มีบัญชีอยู่แล้ว? <a href="./login.php"> Sign in</a></p>
+                                    <p>มีบัญชีอยู่แล้ว? <a href="./login.php"> เข้าสู่ระบบ</a></p>
                                 </div>
                             </form>
                         </div>

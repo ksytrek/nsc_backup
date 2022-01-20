@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
     $id_room = $_GET['id'];
     $sql = "SELECT * FROM `rooms` WHERE id_room = $id_room;";
     $search = Database::query($sql, PDO::FETCH_ASSOC);
-    $row_room = $search->fetch();
+    $row_room = $search->fetch(PDO::FETCH_ASSOC);
 }
 ?>
 
@@ -14,12 +14,13 @@ if (isset($_GET['id'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Focus Admin: Creative Admin Dashboard</title>
+    <title>ข้อมูลห้อง - <?php echo $row_room['room_num'] ?></title>
 
     <link href="../../script/assets/js/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 <script>
+    const NAME_ROOM = '<?php echo $row_room['room_num'] ?>';
     const ID_ROOM = '<?php echo $id_room ?>';
     $(document).ready(function() {
         search_room_info();
@@ -648,24 +649,24 @@ if (isset($_GET['id'])) {
                                                             extend: 'excel',
                                                             text: 'ส่งออก EXCEL',
                                                             messageTop: 'Cybernetics Corp.',
-                                                            // filename: function() {
-                                                            //     // const d = new Date();
-                                                            //     // // let time = d.getTime();
-                                                            //     // let hour = d.getHours();
-                                                            //     // let minutes = d.getMinutes();
-                                                            //     // let day = d.getDay();
-                                                            //     // let month = d.getMonth();
-                                                            //     // let year = d.getFullYear();
-                                                            //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
-                                                            // },
-                                                            title: 'รายชื่อสิทเข้าห้อง',
+                                                            filename: function() {
+                                                                // const d = new Date();
+                                                                // // let time = d.getTime();
+                                                                // let hour = d.getHours();
+                                                                // let minutes = d.getMinutes();
+                                                                // let day = d.getDay();
+                                                                // let month = d.getMonth();
+                                                                // let year = d.getFullYear();
+                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง " + NAME_ROOM; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                            },
+                                                            // title: 'รายชื่อสิทเข้าห้อง',
                                                             exportOptions: {
                                                                 columns: [0, 1],
                                                                 // คอลัมส์ที่จะส่งออก
-                                                                // modifier: {
-                                                                //     page: 'all' // หน้าที่จะส่งออก all / current
-                                                                // },
-                                                                // stripHtml: true
+                                                                modifier: {
+                                                                    page: 'all' // หน้าที่จะส่งออก all / current
+                                                                },
+                                                                stripHtml: true
                                                             }
                                                         }],
                                                         retrieve: true,
@@ -1026,16 +1027,16 @@ if (isset($_GET['id'])) {
                                                                 // let day = d.getDay();
                                                                 // let month = d.getMonth();
                                                                 // let year = d.getFullYear();
-                                                                return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                                                return "ประวัติการเข้าห้อง " + NAME_ROOM; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
                                                             },
                                                             // title: 'รายชื่อสิทเข้าห้อง',
                                                             exportOptions: {
-                                                                columns: [0, 1],
+                                                                columns: [0, 1, 2],
                                                                 // คอลัมส์ที่จะส่งออก
-                                                                // modifier: {
-                                                                //     page: 'all' // หน้าที่จะส่งออก all / current
-                                                                // },
-                                                                // stripHtml: true
+                                                                modifier: {
+                                                                    page: 'all' // หน้าที่จะส่งออก all / current
+                                                                },
+                                                                stripHtml: true
                                                             }
                                                         }],
                                                         retrieve: true,

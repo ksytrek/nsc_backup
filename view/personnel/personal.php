@@ -35,6 +35,7 @@ include_once("./sidebar.php")
     var accuracy_position = "success";
 
     var password = "";
+    var NAME = null;
 
     function information() {
         var btn_search_image = document.getElementById("status_btn_search_image");
@@ -100,6 +101,8 @@ include_once("./sidebar.php")
                     } else {
                         btn_search_image.style = "display:block";
                     }
+
+                    NAME = json[0].name;
 
                 } else {
                     alert("แจ้งเตือนข้อผิดพลาดไม่สามารถแสดงข้อมูลได้")
@@ -175,7 +178,7 @@ include_once("./sidebar.php")
                                                     <div class="tab-content">
                                                         <div role="tabpanel" class="tab-pane active" id="1">
                                                             <div class="contact-information">
-                                                                <h4>information</h4>
+                                                                <h4>ข้อมูลทั่วไป</h4>
                                                                 <div class="phone-content">
                                                                     <span class="contact-title">รหัสประจำตัว:</span>
                                                                     <span id="id_code" class="contact-skype"></span>
@@ -585,20 +588,20 @@ include_once("./sidebar.php")
                                         buttons: [{
                                             extend: 'excel',
                                             text: 'ส่งออก EXCEL',
-                                            messageTop: 'Cybernetics Corp.',
-                                            // filename: function() {
-                                            //     // const d = new Date();
-                                            //     // // let time = d.getTime();
-                                            //     // let hour = d.getHours();
-                                            //     // let minutes = d.getMinutes();
-                                            //     // let day = d.getDay();
-                                            //     // let month = d.getMonth();
-                                            //     // let year = d.getFullYear();
-                                            //     return "รายชื่อบุคลากรที่มีสิทธิ์เข้าห้อง"; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
-                                            // },
-                                            title: 'รายชื่อสิทเข้าห้อง',
+                                            messageTop: '',
+                                            filename: function() {
+                                                // const d = new Date();
+                                                // // let time = d.getTime();
+                                                // let hour = d.getHours();
+                                                // let minutes = d.getMinutes();
+                                                // let day = d.getDay();
+                                                // let month = d.getMonth();
+                                                // let year = d.getFullYear();
+                                                return "ประวัติการใช้งานห้อง " + NAME; //+hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                                            },
+                                            // title: 'รายชื่อสิทเข้าห้อง',
                                             exportOptions: {
-                                                columns: [0, 1],
+                                                columns: [0, 1, 2],
                                                 // คอลัมส์ที่จะส่งออก
                                                 // modifier: {
                                                 //     page: 'all' // หน้าที่จะส่งออก all / current

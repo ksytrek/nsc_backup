@@ -112,9 +112,30 @@ include_once("./sidebar_ad.php");
                     [10, 25, 50, -1],
                     [10, 25, 50, "All"]
                 ],
-                buttons: [
-                    'excel'
-                ],
+                buttons: [{
+                    extend: 'excel',
+                    text: 'ส่งออก EXCEL',
+                    messageTop: 'Cybernetics Corp.',
+                    filename: function() {
+                        // const d = new Date();
+                        // // let time = d.getTime();
+                        // let hour = d.getHours();
+                        // let minutes = d.getMinutes();
+                        // let day = d.getDay();
+                        // let month = d.getMonth();
+                        // let year = d.getFullYear();
+                        return "ประวัติการเข้าห้อง ทั้งหมด"  ; //+ hour+'-'+minutes + '-'+days +'-'+month +'-'+years
+                    },
+                    // title: 'รายชื่อสิทเข้าห้อง',
+                    exportOptions: {
+                        columns: [0, 1, 2,3],
+                        // คอลัมส์ที่จะส่งออก
+                        modifier: {
+                            page: 'all' // หน้าที่จะส่งออก all / current
+                        },
+                        stripHtml: true
+                    }
+                }],
                 language: {
                     sProcessing: "กำลังดำเนินการ...",
                     sLengthMenu: "แสดง_MENU_ แถว",

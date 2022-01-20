@@ -72,12 +72,12 @@ if(isset($_SESSION["key_login"]) && $_SESSION["key_login"] == "personal"){
                     <img src="../../script/assets/images/logo.png" width="50px" height="50px" alt="" /><span>ITT Software</span>
                         </a></div>
                     <li class="label">หน้าหลัก</li>
-                    <li><a href="./dashboard.php"><i class="ti-home"></i> Dashboard   </a> </li>
+                    <li><a href="./dashboard.php"><i class="ti-home"></i> หน้าหลัก </a> </li>
 
-                    <li class="label">Personal Information</li>
-                    <li><a href="./personal.php"><i class="ti-user"></i> Profile</a></li>
-                    <li><a href="./request_room.php"><i class="ti-announcement"></i> Request to use the room</a></li>
-                    <li><a href="./image_search.php" ><i class="ti-flickr-alt"></i>Face image data </a></li>
+                    <li class="label">ทั่วไป</li>
+                    <li><a href="./personal.php"><i class="ti-user"></i> ข้อมูลส่วนตัว</a></li>
+                    <li><a href="./request_room.php"><i class="ti-announcement"></i> ต้องการใช้ห้อง</a></li>
+                    <li><a href="./image_search.php" ><i class="ti-flickr-alt"></i>ข้อมูลภาพใบหน้า </a></li>
                     <!-- <li><a href="./on_save_face.php" onclick="window.confirm('เตือนคุณสามารถอัพโหลดได้เพียงครั้งเดี่ยว กรุณาเตรียมตัวให้พร้อมก่อนกด OK !!!!')"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
                                     <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -111,7 +111,7 @@ if(isset($_SESSION["key_login"]) && $_SESSION["key_login"] == "personal"){
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
-                                                <a href="./personal.php"><i class="ti-user"></i> <span> Profile</span></a>
+                                                <a href="./personal.php"><i class="ti-user"></i> <span> ข้อมูลส่วนตัว</span></a>
                                             </li>
 
 
