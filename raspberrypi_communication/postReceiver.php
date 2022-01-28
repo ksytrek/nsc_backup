@@ -25,12 +25,9 @@
             'id_code' => $_POST["id_code"],
             'full_name' => $_POST["full_name"],
             'id_room' => $_POST["id_room"], 
-<<<<<<< HEAD
             'room_name' => $_POST["room_name"],
-            'time_stamp' => $_POST["time_stamp"]
-=======
+            'time_stamp' => $_POST["time_stamp"],
             'room_name' => $_POST["room_name"]
->>>>>>> parent of f1ec840 (Update postReceiver.php)
         ];
     
         if(Database::insert_data('schedule',$data)){
