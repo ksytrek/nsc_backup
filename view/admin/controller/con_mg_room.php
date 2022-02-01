@@ -5,7 +5,10 @@ include_once("../../../config/create_file_room.php");
 include_once("../../../config/backup.php");
 include_once("../../../config/cl_mg_room.php");
 include_once('../../../config/cl_mg_personal.php');
+// include_once("../../../raspberrypi_communication/timeout/time.php");
+include_once("../../../raspberrypi_communication/permission/json.php");
 include_once("../../../raspberrypi_communication/timeout/time.php");
+
 
 if (isset($_POST['key']) && $_POST['key'] == 'tb_mg_room') {
     // echo "NMalkjdfljeo ";
