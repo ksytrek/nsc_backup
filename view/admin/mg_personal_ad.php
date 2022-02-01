@@ -139,7 +139,7 @@ include_once("./sidebar_ad.php");
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลส่วนตัว</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลบุคลากร</h5>
                                             </div>
                                             <div class="modal-body">
                                                 <form>
