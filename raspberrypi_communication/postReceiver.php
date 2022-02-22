@@ -9,6 +9,12 @@
 
     include_once('../config/connectdb.php');
 
+    //is connect
+    if(isset($_POST['key']) && $_POST['key'] == 'is_connect')
+    {
+        echo TRUE;
+    }
+
     //get list for capture
     if(isset($_POST['key']) && $_POST['key'] == 'list_capture')
     {
@@ -150,29 +156,6 @@
         } else {
             echo 0;
         }
-    }   
-
-
-
-
-    if(isset($_POST['key']) && $_POST['key'] == 'insert_sc') {
-
-        $id_code = $_POST['id_code'];
-        $id_mem = $_POST["id_mem"];
-
-        // 
-
-
-
-
-
-
-
     }
-
-
-
-
-
     
 ?>
